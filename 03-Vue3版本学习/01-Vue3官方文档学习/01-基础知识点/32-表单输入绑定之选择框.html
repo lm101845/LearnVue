@@ -1,0 +1,109 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-31 13:52:20
+ * @LastEditTime: 2021-05-31 14:17:13
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\32-表单输入绑定之选择框.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+        <label for="checkbox">{{ checked }}</label>
+        <!-- label 标签为input元素定义标注(标记) -->
+        <!-- 作用：用于**绑定一个表单元素**, 当**点击label标签**的时候, 被**绑定**的表单元素就会获得**输入焦点**。 -->
+        <!-- **for属性**规定 label与哪个表单元素绑定。 -->
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <hr>
+
+        <!-- 多个复选框，绑定到同一个数组： -->
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames" />
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
+        <label for="mike">Mike</label>
+        <br />
+        <span>Checked names: {{ checkedNames }}</span>
+
+        <!-- 单选框 (Radio) -->
+        <hr>
+        <input type="radio" id="one" value="One" v-model="picked" />
+        <label for="one">One</label>
+        <br />
+        <input type="radio" id="two" value="Two" v-model="picked" />
+        <label for="two">Two</label>
+        <br />
+        <span>Picked: {{ picked }}</span>
+
+        <!-- 选择框 (Select) -->
+        <hr>
+        <select v-model="selected">
+            <option disabled value="">Please select one</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+
+        <!-- 多选框 -->
+        <hr>
+        <select v-model="selected" multiple>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <br />
+        <span>Selected: {{ selected }}</span>
+
+        <!-- 用 v-for 渲染的动态选项： -->
+        <hr>
+        <select v-model="selected1">
+            <option v-for="option in options" :value="option.value">
+                {{ option.text }}
+            </option>
+        </select>
+        <span>Selected: {{ selected1 }}</span>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const demo = {
+            data() {
+                return {
+                    checked: false,
+                    checkedNames: [],
+                    picked: '',
+                    selected: '',
+                    selected1: 'A',
+                    options: [{
+                            text: 'One',
+                            value: 'A'
+                        },
+                        {
+                            text: 'Two',
+                            value: 'B'
+                        },
+                        {
+                            text: 'Three',
+                            value: 'C'
+                        }
+                    ]
+                }
+            },
+            methods: {
+
+            }
+        }
+
+        Vue.createApp(demo).mount('#app')
+    </script>
+</body>
+
+</html>

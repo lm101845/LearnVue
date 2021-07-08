@@ -1,0 +1,55 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-31 14:36:05
+ * @LastEditTime: 2021-05-31 15:14:08
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\02-组件基础\03-通过 Prop 向子组件传递数据2.0.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+        <blog-post v-for="item in posts" :key="item.id" :title="item.title1"></blog-post>
+        <!-- 如上所示，你会发现我们可以使用 v-bind 来动态传递 prop。这在你一开始不清楚要渲染的具体内容，是非常有用的。 -->
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const App = {
+            data() {
+                return {
+                    posts: [{
+                            id: 1,
+                            title1: 'My journey with Vue'
+                        },
+                        {
+                            id: 2,
+                            title1: 'Blogging with Vue'
+                        },
+                        {
+                            id: 3,
+                            title1: 'Why Vue is so fun'
+                        }
+                    ]
+                }
+            }
+        }
+        const app = Vue.createApp(App)
+
+        app.component('blog-post', {
+            props: ['title'],
+            // Prop 是你可以在组件上注册的一些自定义 attribute
+            template: `<h4>{{ title }}</h4>`
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-27 15:04:37
+ * @LastEditTime: 2021-05-27 15:26:42
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\20-侦听器.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+        <p>
+            Ask a yes/no question:
+            <input v-model="question" />
+        </p>
+        <p>{{ answer }}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="vue.js">
+
+    </script>
+    <script>
+        const demo = {
+            data() {
+                return {
+                    question:'',
+                    answer: 'Questions usually contain a question mark. ;-)'
+                }
+            },
+            watch: {
+                // 当问题改变，这个函数会执行
+                question(newQuestion,oldQuestion){
+                    if(newQuestion.indexOf('?') > -1){
+                        // >-1表示问题中有?号
+                        this.getAnswer()
+                    }
+                }
+            },
+            methods: {
+                getAnswer(){
+                    this.answer = 'Thinking...'
+                    axios
+                        .get('https://yesno.wtf/api')
+                        .then(response=>{
+                            this.answer = response.data.answer
+                        })
+                        .catch(error => {
+                        this.answer = 'Error! Could not reach the API. ' + error
+                })
+            },
+        }
+    }
+        Vue.createApp(demo).mount('#app')
+        // 虽然计算属性在大多数情况下更合适，但有时也需要一个自定义的侦听器。这就是为什么 Vue 通过 watch 选项提供了一个更通用的方法，来响应数据的变化。当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的。
+    </script>
+</body>
+
+</html>

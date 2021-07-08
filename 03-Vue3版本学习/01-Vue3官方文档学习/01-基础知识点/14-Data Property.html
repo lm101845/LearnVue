@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+</style>
+</head>
+
+<body>
+    <div id="app" class='demo'></div>
+    <script src="vue.js"></script>
+    <script>
+       const app = Vue.createApp({
+           data(){
+               return {
+                   count:4
+               }
+           }
+       })
+
+       const vm = app.mount('#app')
+
+       console.log(vm.$data.count);
+       console.log(vm.count);
+
+       // 修改 vm.count 的值也会更新 $data.count
+       vm.count = 5
+       console.log(vm.$data.count);
+
+     // 反之亦然
+     vm.$data.count = 6
+     console.log(vm.count);
+    </script>
+</body>
+
+</html>

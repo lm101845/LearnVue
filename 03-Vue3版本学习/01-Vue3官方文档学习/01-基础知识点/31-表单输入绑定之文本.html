@@ -1,0 +1,49 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-31 13:52:20
+ * @LastEditTime: 2021-05-31 13:57:59
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\31-表单输入绑定之文本.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+</style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+        <!-- 文本 (Text) -->
+        <input type="text" v-model="message" placeholder="edit me">
+        <p>Message is: {{ message }}</p>
+        <hr>
+        <!-- 多行文本 -->
+        <span>Multiline message is:</span>
+        <p style="white-space: pre-line;">{{ message }}</p>
+        <br />
+        <textarea v-model="message" placeholder="add multiple lines"></textarea>
+        <hr>
+        <!-- 在文本区域插值不起作用，应该使用 v-model 来代替。 -->
+        <textarea name="" id="" cols="30" rows="10">{{message}}</textarea>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const demo = {
+            data() {
+                return {
+                    message: 'Hello Vue.js!'
+                }
+            },
+            methods: {
+             
+            }
+        }
+
+        Vue.createApp(demo).mount('#app')
+    </script>
+</body>
+
+</html>

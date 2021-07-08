@@ -1,0 +1,44 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-31 13:40:34
+ * @LastEditTime: 2021-05-31 13:43:58
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\29-内联处理器中的方法.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+</style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+          <button @click="warn('Form cannot be submitted yet.',$event)"> Submit</button>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const demo = {
+            data() {
+                return {
+                    message: 'Hello Vue.js!'
+                }
+            },
+            methods: {
+             warn(message,event){
+                   // 现在可以访问到原生事件
+                   if(event){
+                       event.preventDefault();
+                   }
+                   alert(message)
+             }
+            }
+        }
+
+        Vue.createApp(demo).mount('#app')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="app" class='demo'></div>
+    <script src="vue.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    count: 1
+                }
+            },
+            created() {
+                // `this` 指向 vm 实例
+                console.log('count is: ' + this.count) // => "count is: 1"
+            }
+            // 不要在选项 property 或回调上使用箭头函数
+        })
+    </script>
+</body>
+
+</html>

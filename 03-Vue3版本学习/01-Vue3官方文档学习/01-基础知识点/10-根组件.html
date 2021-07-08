@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+</style>
+</head>
+
+<body>
+    <div id="app" class='demo'></div>
+    <script src="vue.js"></script>
+    <script>
+    // 传递给 createApp 的选项用于配置根组件。当我们挂载应用时，该组件被用作渲染的起点。
+    // 一个应用需要被挂载到一个 DOM 元素中。例如，如果你想把一个 Vue 应用挂载到 <div id="app"></div>，应该传入 #app：
+    const RootComponent = {
+        /*选项*/
+    }
+
+    const app = Vue.createApp(RootComponent)
+
+    const vm = app.mount('#app')
+    // 与大多数应用方法不同的是，mount 不返回应用本身。相反，它返回的是根组件实例。
+    </script>
+</body>
+
+</html>

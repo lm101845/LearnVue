@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="app" class='demo'></div>
+    <script src="vue.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    count: 4
+                }
+            }
+        })
+
+        const vm = app.mount('#app')
+
+        console.log(vm.count);
+    </script>
+</body>
+
+</html>

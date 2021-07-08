@@ -1,0 +1,49 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-31 13:36:51
+ * @LastEditTime: 2021-05-31 13:37:58
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\26-事件处理.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+        <button @click="counter+=1">Add 1</button>
+        <p>The button above has been clicked {{ counter }} times.</p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const demo = {
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+
+            }
+        }
+
+        Vue.createApp(demo).mount('#app')
+    </script>
+</body>
+
+</html>

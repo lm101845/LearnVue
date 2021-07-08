@@ -1,0 +1,60 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-31 14:21:17
+ * @LastEditTime: 2021-05-31 14:34:58
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\02-组件基础\01-基本实例.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+</style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+         <button-counter></button-counter>
+         <button-counter></button-counter>
+         <button-counter></button-counter>
+         <!-- 注意当点击按钮时，每个组件都会各自独立维护它的 count。因为你每用一次组件，就会有一个它的新实例被创建。 -->
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // const demo = {
+        //     data() {
+        //         return {
+        //             message: 'Hello Vue.js!'
+        //         }
+        //     },
+        //     methods: {
+             
+        //     }
+        // }
+
+        // Vue.createApp(demo).mount('#app')
+
+        const app = Vue.createApp({})
+
+        // 定义一个名为 button-counter 的新全局组件
+        // 组件是带有名称的可复用实例，在这个例子中是 <button-counter>。我们可以把这个组件作为一个根实例中的自定义元素来使用：
+        app.component('button-counter',{
+            data(){
+                return {
+                    count:0
+                }
+            },
+            template:`
+                <button @click="count++">
+                     You clicked me {{ count }} times.
+                </button>
+            `
+        })
+
+        app.mount('#app')
+    </script>
+</body>
+
+</html>

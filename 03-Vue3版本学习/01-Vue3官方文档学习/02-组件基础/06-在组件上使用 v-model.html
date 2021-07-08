@@ -1,0 +1,48 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-31 15:33:47
+ * @LastEditTime: 2021-05-31 15:37:51
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\02-组件基础\06-在组件上使用 v-model.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <!-- 这个例子没有看懂 -->
+    <div id="app" class='demo'>
+        <custom-input v-model="searchText"></custom-input>
+        {{searchText}}
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const demo = {
+            data() {
+                return {
+                    searchText: 'Hello Vue.js!'
+                }
+            },
+            methods: {
+
+            }
+        }
+
+        const app = Vue.createApp(demo)
+        app.component('custom-input', {
+            props: ['modelValue'],
+            emits: ['update:modelValue'],
+            template: `
+              <input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)">
+              `
+        })
+        app.mount('#app')
+    </script>
+</body>
+
+</html>

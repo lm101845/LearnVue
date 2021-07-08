@@ -1,0 +1,42 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-27 15:41:00
+ * @LastEditTime: 2021-05-27 15:43:32
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\21-绑定class对象语法.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+</style>
+</head>
+
+<body>
+    <div id="app" class='demo' :class="{active:isActive, 'text-danger': hasError }" class="static">
+        <h2>{{message}}</h2>
+    </div>
+    <!-- 上面的语法表示 active 这个 class 存在与否将取决于数据 property isActive 的 truthiness -->
+    <!-- :class 指令也可以与普通的 class attribute 共存。 -->
+    <script src="vue.js"></script>
+    <script>
+        const demo = {
+            data() {
+                return {
+                      isActive: true,
+                      hasError: false,
+                      message:'你好'
+                }
+            },
+            methods: {
+             
+            }
+        }
+
+        Vue.createApp(demo).mount('#app')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="two-way-binding" class="demo">
+        <p>{{message}}</p>
+        <input type="text" v-model="message">
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const TwoWayBinding = {
+            data() {
+                return {
+                    message: 'Hello Vue.js!'
+                }
+            },
+
+        }
+
+        Vue.createApp(TwoWayBinding).mount('#two-way-binding')
+    </script>
+</body>
+
+</html>

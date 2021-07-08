@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="event-handling" class="demo">
+        <p>{{message}}</p>
+        <button @click="reverseMessage">反转Message</button>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const EventHanding = {
+            data() {
+                return {
+                    message: 'Hello Vue.js！'
+                }
+            },
+            methods: {
+                reverseMessage() {
+                    // this.message = this.message.split('')
+                    // this.message = this.message.split('').reverse()
+                    this.message = this.message.split('').reverse().join('')
+                }
+            }
+        }
+
+        Vue.createApp(EventHanding).mount('#event-handling')
+    </script>
+</body>
+
+</html>

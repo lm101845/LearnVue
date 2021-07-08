@@ -1,0 +1,84 @@
+<!-- 这段代码我并没有完全明白 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="components-app" class='demo'>
+        <ol>
+            <!-- 现在我们为每个 todo-item 提供 todo 对象
+      todo 对象是变量，即其内容可以是动态的。
+      我们也需要为每个组件提供一个“key”，稍后再
+      作详细解释。 -->
+                <todo-item 
+                v-for="item in groceryList"
+                :todo="item"
+                :key="item.id"
+                ></todo-item>
+        </ol>
+
+        <ul>
+            <li v-for="item in groceryList" :key="item.id">{{item}}</li>
+        </ul>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const ComponentsApp = {
+            data() {
+                return {
+                    groceryList: [{
+                            id: 0,
+                            text: 'Vegetables'
+                        },
+                        {
+                            id: 1,
+                            text: 'Cheese'
+                        },
+                        {
+                            id: 2,
+                            text: 'Whatever else humans are supposed to eat'
+                        }
+                    ]
+                }
+            }
+        }
+        //   1.创建Vue应用
+        const app = Vue.createApp(ComponentsApp)
+        // 2.定义名为todo-item的新组件
+        // 但是这样会为每个待办项渲染同样的文本，这看起来并不炫酷。我们应该能将数据从父组件传入子组件才对。
+        // 让我们来修改一下组件的定义，使之能够接受一个 prop：
+        app.component('todo-item', {
+            // 父组件通过 props 向下传递数据给子组件；子组件通过 events 给父组件发送消息。
+            // props的值有2种方式：字符串数组(数组中的字符串就是传递时的名称)和对象
+            props: ['todo'],
+            template: `<li>{{todo.text}}</li>`
+        })
+
+        // 3.挂载Vue应用
+        app.mount('#components-app')
+
+        // 现在，你可以将其放到到另一个组件的模板中：
+        // <ol>
+        // 创建一个 todo-item 组件实例
+        //     <todo-item></todo-item>
+        // </ol>
+    </script>
+</body>
+
+</html>

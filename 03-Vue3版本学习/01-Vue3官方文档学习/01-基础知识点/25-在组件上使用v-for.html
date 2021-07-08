@@ -1,0 +1,75 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-27 18:25:04
+ * @LastEditTime: 2021-05-27 18:35:48
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\25-在组件上使用v-for.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+        <form @submit.prevent="addNewTodo">
+            <label for="new-todo">Add a todo</label>
+            <input placeholder="E.g. Feed the cat" id="new-todo" v-model="newTodoText">
+            <button>Add</button>
+        </form>
+
+        <ul>
+            <todo-item>
+                
+            </todo-item>
+        </ul>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const demo = {
+            data() {
+                return {
+                    newTodoText: '',
+                    todos: [{
+                            id: 1,
+                            title: 'Do the dishes'
+                        },
+                        {
+                            id: 2,
+                            title: 'Take out the trash'
+                        },
+                        {
+                            id: 3,
+                            title: 'Mow the lawn'
+                        }
+                    ],
+                    nextTodoId: 4
+
+                }
+            },
+            methods: {
+                addNewTodo(){
+                    console.log('1');
+                }
+            }
+        }
+
+        Vue.createApp(demo).mount('#app')
+    </script>
+</body>
+
+</html>

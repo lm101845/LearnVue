@@ -1,0 +1,54 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-05-31 15:42:31
+ * @LastEditTime: 2021-05-31 15:49:51
+ * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\02-组件基础\07-通过插槽分发内容.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+        .demo {
+        font-family: sans-serif;
+        border: 1px solid #eee;
+        border-radius: 2px;
+        padding: 20px 30px;
+        margin-top: 1em;
+        margin-bottom: 40px;
+        user-select: none;
+        overflow-x: auto;
+        }
+
+        .demo-alert-box {
+        padding: 10px 20px;
+        background: #f3beb8;
+        border: 1px solid #f09898;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+        <alert-box>
+            Something bad happened.
+        </alert-box>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const app = Vue.createApp({})
+        app.component('alert-box', {
+        template: `
+        <div class="demo-alert-box">
+            <strong>Error!</strong>
+            <slot></slot>
+        </div>
+        `
+        })
+        app.mount('#app')
+    </script>
+</body>
+
+</html>

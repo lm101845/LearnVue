@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+</style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+        <button @click="increment">增加1</button>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+       const app = Vue.createApp({
+           data(){
+               return {
+                   count:4
+               }
+           },
+           methods:{
+            // Vue 自动为 methods 绑定 this，以便于它始终指向组件实例。这将确保方法在用作事件监听或回调时保持正确的 this 指向。在定义 
+            //methods 时应避免使用箭头函数，因为这会阻止 Vue
+            // 绑定恰当的 this 指向。
+               increment(){
+                   this.count++
+               }
+           }
+       })
+
+       const vm = app.mount('#app')
+
+       console.log(vm.count);
+
+       vm.increment()
+
+       console.log(vm.count);
+    </script>
+</body>
+
+</html>

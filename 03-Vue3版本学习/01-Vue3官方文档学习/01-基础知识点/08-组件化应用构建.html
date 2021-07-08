@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+        <!-- 现在，你可以将其放到到另一个组件的模板中： -->
+        <ol>
+            <!-- 创建一个 todo-item 组件实例 -->
+            <todo-item v-for="item in groceryList"></todo-item>
+        </ol>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        //   1.创建Vue应用
+        const app = Vue.createApp()
+        // 2.定义名为todo-item的新组件
+        app.component('todo-item', {
+            template: `<li>This is a todo</li>`
+        })
+
+        // 3.挂载Vue应用
+        app.mount()
+    </script>
+</body>
+
+</html>

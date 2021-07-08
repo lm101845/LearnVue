@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue3.0小案例</title>
+    <style>
+        .demo {
+            font-family: sans-serif;
+            border: 1px solid #eee;
+            border-radius: 2px;
+            padding: 20px 30px;
+            margin-top: 1em;
+            margin-bottom: 40px;
+            user-select: none;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class='demo'>
+        <h1>{{msg}}</h1>
+        <h1 v-once>{{msg}}</h1>
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const RenderHtmlApp = {
+            data() {
+                return {
+                    msg: 'Hello',
+                    rawHtml:'<span style="color: red">This should be red.</span>'
+                }
+            },
+            methods: {
+
+            }
+        }
+
+        Vue.createApp(RenderHtmlApp).mount('#app')
+    </script>
+</body>
+
+</html>

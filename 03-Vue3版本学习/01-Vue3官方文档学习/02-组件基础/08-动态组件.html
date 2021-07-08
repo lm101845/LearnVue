@@ -1,8 +1,8 @@
 <!--
  * @Author: liming
  * @Date: 2021-05-31 15:50:22
- * @LastEditTime: 2021-05-31 16:01:28
- * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\02-组件基础\08-动态组件.html
+ * @LastEditTime: 2021-07-08 15:30:55
+ * @FilePath: \01-Vue3官方文档学习\02-组件基础\08-动态组件.html
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +54,7 @@
             @click="currentTab = item">{{item}}</button>
 
             <component :is="currentTabComponent" class="tab"></component>
+            <!-- 可以看懂 -->
     </div>
     <script src="vue.js"></script>
     <script>
@@ -80,6 +81,7 @@
         app.component('tab-archive', {
             template: `<div class="demo-tab">Archive component</div>`
         })
+        
         app.mount('#app')
     </script>
 </body>

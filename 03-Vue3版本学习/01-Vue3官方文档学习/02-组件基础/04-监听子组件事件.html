@@ -1,8 +1,8 @@
 <!--
  * @Author: liming
  * @Date: 2021-05-31 15:15:05
- * @LastEditTime: 2021-05-31 15:28:09
- * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\02-组件基础\04-监听子组件事件.html
+ * @LastEditTime: 2021-07-08 13:04:47
+ * @FilePath: \01-Vue3官方文档学习\02-组件基础\04-监听子组件事件.html
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +18,11 @@
     <!-- 唉，这个我还是没有透彻理解啊！！！！！ -->
     <!-- 我们在开发 <blog-post> 组件时，它的一些功能可能需要与父级组件进行沟通。例如我们可能会引入一个辅助功能来放大博文的字号，同时让页面的其它部分保持默认的字号。
 
-在其父组件中，我们可以通过添加一个 postFontSize 数据 property 来支持这个功能： -->
+在其【父组件】中，我们可以通过添加一个 postFontSize 数据 property 来支持这个功能： -->
     <div id="app" class='demo'>
         <div :style="{fontSize:postFontSize + 'em'}">
             <blog-post v-for="item in posts" :key="item.id" :title="item.title1" @enlarge-text="postFontSize+=0.1">
+                <!-- enlarge-text是父组件中的自定义事件，子组件可以使用 $emit 触发父组件的自定义事件。 -->
             </blog-post>
         </div>
     </div>
@@ -29,6 +30,7 @@
     <script src="vue.js"></script>
     <script>
         const demo = {
+            // 这个是父组件
             data() {
                 return {
                     posts: [{
@@ -47,13 +49,11 @@
                     postFontSize: 1
 
                 }
-            },
-            methods: {
-
             }
         }
         const app = Vue.createApp(demo)
 
+        // 现在我们在每篇博文正文之前添加一个按钮来放大字号：
         app.component('blog-post',{
             props:['title'],
             emits:['enlargeText'],
@@ -66,7 +66,10 @@
                 </div>
             `
         })
-        // 当点击这个按钮时，我们需要告诉父级组件放大所有博文的文本。幸好组件实例提供了一个自定义事件的系统来解决这个问题。父级组件可以像处理原生 DOM 事件一样通过 v-on 或 @ 监听子组件实例的任意事件：
+        // 当点击这个按钮时，我们需要告诉父级组件放大所有博文的文本。幸好【组件实例】提供了一个【自定义事件】的系统来解决这个问题。【父级组件】可以像处理原生 DOM 事件一样通过 v-on 或 @ 监听子组件实例的任意事件：
+        // 同时【子组件】可以通过调用内建的 $emit 方法并传入事件名称来触发一个事件：
+        // 多亏了 @enlarge-text="postFontSize += 0.1" 【监听器】，【父级组件】能够接收事件并更新 postFontSize 值。
+        // 一点击子组件的按钮，就触发了父组件的自定义事件enlargeText
         app.mount('#app')
     </script>
 </body>

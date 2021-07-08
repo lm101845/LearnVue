@@ -1,8 +1,8 @@
 <!--
  * @Author: liming
  * @Date: 2021-05-31 15:28:50
- * @LastEditTime: 2021-05-31 15:32:31
- * @FilePath: \LearnVue\01-Vue3.x\01-Vue3.x官方文档\01-小知识点\02-组件基础\05-使用事件抛出一个值.html
+ * @LastEditTime: 2021-07-08 15:14:43
+ * @FilePath: \01-Vue3官方文档学习\02-组件基础\05-使用事件抛出一个值.html
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -55,6 +55,7 @@
           app.component('blog-post', {
               props: ['title'],
               emits: ['enlargeText'],
+            // 有的时候用一个事件来抛出一个特定的值是非常有用的。例如我们可能想让 <blog-post> 组件（它是子组件）决定它的文本要放大多少。这时可以使用 $emit 的第二个参数来提供这个值：
               template: `
                 <div class="blog-post">
                     <h4>{{ title }}</h4>

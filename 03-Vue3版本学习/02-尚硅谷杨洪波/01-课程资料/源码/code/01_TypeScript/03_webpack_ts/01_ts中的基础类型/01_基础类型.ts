@@ -170,8 +170,4 @@ import { groupEnd } from "console"
   txt2 = 100
   txt2 = '帅杨好帅哦'
   console.log(txt2)
-
-  
-
-
 })()

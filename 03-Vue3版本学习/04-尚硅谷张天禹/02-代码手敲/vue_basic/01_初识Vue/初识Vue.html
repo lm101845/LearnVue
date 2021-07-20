@@ -1,0 +1,100 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-14 10:10:43
+ * @LastEditTime: 2021-07-20 21:35:41
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\01_初识Vue\初识Vue.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>初识Vue</title>
+    <script src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+			初识Vue：
+				1.想让Vue工作，就必须创建一个Vue实例，且要传入一个配置对象；
+				2.root容器里的代码依然符合html规范，只不过混入了一些特殊的Vue语法；
+				3.root容器里的代码被称为【Vue模板】；
+				4.Vue实例和容器是【一一对应】的；
+				5.真实开发中只有一个Vue实例，并且会配合着组件一起使用；
+				6.{{xxx}}中的xxx要写js表达式，且xxx可以自动读取到data中的所有属性；
+				7.一旦data中的数据发生改变，那么页面中用到该数据的地方也会自动更新；
+
+				注意区分：js表达式 和 js代码(语句)
+						1.表达式：一个表达式会产生一个【值】，可以放在任何一个需要值的地方：
+									(1). a
+									(2). a+b 
+									(3). demo(1) ——函数调用表达式(你就是不写return也会返回undefined)
+									(4). x === y ? 'a' : 'b'
+
+						2.js代码(语句)
+									(1). if(){}
+									(2). for(){}
+		-->
+
+    <!-- 准备好一个容器 -->
+    <div class="root">
+      <!-- <h1>Hello，尚硅谷</h1> -->
+      <h1>Hello，{{message}}-{{0+1}}-1</h1>
+      <h1>我的年龄是：{{age}}-{{Date.now()}}-1</h1>
+      <button>点我更换学校的名字</button>
+      <!-- 把容器里面变化的数据交给Vue实例去保管 -->
+      <!-- {{}}是插值语法 -->
+    </div>
+    <div>====================</div>
+
+    <!-- 再来一个相同的容器 -->
+    <!-- 一个Vue实例不能同时接管2个容器！！！所以第2个无效！！！ -->
+    <div class="root">
+      <h1>Hello，{{message}}-2</h1>
+      <h1>我的年龄是：{{age}}-2</h1>
+    </div>
+    <div>====================</div>
+
+    <div id="root">
+      <h1>Hello，{{message.toUpperCase()}}-3</h1>
+      <h1>我的年龄是：{{age}}-3</h1>
+    </div>
+    <div>====================</div>
+    <h1>{{message}}</h1>
+
+    <script>
+      Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+      //先调整，再使用，所以调整代码写到最上面
+
+      //创建Vue实例
+      // 你要使用Vue，不进行new Vue的话没法继续下去
+      // 因为你通过src引入了Vue构造函数，要创建实例才能进行使用
+      // Vue构造函数只传一个参数，并且这个参数的类型是一个对象，我们管这个对象叫做配置对象
+      // 配置对象里面的key是不能随便改的，你改了Vue就不认识了
+      /*const x = */ new Vue({
+        //el:'#root',  //el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符串。
+        el: ".root",
+        // el是element的简称
+        // 还有一个比较笨重的写法，也是可以的，但我们通常不这么写
+        // el:document.getElementById('root')       //这样写也是可以的
+
+        data: {
+          //data中用于存储数据，数据供el所指定的容器去使用，值我们暂时先写成一个对象。
+          message: "尚硅谷",
+          age: 18,
+        },
+      });
+
+      new Vue({
+        //   el:".root",
+        el: "#root",
+        data: {
+          message: "atguigu",
+          age: 27,
+        },
+      });
+      //一个容器只能被一个Vue实例接管，你又写了一个Vue实例，第二个是没有任何作用的
+      //   结论：容器和Vue实例只能是【一对一】的关系！！！！！！！！！！！
+    </script>
+  </body>
+</html>

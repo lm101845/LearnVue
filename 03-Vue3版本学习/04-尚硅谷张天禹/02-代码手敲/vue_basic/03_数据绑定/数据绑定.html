@@ -1,0 +1,67 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-20 22:45:45
+ * @LastEditTime: 2021-07-20 23:06:39
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\03_数据绑定\数据绑定.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>数据绑定</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+			Vue中有2种数据绑定的方式：
+					1.单向绑定(v-bind)：数据只能从data流向页面。
+					2.双向绑定(v-model)：数据不仅能从data流向页面，还可以从页面流向data。
+						备注：
+								1.双向绑定一般都应用在表单类元素上（如：input、select等）
+								2.v-model:value 可以简写为 v-model，因为v-model默认收集的就是value值。
+		 -->
+
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <!-- 普通写法 -->
+      单向数据绑定:<input type="text" v-bind:value="name" />
+      <br />
+      <br />
+      双向数据绑定:<input type="text" v-model:value="name" />
+      <br />
+      <br />
+      <!-- 简写(语法糖写法) -->
+      单向数据绑定:<input type="text" :value="name" />
+      <br />
+      <br />
+      双向数据绑定:<input type="text" v-model="name" />
+      <!-- 因为v-model默认收集的就是value值，所以:value就可以省略不写了 -->
+      <!-- 不是所有的元素都可以使用v-model这个指令的 -->
+      <!-- v-bind和v-model这2个各有各的用途 -->
+      <br /><br />
+      <h2 v-bind:x="name">你好啊</h2>
+      <!-- 使用v-bind没问题 -->
+      <!-- <h2 v-model:x="name">你好啊</h2> -->
+      <!-- 如下代码是错误的，因为v-model只能应用在【表单类元素】（输入类元素）上 -->
+      <!-- 原因：像这种h2属于标题类的标签，它主要作用是用来【看】的，不能进行【输入】！！！ -->
+      <!-- 既然不能【输入】就不会有value值，既然没有value值就不能捕获用户的输入 -->
+      <!--  既然连输入都捕获不了，请问它如何影响数据的变化呢？？？那使用v-model就没有意义了-->
+      <!-- 使用v-model就有问题了，x这个属性就丢了！！！！！！ -->
+      <!-- 报错信息：v-model is not supported on this element type. 
+            If you are working with contenteditable, it's recommended to wrap a library
+             dedicated for that purpose inside a custom component. -->
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    new Vue({
+      el: "#root",
+      data: {
+        name: "尚硅谷",
+      },
+    });
+  </script>
+</html>

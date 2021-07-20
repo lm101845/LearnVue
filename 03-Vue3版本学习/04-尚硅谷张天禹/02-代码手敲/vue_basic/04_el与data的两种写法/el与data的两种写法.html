@@ -1,0 +1,77 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-20 23:09:14
+ * @LastEditTime: 2021-07-20 23:55:30
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\04_el与data的两种写法\el与data的两种写法.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>el与data的两种写法</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+			data与el的2种写法
+					1.el有2种写法
+									(1).new Vue时候配置el属性。
+									(2).先创建Vue实例，随后再通过vm.$mount('#root')指定el的值。
+					2.data有2种写法
+									(1).对象式
+									(2).函数式
+									如何选择：目前哪种写法都可以，以后学习到组件时，data必须使用函数式，否则会报错。
+					3.一个重要的原则：
+									由Vue管理的函数，【一定不要写箭头函数】，一旦写了箭头函数，this就不再是Vue实例了。
+	-->
+
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h1>你好，{{name}}</h1>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    // const v = new Vue({
+    // //   el: "#root",  //第1种写法
+    // // 把el注释掉，使用另一种写法
+    //   data: {
+    //       name:'尚硅谷'
+    //   }
+    // });
+
+    // console.log(v);
+    // setTimeout(() =>{
+    //     v.$mount('#root')   //第2种写法
+    //     // 等1秒钟才关联
+    // },1000)
+    // 我曾经用el来指定容器，现在不用el了，使用$mount()也可以用来指定容器
+
+    //data的2种写法
+    new Vue({
+      el: "#root",
+      // //data的第一种写法：对象式
+      // data:{
+      //     name:'尚硅谷'
+      // }
+
+      //data的第二种写法：函数 式——要求data函数必须要返回一个对象
+      //  等以后学到组件的时候，你就必须要使用函数式这种写法了
+      //data: function () {
+      data() {
+        //   简写方法：在对象里面写函数，一般都删除掉【:function】
+        //data属性它的值是一个函数，这个函数不是你调用的，是Vue底层帮你调用的，你只是定义了而已
+        console.log("@@@" + this);
+        //此处的this是vue实例对象——前提是你这个data是普通函数，【不能是箭头函数！！！】
+        //如果data写成了箭头函数，这个this就指的是全局的window了
+        // 原因：箭头函数没有自己的this,那就往外找，一找就找到了全局的window
+        return{
+          name: "尚硅谷111"
+        };
+      },
+    });
+  </script>
+</html>

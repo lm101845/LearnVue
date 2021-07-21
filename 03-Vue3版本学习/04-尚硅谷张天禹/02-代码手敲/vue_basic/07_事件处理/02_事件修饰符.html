@@ -1,0 +1,131 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-22 01:17:21
+ * @LastEditTime: 2021-07-22 02:14:09
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\07_事件处理\02_事件修饰符.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+			*{
+				margin-top: 20px;
+			}
+			.demo1{
+				height: 50px;
+				background-color: skyblue;
+			}
+			.box1{
+				padding: 5px;
+				background-color: skyblue;
+			}
+			.box2{
+				padding: 5px;
+				background-color: orange;
+			}
+			.list{
+				width: 200px;
+				height: 200px;
+				background-color: peru;
+				overflow: auto;
+			}
+			li{
+				height: 100px;
+			}
+		</style>
+  </head>
+  <body>
+    <!-- 
+				Vue中的事件修饰符：
+						1.prevent：阻止默认事件（常用）；
+						2.stop：阻止事件冒泡（常用）；
+						3.once：事件只触发一次（常用）；
+						4.capture：使用事件的捕获模式；
+						5.self：只有event.target是当前操作的元素时才触发事件；
+						6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕；
+
+                        前3个比较常用，后三个比较少见
+		-->
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>欢迎来到{{name}}学习</h2>
+      <!-- 1.prevent：阻止默认事件（常用）； -->
+      <a href="http://www.atguigu.com" @click.prevent="showInfo">点我提示信息</a>
+      <!-- 要求：我只想让它弹窗，不想让它跳转到其他页面(a标签默认的功能就是进行链接的跳转) -->
+      <!-- prevent就可以阻止调用默认事件了 -->
+
+      <!-- 2.stop：阻止事件冒泡（常用）； -->
+      <div class="demo1" @click= "showInfo">
+          <button @click.stop="showInfo">点我提示信息</button>
+          <!-- 点的是按钮，最后冒泡冒到了div的身上 --> 
+          <!-- 在里面加就可以了 -->
+      </div>
+      
+       <!-- 3.once：事件只触发一次（常用）； -->
+        <button @click.once="showInfo">点我提示信息</button>
+        
+
+        <!-- 4.capture：使用事件的捕获模式；(加在外面的盒子身上) -->
+        <!-- 先是事件捕获，然后是事件冒泡，而默认是在冒泡阶段触发事件的 -->
+        <!-- 要求：我想它在捕获阶段就开始处理事件了 -->
+        <div class="box1" @click.capture='showMsg(1)'>div1
+            <div class="box2"  @click='showMsg(2)'>div2</div>
+        </div>
+
+        <!-- 5.self：只有event.target是当前操作的元素时才触发事件； -->
+         <div class="demo1" @click.self= "showInfo">
+          <button @click="showInfo">点我提示信息</button>
+          <!-- 我点击里面的按钮，虽然外面的div上的click也触发了，但外面的是冒泡冒上去的 -->
+          <!-- 从某种程度上来说，使用self也能阻止冒泡 -->
+
+          <!-- 6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕； -->
+          <!-- 移动端项目passive用的多一些 -->
+          <ul class="list" @scroll='demo'>
+          <!-- <ul class="list" @wheel.passive='demo'> -->
+              <!-- 这个scroll是给滚动条加的滚动事件 -->
+              <!-- wheel是给鼠标滚动轮加的滚动事件 -->
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+          </ul>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    new Vue({
+      el: "#root",
+      data: {
+        name: "尚硅谷",
+      },
+      methods: {
+        showInfo(e) {
+          //e.preventDefault()
+          //这个就是阻止默认行为，不过在vue中你不需要自己写的
+        //   e.stopPropagation()
+          //这个可以阻止事件冒泡
+          alert("同学你好");
+        console.log(e.target);
+        // 你点的是按钮，冒泡不管冒到哪里去，e.target永远都是那个按钮
+        },
+        showMsg(msg){
+            console.log(msg);
+        },
+        demo(){
+            // console.log('@');
+            for(let i = 0;i <1000;i++){
+                console.log('#');
+            }
+            console.log('累坏了');
+        }
+      },
+    });
+  </script>
+</html>

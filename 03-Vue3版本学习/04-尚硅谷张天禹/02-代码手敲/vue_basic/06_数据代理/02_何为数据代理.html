@@ -1,0 +1,35 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-21 23:22:11
+ * @LastEditTime: 2021-07-21 23:26:37
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\06_数据代理\02_何为数据代理.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 数据代理：通过一个对象代理对另一个对象中属性的操作（读/写）--> 
+    <script>
+        let obj = {x:100}
+        let obj2 = {y:200}
+        //要求：想通过obj2能读到x还能修改x，写法：
+        Object.defineProperty(obj2,'x',{
+            //给obj2新增的一个属性，它的属性名也叫x，和obj1的属性x是同名的
+            get(){
+                return obj.x
+                //以后有人通过obj2访问x的话，它实际访问的是obj的x属性
+            },
+            set(value){
+                //如果set被调用了，就意味着有人想更改obj2的x属性
+                obj.x = value 
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-22 00:43:57
+ * @LastEditTime: 2021-07-22 01:15:52
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\07_事件处理\01_事件的基本使用.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+				事件的基本使用：
+							1.使用v-on:xxx 或 @xxx 绑定事件，其中xxx是事件名；
+							2.事件的回调需要配置在methods对象中，最终会在vm上；
+							3.methods中配置的函数，不要用箭头函数！否则this就不是vm了；
+							4.methods中配置的函数，都是被Vue所管理的函数，this的指向是vm 或 组件实例对象；
+							5.@click="demo" 和 @click="demo($event)" 效果一致，但后者可以传参；
+		-->
+
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>欢迎来到{{name}}学习</h2>
+      <button v-on:click="showInfo1">点我提示信息1(不传参)</button>
+      <!-- 这个小括号加也行(函数要传参数就必须要加了)，不加也行(你不想传参你就不用加小括号了) -->
+      <button @click="showInfo2(66,$event)">点我提示信息2(传参)</button>
+      <!-- 语法糖形式 -->
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+    // function showInfo(){
+    //     alert("同学你好")
+    //     // 你把函数写到这里，Vue是"看不见的，容器里面只能使用Vue实例里面的东西"
+    // }
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        name: "尚硅谷",
+        //函数也是可以放到data属性里面的，但是放到这里Vue会很累，因为它会错误的把showInfo2也做一次数据代理
+        //而showInfo2是函数，是不需要数据代理的，等于多做了无用功
+        // showInfo2(number, a, b, c) {
+        //   alert("同学你好！!");
+        //   console.log(number, a, b, c);
+        // },
+      },
+      methods: {
+        //对象里面配方法，直接写小括号-花括号就可以了
+        //   showInfo(a,b,c,d){
+        //     //   alert('同学你好！')
+        //     console.log(a,b,c,d);
+        //     // 只有第一个参数有值，其他三个参数都是undefined
+        //   }
+
+        //疑问：showInfo1和showInfo2最终跑哪里去了？
+        //回答：它们最终也在vm身上，不过name是做了【数据代理】的(有getter和setter方法)，
+        //而showInfo1和showInfo2是没有getter和setter方法的，是不做数据代理的【它们是函数，不是数据，所以不做数据代理】
+        //函数写了就写了，写完直接去调用就可以了，函数是不要修改的
+        // 数据代理：有东西，但是我不直接给你([...]),你需要鼠标再点击一下
+        showInfo1(event) {
+          console.log(this);
+          console.log(this === vm);
+          //true  //此处的this就是vm，即vue实例对象
+          //但是如果showInfo采用箭头函数的形式来写，那么这个this就是window了！！！！
+          //所以被vue管理的函数，最好写成普通函数，不要写成箭头函数
+          //写成普通函数也不会报错，只不过它的this再也不指向vue实例了
+          console.log(event);
+          console.log(event.target.innerText);
+          alert("同学你好！");
+        },
+        showInfo2(number, a, b, c) {
+          alert("同学你好！!");
+          console.log(number, a, b, c); //66 undefined undefined undefined
+          //不过不能你一传参就把event给搞丢了
+          //Vue是这么设计的，你可以使用【$event关键字】符占个位置，此时a就代表鼠标事件了
+        },
+      },
+    });
+  </script>
+</html>

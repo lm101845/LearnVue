@@ -1,0 +1,60 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-22 17:14:43
+ * @LastEditTime: 2021-07-22 17:26:28
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\08_计算属性\4.姓名案例_计算属性简写.html
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>姓名案例_计算属性实现</title>
+		<!-- 引入Vue -->
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 准备好一个容器-->
+		<div id="root">
+			姓：<input type="text" v-model="firstName"> <br/><br/>
+			名：<input type="text" v-model="lastName"> <br/><br/>
+			全名：<span>{{fullName}}</span> <br/><br/>
+			<!-- 全名：<span>{{fullName()}}</span> <br/><br/> -->
+            <!-- 错误！不能加小括号！！！ -->
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。
+
+		const vm = new Vue({
+			el:'#root',
+			data:{
+				firstName:'张',
+				lastName:'三',
+			},
+			computed:{
+				//完整写法
+				/* fullName:{
+					get(){
+						console.log('get被调用了')
+						return this.firstName + '-' + this.lastName
+					},
+					set(value){
+						console.log('set',value)
+						const arr = value.split('-')
+						this.firstName = arr[0]
+						this.lastName = arr[1]
+					}
+				} */
+                // 计算属性基本上都是只读取出来展示，一般不修改。但是不代表它不能修改
+				//简写(如果确定了只有get,没有set,可以把set删掉)
+                // 表面上fullName是个函数，但是实际上它是执行了这个函数之后，把return以后的结果往vm身上放，vm的属性就叫fullName
+                // 注意：只有考虑读取，不考虑修改的时候，才能使用简写的形式
+				fullName(){
+					console.log('get被调用了')
+					return this.firstName + '-' + this.lastName
+				}
+			}
+		})
+	</script>
+</html>

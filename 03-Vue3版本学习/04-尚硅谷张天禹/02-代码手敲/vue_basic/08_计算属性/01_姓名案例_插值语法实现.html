@@ -1,0 +1,42 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-22 14:50:17
+ * @LastEditTime: 2021-07-22 15:01:08
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\08_计算属性\01_姓名案例_插值语法实现.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <!-- 姓：<input type="text" :value='firstName'><br><br>
+        名：<input type="text" :value='lastName'><br><br> -->
+        <!-- 使用v-bind功能只完成了一半，你修改文字data不会变化，所以使用v-model -->
+      姓：<input type="text" v-model="firstName" /><br /><br />
+      名：<input type="text" v-model="lastName" /><br /><br />
+      全名：<span>{{firstName + '-' + lastName}}</span><br /><br />
+      全名：<span>{{firstName}}-{{lastName}}</span><br /><br />
+      <!-- 要求：只提取firstName前几个字符 -->
+      全名：<span>{{firstName.slice(0,3)}}-{{lastName}}</span><br /><br />
+
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    new Vue({
+      el: "#root",
+      data: {
+        firstName: "张",
+        lastName: "三",
+      },
+    });
+  </script>
+</html>

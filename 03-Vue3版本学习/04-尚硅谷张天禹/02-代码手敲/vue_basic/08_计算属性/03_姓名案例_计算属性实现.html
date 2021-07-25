@@ -1,0 +1,83 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-22 14:50:17
+ * @LastEditTime: 2021-07-22 17:13:02
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\08_计算属性\03_姓名案例_计算属性实现.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>03_姓名案例_计算属性实现</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+			计算属性：
+					1.定义：要用的属性不存在，要通过【已有属性】计算得来。
+					2.原理：底层借助了Objcet.defineproperty方法提供的getter和setter。
+					3.get函数什么时候执行？
+								(1).初次读取时会执行一次。
+								(2).当依赖的数据发生改变时会被再次调用。
+					4.优势：与methods实现相比，内部有缓存机制（复用），效率更高，调试方便。
+					5.备注：
+							1.计算属性最终会出现在vm上，【直接读取】使用即可。(不要这样写:vm.get()...)
+							2.如果计算属性要被修改，那必须写set函数去响应修改，且set中要引起计算时依赖的数据发生改变。
+		 -->
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      姓：<input type="text" v-model="firstName" /><br /><br />
+      名：<input type="text" v-model="lastName" /><br /><br />
+      全名：<span>{{fullName}}</span><br /><br />
+      全名：<span>{{fullName}}</span><br /><br />
+      全名：<span>{{fullName}}</span><br /><br />
+      全名：<span>{{fullName}}</span><br /><br />
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        firstName: "张",
+        lastName: "三",
+      },
+      // 所谓计算属性就是你拿着已经写完的属性，去加工，去计算，生成一个全新的属性
+      // 在Vue中是把属性和计算属性分开放的，data中放的是属性，而计算属性是放在computed中的
+      computed: {
+        //vm_data里面肯定是有姓有名，但是肯定没有fullName，因为【fullName】是【以后】计算出来的东西
+        fullName: {
+          // 计算属性，计算的时候可能比较复杂，所以它需要你把整个计算过程配置为一个对象
+          //get有什么作用？当有人读取fullName时，get就会被调用，且返回值就作为fullName的值
+          get() {
+            console.log("get被调用了");
+            // return '小猪佩奇'
+            // return firstName + '-' + lastName;
+            // 报错，原因：你这个firstName和lastName是配置在data对象中的属性
+            // 而你在computed的fullName对象的get函数里面去调用它，是肯定看不到的
+            // 你想看到firstName和lastName，借助vm实例是可以看到的，所以我们需要借助vm来拿到这2个数据
+            console.log(this);
+            //vue做了一件很棒的事情，帮你把get里面的this指向调成了vm
+            //此处的this就是vm！！！
+            return this.firstName + "-" + this.lastName;
+
+            //另一个问题：get【什么时候调用】？
+            //我上面4个张三全提现出来了，但是get只被调用了一次——使用了【缓存】
+            //get什么时候调用？1.初次读取fullName时。2.所依赖的数据发生变化时。
+          },
+          //set什么时候调用？当fullName被修改时。
+          set(value) {
+            //如果fullName以后会被人改，你就要写set了
+            console.log("set", value);
+            const arr = value.split("-");
+            this.firstName = arr[0];
+            this.lastName = arr[1];
+          },
+        },
+      },
+    });
+  </script>
+</html>

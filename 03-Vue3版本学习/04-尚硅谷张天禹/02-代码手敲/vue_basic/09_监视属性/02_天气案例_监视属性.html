@@ -1,0 +1,85 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-24 13:59:00
+ * @LastEditTime: 2021-07-24 14:46:04
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\09_检视属性\02_天气案例_监视属性.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+				监视属性watch：
+					1.当被监视的属性变化时, 回调函数自动调用, 进行相关操作
+					2.监视的属性必须存在，才能进行监视！！ 
+					3.监视的两种写法：
+							(1).new Vue时传入watch配置
+							(2).通过vm.$watch监视
+		 -->
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>今天天气很{{info}}</h2>
+      <button @click="changeWeather">切换天气1</button>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        //因为天气只有凉爽和炎热2种，所以推荐用布尔值来表达天气到底是热还是不热
+        isHot: true,
+      },
+      computed: {
+        info() {
+          return this.isHot ? "凉爽" : "炎热";
+        },
+      },
+      methods: {
+        changeWeather() {
+          this.isHot = !this.isHot;
+        },
+      },
+      //   watch:{
+      //     //watch它的值是一个对象，我要监视谁，我要写一堆配置才能监视到
+      //     isHot:{
+      //         immediate:true,  //初始化时让handler调用一下
+      //         //handle函数什么时候调用？当isHot发生改变时它就会调用
+      //         handler(newValue,oldValue){
+      //           // 它不仅会把isHot修改前的值给你，还会把isHot修改后的值给你
+      //         console.log('isHot被修改了');
+      //         console.log(newValue);
+      //         console.log(oldValue);
+      //       },
+      //     },
+      //     //正常属性(data里面的)可以被监视，那计算出来的属性(computed)可以被监视吗？——答案是可以的！！
+      //     info:{
+      //         handler(newValue,oldValue){
+      //             console.log('info被修改了',newValue,oldValue);
+      //         }
+      //     }
+      //   }
+    });
+
+    //不写watch，直接通过vm实例也是可以检测属性变化的！！
+    //传2个参数，第一个参数：你要监视谁；第二个参数：写配置对象，和watch函数里面的一模一样
+    //你创建实例的时候，不知道要检测谁，要根据后续的用户的行为才知道，就用这种写法，否则用上面的写法比较好
+    vm.$watch("isHot", {
+      immediate: true, //初始化时让handler调用一下
+      //handle函数什么时候调用？当isHot发生改变时它就会调用
+      handler(newValue, oldValue) {
+        // 它不仅会把isHot修改前的值给你，还会把isHot修改后的值给你
+        console.log("isHot被修改了");
+        console.log(newValue);
+        console.log(oldValue);
+      },
+    });
+  </script>
+</html>

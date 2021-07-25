@@ -1,0 +1,106 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-24 13:59:00
+ * @LastEditTime: 2021-07-24 15:15:56
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\09_检视属性\03_天气案例_深度监视.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+				深度监视：
+						(1).Vue中的watch默认不监测对象内部值的改变（一层）。
+						(2).配置deep:true可以监测对象内部值改变（多层）。
+				备注：
+						(1).Vue自身可以监测对象内部值的改变，但Vue提供的watch默认不可以！
+						(2).使用watch时根据数据的具体结构，决定是否采用深度监视。
+		 -->
+
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>今天天气很{{info}}</h2>
+      <button @click="changeWeather">切换天气</button>
+      <hr />
+      <h3>a的的值是:{{numbers.a}}</h3>
+      <!-- 不能直接写a!!a是在numbers里面的 -->
+      <button @click="numbers.a++">点我让a+1</button>
+      <h3>b的的值是:{{numbers.b}}</h3>
+      <button @click="numbers.b++">点我让b+1</button>
+      <button @click="numbers={a:666,b:888}">彻底替换掉numbers</button>
+      <button @click="numbers.b++">深度监视numbers</button>
+      <h2>{{numbers.c.d.e}}</h2>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        //因为天气只有凉爽和炎热2种，所以推荐用布尔值来表达天气到底是热还是不热
+        isHot: true,
+        numbers: {
+          a: 1,
+          b: 1,
+          c:{
+              d:{
+                  e:100
+              }
+          }
+        },
+      },
+      computed: {
+        info() {
+          return this.isHot ? "凉爽" : "炎热";
+        },
+      },
+      methods: {
+        changeWeather() {
+          this.isHot = !this.isHot;
+        },
+      },
+      watch: {
+        //watch它的值是一个对象，我要监视谁，我要写一堆配置才能监视到
+        isHot: {
+          immediate: true, //初始化时让handler调用一下
+          //handle函数什么时候调用？当isHot发生改变时它就会调用
+          handler(newValue, oldValue) {
+            // 它不仅会把isHot修改前的值给你，还会把isHot修改后的值给你
+            console.log("isHot被修改了", newValue, oldValue);
+          },
+        },
+        //a:{
+        //你这么写就等于检测了一个不存在的属性
+        //存在的属性只有isHot,numbers,还有一个计算属性info,没有a!!
+        // numbers:{
+        //但是我只想监视a，不想监视b，你监视numbers，到时候a或者b变化了都算，这是不可以的
+        //   numbers.a:{
+        // 我们之前总是直接写，其实这个是简写的方式，完整写法是key:'key'
+
+        // 监视多级结构中某个属性的变化
+        // "numbers.a": {
+        //   handler() {
+        //     console. log("a变化了");
+        //   },
+        // },
+
+        // 监视多级结构中某个属性的变化
+        numbers: {
+          //你这么写确实是在监视numbers，但是vue不会再帮你监视numbers【里面】的东西！！
+          //加一个deep属性就行,默认是false,deep表示深度监视
+          deep: true,
+          handler() {
+            console.log("numbers改变了");
+          },
+        },
+      },
+    });
+  </script>
+</html>

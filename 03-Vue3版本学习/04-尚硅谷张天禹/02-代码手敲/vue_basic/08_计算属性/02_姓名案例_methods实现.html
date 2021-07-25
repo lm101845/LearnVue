@@ -1,0 +1,51 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-22 14:50:17
+ * @LastEditTime: 2021-07-22 15:15:55
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\08_计算属性\02_姓名案例_methods实现.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>02_姓名案例_methods实现</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      姓：<input type="text" v-model="firstName" /><br /><br />
+      名：<input type="text" v-model="lastName" /><br /><br />
+      全名：<span>{{fullName}}</span><br /><br />
+      <!-- 我没加小括号意思是我要把这个函数展示到页面上 -->
+      全名：<span>{{fullName()}}</span><br /><br />
+      <!-- 注意：我们前面讲事件的时候，说过小括号加也行，不加也行 -->
+      <!-- 但是现在这里不是绑定事件！！！！这是在插值语法里面 -->
+      <!-- 加了小括号意思是把fullName函数的【返回值】放到小括号里面 -->
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    new Vue({
+      el: "#root",
+      data: {
+        firstName: "张",
+        lastName: "三",
+      },
+      methods: {
+          fullName(){
+            //   return '小猪佩奇'
+            console.log(this);  //this指的是当前实例对象
+            console.log('我被调用了');
+              return this.firstName + '-' + this.lastName
+            //   注意：只要data中的数据发生改变，vue一定会重新解析模版的
+            //   因为只有重新解析模版，它才知道模版中哪个位置用到了这个姓和这个名
+            //   重新解析模版的时候，只要遇到了插值语法里面写【方法】(叫函数也行)，这个方法一定会【重新】帮你再调用一遍！！
+          }
+      }
+    });
+  </script>
+</html>

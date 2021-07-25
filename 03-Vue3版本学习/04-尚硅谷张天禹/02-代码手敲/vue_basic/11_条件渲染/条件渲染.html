@@ -1,0 +1,103 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-25 16:22:25
+ * @LastEditTime: 2021-07-25 16:52:26
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\11_条件渲染\条件渲染.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>条件渲染</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+				条件渲染：
+					1.v-if
+								写法：
+										(1).v-if="表达式" 
+										(2).v-else-if="表达式"
+										(3).v-else="表达式"
+								适用于：切换频率较低的场景。
+								特点：不展示的DOM元素直接被移除。
+								注意：v-if可以和:v-else-if、v-else一起使用，但要求结构不能被“打断”
+					2.v-show
+								写法：v-show="表达式"
+								适用于：切换频率较高的场景。
+								特点：不展示的DOM元素未被移除，仅仅是使用样式隐藏掉
+						
+					3.备注：使用v-if的时，元素可能无法获取到，而使用v-show一定可以获取到。
+		 -->
+         <!-- v-show是孤家寡人，而v-if有兄弟(v-else-if,v-else)可以配合一起使用，不过必须要写一起，不能被打断 -->
+    <!-- 准备好一个容器-->
+    <div id="root">
+      <h2>当前的n值是:{{n}}</h2>
+      <button @click="n++">点我n+1</button>
+      <!-- 使用v-show做条件渲染 -->
+      <h2 v-show="true">欢迎来到{{name}}-1</h2>
+      <h2 v-show="a">欢迎来到{{name}}-2</h2>
+      <h2 v-show="1 === 1">欢迎来到{{name}}-3</h2>
+
+      <!-- 使用v-if做条件渲染 -->
+      <!-- v-if比较狠 -->
+      <h2 v-if="false">欢迎来到{{name}}-4</h2>
+      <h2 v-if="1===1">欢迎来到{{name}}-5</h2>
+      <!-- v-else和v-else-if -->
+      <div v-show="n===1">Angular</div>
+      <div v-show="n===3">React</div>
+      <div v-show="n===5">Vue</div>
+      
+      <div v-if="n===1">Angular</div>
+      <div v-else-if="n===1">React</div>
+      <!-- 这个纵使条件成立也不看了，它们是一组判断 -->
+      <div v-else-if="n===3">React</div>
+      <div v-else-if="n===5">Vue</div>
+      <!-- 这个和连续写3个v-if功能是一样的 -->
+      <!-- <div>@</div> -->
+      <!-- 这一组判断要紧紧的写在一起，中间不能被打断 -->
+      <!-- 打断后面的东西就没有效了，前面的才有效 -->
+      <!-- 报错：v-else used on element <div> without corresponding v-if. -->
+      <div v-else>哈哈哈</div>
+      <!-- v-else后面不用跟条件了，跟也白跟 -->
+
+      <h2 v-show='n===1'>你好</h2>
+      <h2 v-show='n===1'>尚硅谷</h2>
+      <h2 v-show='n===1'>北京</h2>
+
+      <div>================</div>
+      <!-- v-if与template的配合使用 -->
+      <div v-show='n===1'>
+          <!-- 这样写也是可以的，但是你破坏了结构，你为了实现这个效果，非得在外面包了一个div -->
+          <h2>你好</h2>
+          <h2>尚硅谷</h2>
+          <h2>北京</h2>
+      </div>
+      <div>================</div>
+
+      <!-- 更好的办法 -->
+      <!-- template最大的特点是不影响结构 -->
+      <!-- 但是template只能配合v-if使用，不能配合v-show使用 -->
+      <!-- <template v-show='n===1'> -->
+      <template v-if='n===1'>
+          <!-- 使用v-show无效 -->
+         <h2>你好111</h2>
+          <h2>尚硅谷</h2>
+          <h2>北京</h2>
+      </template>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        name: "尚硅谷",
+        a: false,
+        n: 0,
+      },
+    });
+  </script>
+</html>

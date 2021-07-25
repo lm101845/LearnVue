@@ -1,0 +1,78 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-24 13:59:00
+ * @LastEditTime: 2021-07-24 15:25:44
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\09_检视属性\04_天气案例_监视属性_简写.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h2>今天天气很{{info}}</h2>
+      <button @click="changeWeather">切换天气</button>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        isHot: true,
+      },
+      computed: {
+        info() {
+          return this.isHot ? "凉爽" : "炎热";
+        },
+      },
+      methods: {
+        changeWeather() {
+          this.isHot = !this.isHot;
+        },
+      },
+      watch: {
+        isHot: {
+          //简写形式的前提：【你不需要immediate，也不需要deep】,那你就可以简写！！
+          //即：当你的配置对象中只有handle时，才可以开启简写形式
+          //正常写法
+          /* isHot:{
+					// immediate:true, //初始化时让handler调用一下
+					// deep:true,//深度监视
+					handler(newValue,oldValue){
+						console.log('isHot被修改了',newValue,oldValue)
+					}
+				}, */
+          //简写
+          /* isHot(newValue,oldValue){
+					console.log('isHot被修改了',newValue,oldValue,this)
+				} */
+        },
+      },
+    });
+
+    	//正常写法
+		/* vm.$watch('isHot',{
+			immediate:true, //初始化时让handler调用一下
+			deep:true,//深度监视
+			handler(newValue,oldValue){
+				console.log('isHot被修改了',newValue,oldValue)
+			}
+		}) */
+
+		//简写
+		/* vm.$watch('isHot',(newValue,oldValue)=>{
+			console.log('isHot被修改了',newValue,oldValue,this)
+		}) */
+
+        //注意：所有vue管理的window都要写成普通函数，不要写成箭头函数
+
+  </script>
+</html>

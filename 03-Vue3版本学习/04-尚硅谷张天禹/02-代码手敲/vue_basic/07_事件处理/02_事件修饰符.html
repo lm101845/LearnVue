@@ -1,7 +1,7 @@
 <!--
  * @Author: liming
  * @Date: 2021-07-22 01:17:21
- * @LastEditTime: 2021-07-22 02:14:09
+ * @LastEditTime: 2021-07-22 14:45:39
  * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\07_事件处理\02_事件修饰符.html
 -->
 <!DOCTYPE html>
@@ -63,6 +63,9 @@
           <button @click.stop="showInfo">点我提示信息</button>
           <!-- 点的是按钮，最后冒泡冒到了div的身上 --> 
           <!-- 在里面加就可以了 -->
+          
+          <!-- 修饰符可以连续写-->
+          <a href="http://www.atguigu.com" @click.stop.prevent="showInfo">点我提示信息></a>
       </div>
       
        <!-- 3.once：事件只触发一次（常用）； -->

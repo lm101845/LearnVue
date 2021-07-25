@@ -1,0 +1,103 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-24 15:29:29
+ * @LastEditTime: 2021-07-24 16:05:26
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\09_监视属性\05_姓名案例_watch实现.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>姓名案例_watch实现</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+				computed和watch之间的区别：
+						1.computed能完成的功能，watch都可以完成。
+						2.watch能完成的功能，computed不一定能完成，例如：watch可以进行异步操作。
+				两个重要的小原则：
+							1.所被Vue管理的函数，最好写成普通函数，这样this的指向才是vm 或 组件实例对象。
+							2.所有不被Vue所管理的函数（定时器的回调函数、ajax的回调函数等、Promise的回调函数），最好写成箭头函数，
+								这样this的指向才是vm 或 组件实例对象。
+		-->
+
+    <!-- 准备好一个容器-->
+    <div id="root">
+      姓：<input type="text" v-model="firstName" /> <br /><br />
+      名：<input type="text" v-model="lastName" /> <br /><br />
+      全名：<span>{{fullName}}</span> <br /><br />
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        firstName: "张",
+        lastName: "三",
+        fullName: "张-三",
+      },
+      computed: {
+        // 	//使用计算属性完整写法
+        // 	/* fullName:{
+        // 		get(){
+        // 			console.log('get被调用了')
+        // 			return this.firstName + '-' + this.lastName
+        // 		},
+        // 		set(value){
+        // 			console.log('set',value)
+        // 			const arr = value.split('-')
+        // 			this.firstName = arr[0]
+        // 			this.lastName = arr[1]
+        // 		}
+        // 	} */
+        //     // 计算属性基本上都是只读取出来展示，一般不修改。但是不代表它不能修改
+        // 	//简写(如果确定了只有get,没有set,可以把set删掉)
+        //     // 表面上fullName是个函数，但是实际上它是执行了这个函数之后，把return以后的结果往vm身上放，vm的属性就叫fullName
+        //     // 注意：只有考虑读取，不考虑修改的时候，才能使用简写的形式
+        // 	//使用计算属性简写写法
+        fullName() {
+          console.log("get被调用了");
+          setTimeout(() => {
+            //这里定时器的回调写成了箭头函数，这里是没有问题的！！
+            //原因：定时器确实是在vue管理的函数-fullName中开启的
+            //但是定时器所指定的回调是不受vue控制的，是浏览器定时器管理模块控制的
+            //最后定时器到点了也是js引擎帮你调用的
+            console.log(this);
+            return this.firstName + "-" + this.lastName;
+            // 这样写没用！！！
+            //计算属性完全是靠fullName的返回值的
+            //而我们还办不到fullName等一等才有返回值
+            //这个return不是fullName的返回值！！
+            //计算属性里面是不能够开启异步任务去维护数据的，你靠的就是这返回值。
+            //而watch是可以的，因为watch不是靠的返回值，watch是靠你亲自写代码去修改的
+            //总结：当计算属性和watch都能实现的时候，我们用计算属性，代码更简单
+            //如果有一个功能计算属性实现不了，那么就用watch来实现
+          }, 1000);
+        },
+      },
+      watch: {
+        //姓改了，全得改，名改了，也全得改
+        //所以监视的时候，要监视姓和名
+        //这个是监视简写写法
+        firstName(newValue) {
+          //姓改了，要引起全名的变化——全名-最新的姓+原来的名
+          //以前的姓没有用，参数里面可以不写
+          setTimeout(() => {
+            //要求：等一秒钟后才改变全名
+            //这个只能监听属性来做，计算属性很难弄，所以说计算属性和监听属性各有千秋
+            //监听属性可以非常畅快的执行异步任务，但是计算属性不行
+            this.fullName = newValue + "-" + this.lastName;
+          }, 1000);
+        },
+        lastName(newValue) {
+          this.fullName = this.firstName + "-" + newValue;
+        },
+      },
+    });
+  </script>
+</html>

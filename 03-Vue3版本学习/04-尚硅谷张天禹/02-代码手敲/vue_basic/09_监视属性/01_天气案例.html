@@ -1,0 +1,58 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-24 13:59:00
+ * @LastEditTime: 2021-07-24 14:17:24
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\09_检视属性\01_天气案例.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <!-- <h2>今天天气很{{isHot?'炎热':'凉爽'}}</h2> -->
+        <!-- 建议{{里面不写过于复杂的表达式}} -->
+        <!-- <h2>今天天气很一般</h2> -->
+        <h2>今天天气很{{info}},{{x}}</h2>
+        <!-- info是一个计算属性 -->
+        <button @click='changeWeather'>切换天气1</button>
+        <button @click='isHot = !isHot '>切换天气2</button>
+        <!-- 这样也可以，@click后面你可以写一些简单的语句 -->
+        <!-- 绑定事件的时候：@xxx="yyy" yyy可以写一些简单的语句 -->
+        <button @click='isHot = !isHot;x++'>切换天气3</button>
+        <!-- 但是这样写就太乱了，还是写到计算属性里面写 -->
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+          //因为天气只有凉爽和炎热2种，所以推荐用布尔值来表达天气到底是热还是不热
+          isHot:true,
+          x:1,
+      },
+      computed:{
+          //天气炎热或者凉爽这个文字是我通过计算来展示在页面上给人看到就行了
+          //凉爽还是炎热只涉及到展示在页面，不涉及到input框，你去改这个文字
+          info(){
+              return this.isHot ?'凉爽':'炎热'
+              //这里面一定要加this，因为模版里面{{}}可以直接读isHot，但是计算属性里面不行,必须通过vm来拿到
+          }
+      },
+      methods: {
+          changeWeather(){
+              this.isHot = !this.isHot 
+              this.x++
+          }
+      }
+    });
+  </script>
+</html>

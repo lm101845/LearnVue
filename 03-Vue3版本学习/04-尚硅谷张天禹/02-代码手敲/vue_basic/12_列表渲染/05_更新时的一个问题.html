@@ -1,0 +1,56 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-26 08:11:26
+ * @LastEditTime: 2021-07-26 21:42:09
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\12_列表渲染\05_更新时的一个问题.html
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>列表过滤</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 准备好一个容器-->
+		<div id="root">
+			<h2>人员列表</h2>
+            <!-- 要求：点击按钮更新马冬梅信息 -->
+            <button @click='updateMei'>更新马冬梅的信息</button>
+			<ul>
+				<li v-for="(p,index) of persons" :key="p.id">
+					{{p.name}}-{{p.age}}-{{p.sex}}
+				</li>
+			</ul>
+		</div>
+
+		<script type="text/javascript">
+			Vue.config.productionTip = false
+			const vm = new Vue({
+				el:'#root',
+				data:{
+					persons:[
+						{id:'001',name:'马冬梅',age:30,sex:'女'},
+						{id:'002',name:'周冬雨',age:20,sex:'女'},
+						{id:'003',name:'周杰伦',age:18,sex:'男'},
+						{id:'004',name:'温兆伦',age:19,sex:'男'}
+                       
+					],    
+				},
+               methods:{
+                   updateMei(){
+                    //    this.persons[0].name = '马老师'  //奏效
+                    //    this.persons[0].age = 50   //奏效
+                    //    this.persons[0].sex = '男'   //奏效
+                    // this.persons[0] = {id:'001',name:'马老师',age:50,sex:'男'}
+                    //数据改了，但是devtools开发者工具并没有监测到，它不承认改了
+                    //准确的说，你先点击开发者工具，再点击按钮，它不给你呈现
+                    //如果你先点击按钮，再点击开发者工具，它却给你呈现。。。。
+                    // 这样写才奏效：
+                    this.persons.splice(0,1,{id:'001',name:'马老师',age:50,sex:'男'}) 
+                   }
+               }
+			}) 
+       
+		</script>
+</html>

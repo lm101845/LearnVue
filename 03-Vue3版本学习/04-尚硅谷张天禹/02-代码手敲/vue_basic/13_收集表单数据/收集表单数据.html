@@ -1,0 +1,110 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-26 22:26:34
+ * @LastEditTime: 2021-07-26 23:16:31
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\13_收集表单数据\收集表单数据.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+			收集表单数据：
+					若：<input type="text"/>，则v-model收集的是value值，用户输入的就是value值。
+					若：<input type="radio"/>，则v-model收集的是value值，且要给标签配置value值。
+					若：<input type="checkbox"/>
+							1.没有配置input的value属性，那么收集的就是checked（勾选 or 未勾选，是布尔值）
+							2.配置input的value属性:
+									(1)v-model的初始值是非数组，那么收集的就是checked（勾选 or 未勾选，是布尔值）
+									(2)v-model的初始值是数组，那么收集的的就是value组成的数组
+					备注：v-model的三个修饰符：
+									lazy：失去焦点再收集数据
+									number：输入字符串转为有效的数字
+									trim：输入首尾空格过滤
+		-->
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <form @submit.prevent='demo'>
+        <!-- 目前前后端数据交互不用表单的action属性了，用AJAX多一些 -->
+        <label for="account">账号:</label>
+        <input type="text" id="account" v-model.trim="account"/><br /><br />
+        <label for="password">密码:</label>
+        <input type="password" id="password" v-model='password'/><br><br>
+        年龄：<input type="number" v-model.number="age"> <br/><br/>
+        <br /><br />
+        <!-- 加了label以后，并且for和id进行绑定，可以点击账号名字也能获得焦点，用户体验更好了 -->
+        性别： 
+        男<input type="radio" name="sex" v-model="sex" value="male"/> 
+        女<input type="radio" name="sex" v-model="sex" value="female">
+        <!-- 注意：v-model默认收集的是value值，但是男，女这2个性别是没有value值的 -->
+        <!-- 所以给它们2个添加一个value值就可以了 -->
+        <br /><br />
+        爱好： 
+        学习<input type="checkbox" v-model='hobby' value='study'/> 
+        游戏<input type="checkbox" v-model='hobby' value='game'/>
+        美食<input type="checkbox" v-model='hobby' value='food'/>
+        <!-- 像checkbox这种可以勾选或者取消勾选的输入框，Vue是这么处理的：用户不能敲键盘输入，所以也得亲自配置value值-->
+        <!-- 如果你不写value值，那么checkbox默认读取的就是'checked'这个值  -->
+        <br /><br />
+        所属校区
+            <select v-model="city">
+          <!-- v-model写在option里，而不是写到options里 -->
+          <!-- <option value="beijing" v-model='beijing'>北京</option>
+          <option value="shanghai" v-model='shanghai'>上海</option>
+          <option value="shenzhen" v-model='shenzhen'>深圳</option>
+          <option value="wuhan" v-model='wuhan'>武汉</option> -->
+				<option value="">请选择校区</option>
+				<option value="beijing">北京</option>
+				<option value="shanghai">上海</option>
+				<option value="shenzhen">深圳</option>
+				<option value="wuhan">武汉</option>
+        </select>
+        <br><br>
+        其他信息：
+        <textarea v-model.lazy='other'></textarea><br><br>
+        <!-- 希望我输入完了你才收集 -->
+        <!-- 加入.lazy就可以失去焦点时收集信息 -->
+        <input type="checkbox" v-model="agree">阅读并接受<a href="http://www.atguigu.com">用户协议</a>
+        <!-- 这里的checkout只有2种状态，true或false -->
+        <button>提交</button>
+      </form>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    new Vue({
+      el: "#root",
+      data: {
+          account:'',
+          password:'',
+          sex:'female',
+          age:18,
+          //设置默认是女
+        //   hobby:''
+          hobby:[],
+        //hobby的初始值能够影响v-model收集回来的数据
+        // 如果你把hobby写成了字符串形式，就算你写了value，也不行
+        //注意：多选框，需要写成数组+写value
+        city:'beijing',
+        other:'',
+        agree:''
+      },
+      methods: {
+          demo(){
+              //阻止提交
+            //   alert(1)
+            //输出表单里的数据
+            console.log(JSON.stringify(this._data));
+            // 但是最好不要直接访问_data
+          }
+      }
+    });
+  </script>
+</html>

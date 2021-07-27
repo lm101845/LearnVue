@@ -1,0 +1,98 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-27 20:57:16
+ * @LastEditTime: 2021-07-27 22:23:22
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\17_生命周期\02_分析生命周期.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root" :x='n'>
+        <h2 v-text='n'></h2>
+        <h2>当前的的n值是:{{n}}</h2>
+        <button @click='add'>点我n+1</button>
+        <button @click='bye'>点我销毁vm</button>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        n:1
+      },
+      methods: {
+          add(){
+              this.n++
+          }, 
+          bye() {
+              console.log('bye');
+              this.$destroy()
+          }
+      }, 
+      beforeCreate() {
+        console.log('beforeCreate:在数据监测和数据代理创建之前，beforeCreate无法通过vm访问到data中的数据和methods中的方法');
+        console.log(this);
+        //注意：生命周期中的this全都是vm,以后就不打印了
+        // debugger
+      },
+
+      created(){
+        console.log('========================');
+        console.log('created:初始化数据监测和数据代理');
+        console.log(this);
+        // debugger
+      },
+      beforeMount(){
+          console.log('========================');
+          console.log('beforeMount:页面呈现的是未经Vue编译的DOM结构，所有对DOM的操作，最终都不奏效');
+          console.log('其实它已经解析完了，但是还没来得及往页面上放');
+          console.log(this);
+        //   document.querySelector('h2').innerText = '哈哈'
+        //不要在这里操作DOM，操作了也白操作
+        //   debugger 
+    },
+    mounted() {
+        console.log('==========================');
+        console.log('mounted:页面中呈现的是经过Vue编译的DOM,对DOM的操作均有效(但要尽可能避免在这里操作DOM)，至此初始化结束');
+        // document.querySelector('h2').innerText = '哈哈'
+        //有效，但要避免
+        console.log(this);
+        console.log('mounted',this.$el,this.$el instanceof HTMLElement);
+        // this.$el是真实的DOM元素
+        //   debugger
+      },
+      beforeUpdate() {
+          console.log('======================');
+           console.log('beforeUpdate:此时数据是新的，但是页面还是旧的。即页面尚未和数据保持同步。');
+           console.log(this.n);
+        //    debugger
+      },
+      updated() {
+          console.log('=====================');
+          console.log('updated:此时数据是新的，页面也是新的。即页面和数据保持同步。');
+      },
+      beforeDestroy() {
+          console.log('=====================');
+          this.n = 99;   //这样写不行了，页面不会变成99了
+          console.log('beforeDestroy:将要不行了，但是vm,data,methods还能用，虽然可以用，但是页面不变了！！！');
+      },
+      destroyed() {
+          console.log('======================');
+          console.log('destroyed:彻底凉了');
+      }
+
+    });
+
+    // vm.$mount('#root')
+  </script>
+</html>

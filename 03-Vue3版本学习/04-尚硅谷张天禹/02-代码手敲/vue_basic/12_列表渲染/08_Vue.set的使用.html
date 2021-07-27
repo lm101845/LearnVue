@@ -1,0 +1,82 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-26 10:17:20
+ * @LastEditTime: 2021-07-26 12:25:23
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\12_列表渲染\08_Vue.set的使用.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h1>学校信息</h1>
+        <h2>学校名称：{{name}}</h2>
+        <h2>学校地址：{{address}}</h2>
+        <h2>校长是：{{leader}}</h2>
+        <!-- 但是使用Vue.set(vm._data,'leader','小明')在data上添加属性会报错！！ -->
+        <!-- 报错信息：Avoid adding reactive properties to a Vue instance or its root $data at runtime -
+             declare it upfront in the data option. -->
+             <!-- Vue.set(或者vm.$set)只能给data里面的对象追加属性，而不能给data追加属性 -->
+        <hr>
+        <h1>学生信息</h1>
+        <button @click='addSex'>添加一个性别属性，默认值是男</button>
+        <h2>学生姓名：{{student.name}}</h2>
+        <h2 v-if='student.sex'>学生性别：{{student.sex}}</h2>
+        <!-- vue的特定，如果你的值是undefined，是不会显示在页面上的 -->
+        <h2>学生年龄：真实{{student.age.rAge}},对外:{{student.age.sAge}}</h2>
+        <h2>朋友们</h2>
+        <ul>
+            <li v-for="(f,index) in student.friends" :key="index">
+                {{f.name}}--{{f.age}}
+            </li>
+        </ul>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+          name:'尚硅谷',
+          address:'北京',
+        //   leader:'',
+          student:{
+              name:'tom',
+              //sex:'男',
+              //要求：给学生添加性别为男 
+              //注意：这个性别当时没定下来这个属性，以后随着用户的交互，后来才增加的
+              //vm._data.student.sex = '男'这样直接写是没有get,set的，后加上的它就不是响应式数据了
+              // vm.sex ='男'也是不行的
+              //告诉我们：你刚开始的时候最好就把属性都配置好，不然以后就不好使了
+              //不过Vue还提供了一个Vue.set和vm.$set这2个API来给我们弥补。(效果是一样的)
+              //Vue.set(vm._data.student,'sex','男')
+              //vue.$set(vm._data.student,'sex','男')
+              //但是找student不用这么麻烦：vm._data.student === vm.student(数据代理，这个是true)
+              age:{
+                  rAge:28,
+                  sAge:18
+              },
+              friends:[
+                  {name:'jerry',age:35},
+                  {name:'tony',age:36}
+              ]
+          }
+      },
+      methods: {
+         addSex(){
+            // Vue.set(vm.student)  //这种写法不对啊！！要用this
+            Vue.set(this.student,'sex','男') 
+         } 
+      }
+
+    });
+  </script>
+</html>

@@ -1,0 +1,42 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-26 10:17:20
+ * @LastEditTime: 2021-07-26 11:21:22
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\12_列表渲染\06_Vue监测数据改变的原理.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <h2>学校名称：{{name}}</h2>
+        <h2>学校地址：{{address}}</h2>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+          name:'尚硅谷',
+          address:'北京',
+          student:{
+              name:'tom',
+              age:{
+                  rAge:28,
+                  sAge:18
+              }
+          }
+      }
+
+    });
+  </script>
+</html>

@@ -1,0 +1,80 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-26 10:47:10
+ * @LastEditTime: 2021-07-26 11:19:36
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\12_列表渲染\07_模拟一个数据监测.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let data = {
+        name: "尚硅谷",
+        address: "北京",
+        //如果是多层的这样写就不行了
+        // a:{
+        //     b:1
+        // }
+        //要求：data中的数据只要一改，你在控制台给我一句话：数据被改了
+      };
+
+      //这样硬写也是可以的
+      //   let tmp = '尚硅谷'
+      //   setInterval(() => {
+      //     //   if(data.name != '尚硅谷'){
+      //       if(data.name !== tmp){
+      //           tmp = data.name
+      //           console.log('name被改了');
+      //       }
+      //   },1000);
+
+      // Object.defineProperty(data,'name',{
+      //     //这么写就废了，这个name读也读不了，写也写不了
+      //     // 报错：Exception: RangeError: Maximum call stack size exceeded at Object.get [as name]——内存溢出(无法读了)
+      //     //因为你return data.name,则name修改了，然后又会return data.name，这样就死循环了
+      //     get(){
+      //         return data.name
+      //         //有人读取data身上的name就调用getter
+      //     },
+
+      //     set(val){
+      //         data.name = val
+      //     }
+      // })
+
+      function Observer(obj) {
+        //Vue底层写了一个构造函数，可以创建一个监视的实例对象
+        //汇总对象中所有的属性形成一个数组
+        const keys = Object.keys(obj);
+        //遍历
+        console.log(keys);
+        keys.forEach((k) => {
+          Object.defineProperty(this, k, {
+            get() {
+              return obj[k];
+            },
+            set(val) {
+                console.log(`${k}被改了，我要去解析模版，生成虚拟DOM...我要开始忙了`);
+                obj[k] = val;
+            },
+          });
+        });
+      }
+
+      //创建一个监视的实例对象，用于监视data中属性 的变化
+      //data对象交给了Observer构造函数,则data身上有什么，则Observer的实例对象，obs身上也有相同的属性(并且是用getter,setter写的)
+      const obs = new Observer(data);
+    //console.log(obs);
+
+      //准备一个vm实例对象
+      let vm = {};
+      vm._data = data = obs;
+    </script>
+  </body>
+</html>

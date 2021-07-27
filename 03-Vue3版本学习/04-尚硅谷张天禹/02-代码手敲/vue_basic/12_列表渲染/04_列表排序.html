@@ -1,0 +1,85 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-26 08:11:26
+ * @LastEditTime: 2021-07-26 10:04:59
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\12_列表渲染\04_列表排序.html
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>列表过滤</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 准备好一个容器-->
+		<div id="root">
+			<h2>人员列表</h2>
+			<input type="text" placeholder="请输入名字" v-model="keyWord">
+            <button @click='sortType =2'>年龄升序(从小到大)</button>
+            <button @click='sortType =1'>年龄降序(从大到小)</button>
+            <button @click='sortType =0'>原顺序</button>
+            <!-- 视野从上往下，所以是从上往下从小到大 -->
+            <!-- 注意：过滤和排序是不分家的 -->
+            <!-- 过滤的逻辑已经写完了，你在过滤的逻辑之上加上排序就行了  -->
+			<ul>
+				<!-- <li v-for="(p,index) of persons" :key="index"> -->
+				<li v-for="(p,index) of filPerons" :key="p.id">
+					{{p.name}}-{{p.age}}-{{p.sex}}
+				</li>
+			</ul>
+		</div>
+
+		<script type="text/javascript">
+			Vue.config.productionTip = false
+			new Vue({
+				el:'#root',
+				data:{
+                    keyWord:'',
+                    sortType:0,   //0代表原顺序，1代表降序，2代表升序
+                    //一上来没有，用户没有输入，是空字符串
+					persons:[
+						{id:'001',name:'马冬梅',age:30,sex:'女'},
+						{id:'002',name:'周冬雨',age:20,sex:'女'},
+						{id:'003',name:'周杰伦',age:18,sex:'男'},
+						{id:'004',name:'温兆伦',age:19,sex:'男'}
+                       
+					],    
+				},
+                computed:{
+                    //计算属性也有2种写法：一种是完整的配置对象，另一种是函数写法，先写简单的
+                    filPerons(){
+                        const arr = this.persons.filter((p)=>{
+                            // 这里你就不能着急返回了，你一返回就将过滤的结果作为filPersons的值了
+                            // 你就没有机会去排序了
+                            return p.name.indexOf(this.keyWord) !== -1
+                        }) 
+
+                        //判断一下是否需要排序
+                        // if(this.sortType !== 0){
+                        // 上面这样写也行
+                        if(this.sortType){
+                            //先过滤，再排序
+                            arr.sort((p1,p2)=>{
+                                //sort进行排序的时候，会收到前后2个数据项，a,b
+                                //sort是改变原数组的！！！！
+                                //1表示降序，二者相减大于0
+                                //p2表示后一个数，p1表示前一个数
+                                return this.sortType === 1 ? p2.age - p1.age : p1.age - p2.age
+                            })
+                        }
+                        return arr
+                        //最后一定要有返回值
+                    }
+                }
+               
+			}) 
+
+                //sort方法复习
+                // let arr = [1,3,2,6,4,5]
+                // arr.sort((a,b)=>{
+                //     return a - b
+                // })  
+                // console.log(arr);          
+		</script>
+</html>

@@ -1,0 +1,42 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-27 11:37:42
+ * @LastEditTime: 2021-07-27 13:03:36
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\16_自定义指令\2.回顾一个DOM操作.html
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<style>
+			.demo{
+				background-color: orange;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="btn">点我创建一个输入框</button>
+		
+		<script type="text/javascript" >
+			const btn = document.getElementById('btn')
+			btn.onclick = ()=>{
+				const input = document.createElement('input')
+
+				input.className = 'demo'
+				input.value = 99
+				input.onclick = ()=>{alert(1)}
+				
+				document.body.appendChild(input)
+                //放入body中做一个呈现
+
+				input.focus()
+                //input.focus()必须放到appendChild之后执行
+				input.parentElement.style.backgroundColor = 'skyblue'
+                //这个也必须放到后面
+				console.log(input.parentElement)
+				
+			}
+		</script>
+	</body>
+</html>

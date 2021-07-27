@@ -1,0 +1,129 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-26 08:11:26
+ * @LastEditTime: 2021-07-26 08:54:47
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\12_列表渲染\03_列表过滤.html
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>列表过滤</title>
+		<script type="text/javascript" src="../js/vue.js"></script>
+	</head>
+	<body>
+		<!-- 准备好一个容器-->
+		<div id="root">
+			<h2>人员列表</h2>
+			<input type="text" placeholder="请输入名字" v-model="keyWord">
+            <!-- 做的是模糊搜索 -->
+            <!-- 第一步获取用户输入：使用v-model -->
+            <!-- 第二步在列表里面进行过滤 -->
+            <!-- 我这过滤不是一锤子买卖，不是过滤一次就不过滤了，当用户输入的关键词发生变化的时候，我就得重新过滤-->
+            <!-- 如何得知用户输入的关键词变化？使用watch -->
+			<ul>
+				<!-- <li v-for="(p,index) of persons" :key="index"> -->
+				<li v-for="(p,index) of filPerons" :key="index">
+					{{p.name}}-{{p.age}}-{{p.sex}}
+				</li>
+			</ul>
+		</div>
+
+		<script type="text/javascript">
+			Vue.config.productionTip = false
+            //#region 
+			//用watch实现
+			// new Vue({
+			// 	el:'#root',
+			// 	data:{
+            //         keyWord:'',
+            //         //一上来没有，用户没有输入，是空字符串
+			// 		persons:[
+			// 			{id:'001',name:'马冬梅',age:19,sex:'女'},
+			// 			{id:'002',name:'周冬雨',age:20,sex:'女'},
+			// 			{id:'003',name:'周杰伦',age:21,sex:'男'},
+			// 			{id:'004',name:'温兆伦',age:22,sex:'男'}
+            //             // 请问这些名字包不包含空字符串？？是包含的！！
+            //             //所以你输入后又删除，filPersons是完整的数组
+            //             //举例：你输入马，又删除，整个列表会出来
+            //             // 'abc'.indexOf('') => 0 > -1!!!!!!!!!!!!!!
+            //             //所以我们下面的watch要写成一个完整的形式
+			// 		],
+            //         filPerons:[
+            //             // {id:'001',name:'马冬梅',age:19,sex:'女'},
+			// 			// {id:'002',name:'周冬雨',age:20,sex:'女'},
+			// 			// {id:'003',name:'周杰伦',age:21,sex:'男'},
+			// 			// {id:'004',name:'温兆伦',age:22,sex:'男'}
+            //             //这样写一开始可以有东西，但是这样写看着就不好，重复了
+            //         ]
+            //         //person数组既然不能动，我就在属性里写一个filPersons
+            //         //这里面放过滤出来的东西
+			// 	},
+            //     watch:{
+            //         // keyWord(newValue){
+            //         //     // console.log('keyword被修改了',newValue);
+            //         //     // this.persons = this.persons.filter((p)=>{
+            //         //     this.filPerons = this.persons.filter((p)=>{
+            //         //         // filter更不更改原数组？？不影响原数组！！！！
+            //         //         //它返回的是一个新数组
+            //         //         //所以前面必须要加一个this.persons=
+            //         //         //这样会将过滤出来的新数组赋值给原数组，原数组变了，会重新解析模版
+            //         //         //但是这样的话原来的数组就再也回不来了，因为你过滤的时候把不符合条件的都丢掉了
+            //         //         //所以结果就是：越搜索越少
+            //         //         //所以一个原则是：原数据不要直接修改，直接修改就回不去了
+                            
+            //         //         // return p.age>19
+            //         //         //把所有年龄大于19的给过滤出来
+            //         //         // return p.name包含newValue
+            //         //         return p.name.indexOf(newValue) !== -1;
+            //         //     })
+            //         // }
+
+            //         //监视不要写成简写形式，写成一个完整的形式
+            //         keyWord:{
+            //             immediate:true,
+            //             //不等你改变就调用了一次handler
+            //             //已经调用了一次，一上来用户什么也没输入，就相当于是输入了空字符串，为0>-1
+            //             //空串全部都匹配，所以全部列表可以显示出来
+            //             handler(newValue){
+            //                  this.filPerons = this.persons.filter((p)=>{
+            //                      return p.name.indexOf(newValue) !== -1;
+            //                  })
+            //             }
+            //         }
+            //     }
+			// }) 
+            //#endregion
+            //用computed
+			new Vue({
+				el:'#root',
+				data:{
+                    keyWord:'',
+                    //一上来没有，用户没有输入，是空字符串
+					persons:[
+						{id:'001',name:'马冬梅',age:19,sex:'女'},
+						{id:'002',name:'周冬雨',age:20,sex:'女'},
+						{id:'003',name:'周杰伦',age:21,sex:'男'},
+						{id:'004',name:'温兆伦',age:22,sex:'男'}
+                       
+					],    
+				},
+                computed:{
+                    //计算属性也有2种写法：一种是完整的配置对象，另一种是函数写法，先写简单的
+                    filPerons(){
+                        //计算属性这里依赖了keyword
+                        //计算属性是靠返回值来决定东西的
+                        // return [{id:'001',name:'马冬梅',age:19,sex:'女'},]
+                        return this.persons.filter((p)=>{
+                            // 这个return是计算属性规定的，你必须要返回值
+                            return p.name.indexOf(this.keyWord) !== -1
+                            // 这个return是filter规定的，返回一个过滤的条件
+                            //监视属性那里才能收到新的value,旧的value
+                            //而计算属性这里是没有的,但是我们还是可以拿到keyword的！！！
+                        }) 
+                    }
+                }
+               
+			}) 
+		</script>
+</html>

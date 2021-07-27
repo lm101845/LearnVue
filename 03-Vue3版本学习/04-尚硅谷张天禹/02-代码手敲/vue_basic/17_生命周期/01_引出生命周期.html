@@ -1,0 +1,91 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-27 14:13:39
+ * @LastEditTime: 2021-07-27 15:13:11
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\17_生命周期\01_引出生命周期.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+				生命周期：
+						1.又名：生命周期回调函数、生命周期函数、生命周期钩子。
+						2.是什么：Vue在关键时刻帮我们调用的一些特殊名称的函数。
+						3.生命周期函数的名字不可更改，但函数的具体内容是程序员根据需求编写的。
+						4.生命周期函数中的this指向是vm 或 组件实例对象。
+		-->
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <!-- <h2 style="opacity: 1;">欢迎学习Vue</h2> -->
+      <!-- <h2 :style="{opacity: opacity}">欢迎学习Vue</h2> -->
+      <!-- 动态绑定样式要有冒号 -->
+      <h2 v-if="a">你好啊</h2>
+      <h2 :style="{opacity}">欢迎学习Vue</h2>
+      <!-- {{change()}} -->
+      <!-- 它们重名了，可以用对象的简写形式 -->
+      <!-- {}里面写的是js表达式，应用的是js那套规则，而表达式的值是个对象，可以使用对象的简写形式-->
+      <!-- <button @click='change'>点我开始变换</button> -->
+      <!-- 你这样写就违背了我的需求，我希望一上来就开始变换，而不是点击按钮才切换 -->
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    new Vue({
+      el: "#root",
+      data: {
+        opacity: 1,
+        a: false,
+      },
+      methods: {
+        //change写在methods里面目前没办法实现我们的功能
+        // change() {
+        //   console.log('开启了一个定时器');
+        //   setInterval(() => {
+        //     this.opacity -= 0.01;
+        //     if (this.opacity <= 0) {
+        //       this.opacity = 1;
+        //     }
+        //   }, 16);
+        // },
+      },
+      //mounted是一个函数，而且和mehtods这些平级
+      //Vue完成模版的解析并把初始的【真实的DOM元素】放入页面后(挂载完毕)再调用mounted
+      //mounted只调用一次!!!!
+
+      mounted() {
+        //所谓的生命周期就是一些函数
+        //mounted就是一个普普通通的函数，只不过这个函数是在关键时刻帮我们调用的
+        console.log("mounted");
+        setInterval(() => {
+          this.opacity -= 0.01;
+          if (this.opacity <= 0) {
+            this.opacity = 1;
+          }
+        }, 16);
+      },
+    });
+
+    //通过外部的定时器实现(不推荐 )
+    //setInterval写到外面是可以的
+    //new Vue外面是可以写代码的，但是这个最好写到里面
+    //  setInterval(()=>{
+    //     vm.opacity-=0.01
+    //     if(vm.opacity <= 0){
+    //         vm.opacity = 1;
+    //     }
+    //   },16)
+
+    //写法2：也不推荐
+    // window.onload = ()=>{
+    //     vm.change()
+    // }
+  </script>
+</html>

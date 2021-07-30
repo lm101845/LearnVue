@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{counter}}</h2>
+        <!-- 方法1:直接在里面写方法(只适合方法比较简单的情况)-->
+        <!-- <button v-on:click="counter++">+</button>
+        <button v-on:click="counter--">-</button> -->
+
+        <!-- 方法2：调用定义的方法(可以不用加小括号，省略写法，会自动渲染。但是加小括号也是可以的)-->
+        <!-- <button v-on:click="increment">+</button>
+        <button v-on:click="decrement">-</button> -->
+
+        <!-- 方法2的语法糖写法：把"v-on:"替换为@ -->
+        <!-- click是因为我们这里监听的是click事件，还有keyup等各种事件 -->
+        <button @click="increment">+</button>
+        <button @click="decrement">-</button>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                counter: 0
+            },
+            methods: {
+                // 这个是对象字面量函数的增强写法
+                // 大括号就是对象，对象里面定义了increment函数
+                // 以前是这么写的：
+                // increment:function(){
+
+                // }
+                increment() {
+                    this.counter++;
+                },
+                decrement() {
+                    this.counter--;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

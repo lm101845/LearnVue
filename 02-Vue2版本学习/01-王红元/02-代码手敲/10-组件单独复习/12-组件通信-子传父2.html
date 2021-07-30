@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{total}}</p>
+        <cpn @increment="incrementTotal"></cpn>
+    </div>
+
+    <template id="cpn">
+        <button @click="increment">{{counter}}</button>
+    </template>
+
+    <script src="js/vue.js"></script>
+
+    <script>
+        Vue.component('cpn', {
+            template: '#cpn',
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                increment() {
+                    this.counter += 1;
+                    this.$emit('increment')
+                }
+            }
+        })
+        const app = new Vue({
+            el: "#app",
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal() {
+                    this.total += 1;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

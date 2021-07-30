@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="app1">
+        <!-- 3.cpn只能在#app下使用-->
+        <cpn></cpn>
+    </div>
+
+    <div id="app2">
+        <cpn></cpn>
+        <!-- cpn是app1下的局部组件，在app2下无法使用，会显示cpn标签，而不会渲染 -->
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    // 1.创建一个组件构造器
+    const cpnC = Vue.extend({
+        template: `
+            <div>
+                这是我的第一个组件!
+            </div>`
+    })
+
+
+    // Vue.component('cpn', cpnC)
+    // 2.这样注册就是全局组件了
+
+    const app1 = new Vue({
+        el: '#app1',
+        components: {
+            cpn: cpnC
+            // 2.这样注册就是局部组件了，只能在id为app的Vue实例中使用
+        }
+    })
+
+    const app2 = new Vue({
+        el: '#app2'
+    })
+</script>
+
+</html>

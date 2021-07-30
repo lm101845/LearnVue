@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .active {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 作业需求：点击列表中的哪一项，那么该项的文字就会变成红色。一定要试着自己独立写！！-->
+    <!-- 唉，我写不出来 -->
+    <div id="app">
+        <ul>
+            <!-- <li v-for="(item,index) in movies" class='active'>{{index}}-{{item}}</li> -->
+            <!-- 不能直接加class，直接加所有的人都变成了红色 -->
+
+            <!-- <li v-for="(item,index) in movies" :class='{active:currentIndex === index}'>{{index}}-{{item}}</li> -->
+            <!-- v-for属性用于遍历，v-bind属性用于动态绑定class -->
+            <!-- 但是这个class有还是没有我们怎么决定呢？就用currentIndex === index来决定 -->
+            <!-- 我们要动态的给它加class，采用对象语法-->
+            <!-- 但是又不能给它写死了-->
+
+            <!-- 我们每个li都有属于自己的index -->
+            <!-- <li :class="{active:0 === currentIndex}"></li>
+            <li :class="{active:1 === currentIndex}"></li>
+            <li :class="{active:2 === currentIndex}"></li>
+            <li :class="{active:3 === currentIndex}"></li> -->
+
+            <!-- 最后一步：再来监听li的点击就可以了 -->
+            <li v-for="(item,index) in movies" :class='{active:currentIndex === index}' @click='liClick(index)'>
+                {{index}}-{{item}}</li>
+
+        </ul>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                movies: ['海尔兄弟', '猫和老鼠', '舒克贝塔', '太阳之子'],
+                currentIndex: -1
+                // currentIndex用于记录到底谁会显示红色的
+                // 你想不到这个没事，以后写多了慢慢就会写了
+            },
+            methods: {
+                liClick(index) {
+                    // 要有一个index参数！！！
+                    // 每个li都有index参数，所以直接传就好了
+                    this.currentIndex = index;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="app">
+        <!-- 3. #app是Vue实例挂载的元素，应该在挂载元素范围内使用组件-->
+        <cpn></cpn>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    // 1.创建一个组件构造器
+    const cpnC = Vue.extend({
+        template: `
+            <div>
+                这是我的第一个组件!
+            </div>`
+    })
+
+    // 2.注册组件，并指定组件的标签，组件的HTML标签为<cpn>
+    Vue.component('cpn', cpnC)
+
+    // 步骤1,2都是在生成Vue实例的script标签里面
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '你好啊'
+        }
+    })
+
+</script>
+
+</html>

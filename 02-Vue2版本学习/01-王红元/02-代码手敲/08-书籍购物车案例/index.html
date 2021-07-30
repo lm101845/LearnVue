@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 把table和下面的总金额都包含在一个大div里面 -->
+        <div v-if="books.length">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>书籍名称</th>
+                        <th>出版日期</th>
+                        <th>价格</th>
+                        <th>购买数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <!-- 通过遍历将数组中的数据展示出来 -->
+                    <!-- 以前遍历都是li中使用v-for，现在遍历要在ul中使用v-for了 -->
+                    <!-- 一本书是一行 -->
+                    <tr v-for="(item,index) in books">
+                        <!-- 1.0：item是一个对象，对象也是可以遍历的 -->
+                        <!-- <td v-for="value in item">{{value}}</td> -->
+                        <!-- 这个写法我现在不会 -->
+                        <!-- 但是我们不建议遍历item这个对象，因为有些东西我们要定制，
+                                     比如数量前后都有按钮，价格保留2位小数，且前面有人民币符号 -->
+
+                        <!-- 2.0：接下来我们自己写遍历item -->
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.date}}</td>
+                        <!-- <td>{{item.price}}</td> -->
+                        <!-- 修饰价格：保留2位小数并且前面加上人民币符号(拼接即可)-->
+                        <!-- <td>{{'￥' + item.price.toFixed(2)}}</td> -->
+                        <!-- 但是这样写不好，待会计算出总价格的时候，结果也是保留2位小数的，前面也有人民币符号 -->
+                        <!-- 总价格那里也要进行拼接，很麻烦 -->
+                        <!-- 这个拼接应该是可重复利用的才好-->
+                        <!-- 方案1：可以使用methods -->
+                        <!-- <td>{{getFinalPrice(item.price)}}</td> -->
+
+                        <!-- 方案2：使用过滤器 -->
+                        <!-- <td>{{item.price|过滤器}}</td> -->
+                        <td>{{item.price|showPrice}}</td>
+                        <td>
+                            <button @click="decrement(index)" v-bind:disabled="item.count <= 1">-</button>
+                            <!-- 动态绑定disabled属性，当数字减少为1时，就变成disabled，不能点击 -->
+                            {{item.count}}
+                            <button @click="increment(index)">+</button>
+
+                        </td>
+                        <td>
+                            <button @click="removeHandle(index)">移除</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <!-- tbody在真实开发中肯定不是写死的，而是用户将书籍加入购物车中，动态的生成的 -->
+                <!-- 在Vue里面我们用一个变量来保存数据 -->
+            </table>
+            <h2>总价格：{{totalPrice | showPrice}}</h2>
+        </div>
+        <h2 v-else>购物车为空</h2>
+    </div>
+    <script src="js/vue.js"></script>
+    <script src="main.js"></script>
+    <script>
+        // 如何在JS里面给数字保留2位小数？？
+        // 123.toFixed(2)即可;
+    </script>
+</body>
+
+</html>

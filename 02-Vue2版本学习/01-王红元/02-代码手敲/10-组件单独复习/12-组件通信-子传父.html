@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 这个是父组件的模版 -->
+        <cpn @item-click="cpnClick"></cpn>
+        <!-- v-on事件监听 -->
+        <!-- 子组件发射出去的事件也是一种事件，也可以监听 -->
+        <!-- 不要写驼峰，用横杠代替 -->
+        <!-- 在脚手架里才能写驼峰 -->
+    </div>
+
+    <template id="cpn">
+        <div>
+            <button v-for="item in categories" @click="btnClick(item)">{{item.name}}</button>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        const cpnC = Vue.extend({
+            // 创建的是子组件构造器
+            template: '#cpn',
+            data() {
+                return {
+                    categories: [
+                        { id: "01", name: "热门推荐" },
+                        { id: "02", name: "手机数码" },
+                        { id: "03", name: "家用电器" },
+                        { id: "04", name: "服装鞋帽" },
+                    ]
+                }
+            },
+            methods: {
+                btnClick(item) {
+                    console.log(item);
+                    // 我们在自己的组件里面知道点击了谁
+                    // 但是是我们的组件里面根据点击了谁发送请求的吗？——不是
+                    // 要把这个点击事件告诉父组件，让父组件向服务器发送请求
+                    this.$emit('item-click', item)
+                }
+            }
+        })
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                cpn: cpnC
+                // 这个注册的就是局部组件，只能在id为app的Vue实例中使用
+            },
+            methods: {
+                cpnClick(item) {
+                    console.log('cpnClick');
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

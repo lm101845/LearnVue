@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 方法1.直接拼接:其语法过于繁琐，不采用 -->
+        <h2>{{firstName}} {{lastName}}</h2>
+
+        <!-- 方法2.通过定义methods -->
+        <h2>{{getFullName()}}</h2>
+        <h2>{{getFullName()}}</h2>
+        <h2>{{getFullName()}}</h2>
+        <h2>{{getFullName()}}</h2>
+
+        <!-- 方法3.通过computed -->
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+        <h2>{{fullName}}</h2>
+
+        <!-- 第2种和第3种方法看上去差不多，但还是有区别的 -->
+        <!-- 区别是：计算属性有缓存，可以提升性能，而methods没有 -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'Kobe',
+                lastName: 'Bryant'
+            },
+            methods: {
+                getFullName: function () {
+                    console.log('该方法被调用了');
+                    // 这句话被打印了4次
+                    return this.firstName + ' and ' + this.lastName
+                }
+            },
+            computed: {
+                fullName: function () {
+                    console.log('该方法被调用了');
+                    //这句话只打印了1次——性能更高
+                    return this.firstName + ' & ' + this.lastName
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-30 15:16:19
+ * @LastEditTime: 2021-07-30 18:25:35
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\18_非单文件组件\01_基本使用.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+			Vue中使用组件的三大步骤：
+					一、定义组件(创建组件)
+					二、注册组件
+					三、使用组件(写组件标签)
+
+			一、如何定义一个组件？
+						使用Vue.extend(options)创建，其中options和new Vue(options)时传入的那个options几乎一样，但也有点区别；
+						区别如下：
+								1.el不要写，为什么？ ——— 最终所有的组件都要经过一个vm的管理，由vm中的el决定服务哪个容器。
+								2.data必须写成函数，为什么？ ———— 避免组件被复用时，数据存在引用关系。
+						备注：使用template可以配置组件结构。
+
+			二、如何注册组件？
+							1.局部注册：靠new Vue的时候传入components选项
+							2.全局注册：靠Vue.component('组件名',组件)
+
+			三、编写组件标签：
+							<school></school>
+		-->
+
+    <!-- 准备好一个容器 -->
+    <!-- vm是大哥，xuexiao和xuesheng组件是弟弟，大哥带着弟弟一起服务root容器 -->
+    <div id="root">
+      <h1>{{msg}}</h1>
+      <hr>
+      <!-- <h2>学校名称：{{schoolName}}</h2>
+      <h2>学校地址：{{address}}</h2> -->
+      <!-- 第三步：编写组件标签 -->
+      <xuexiao></xuexiao>
+      <hr />
+      <!-- <h2>学生姓名：{{studentName}}</h2>
+      <h2>学生年龄：{{age}}</h2> -->
+      <xuesheng></xuesheng>
+      <hr>
+      <xuesheng></xuesheng>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+    //第一步：创建组件
+
+    //注意：Vue.extend必须要写到new Vue代码前面！！！
+    //创建school组件
+    //一旦使用了template，必须要包含一个根元素
+    const school = Vue.extend({
+      template: `
+        <div>
+             <h2>学校名称：{{schoolName}}</h2>
+            <h2>学校地址：{{address}}</h2>
+        </div>
+        `,
+      //  这里写xuexiao也行，就是一个中转的变量
+      // const school = Vue.extend({
+      //Vue.extend是一个函数，专门用于创建组件的，里面要传入一个配置对象，要配置很多东西
+      // el: "#root",
+      // 报错option "el" can only be used during instance creation with the `new` keyword.
+      //注意：组件定义时，一定不要写el配置项，因为最终所有的组件都要被一个vm管理，由vm决定服务于哪个容器。
+
+      //   data: {
+      //     schoolName:'尚硅谷',
+      //     address:'北京昌平',
+      //     studentName:'张三',
+      //     age:18
+      //   }
+      //data不能写成对象形式
+      data() {
+        return {
+          schoolName: "尚硅谷",
+          address: "北京昌平",
+        };
+      },
+      //报错：data只能是data(){return{}}格式的z
+    });
+
+    //创建student组件
+    // const student = Vue.extend({
+    const student = Vue.extend({
+      template: `
+      <div>
+           <h2>学生姓名：{{studentName}}</h2>
+           <h2>学生年龄：{{age}}</h2> 
+      </div>
+      `,
+      data() {
+        return {
+          studentName: "张三",
+          age: 18,
+        };
+      },
+    });
+
+    //创建vm
+    new Vue({
+      el: "#root",
+      //data数据在组件里面，这里就不用写了
+      //我想要有自己的东西，那也可以写
+      data:{
+        msg:'你好啊，这个是Vue实例里面的data数据'
+      },
+      //第二步：注册组件(局部注册)
+      components: {
+        //里面是一组一组的key:value组合
+        //   key:指的是组件名
+        //   value指的是中转的变量名
+        //   school:a
+        //   school:school
+        //   school
+        //这个是简写形式
+        xuexiao: school,
+        xuesheng: student,
+      },
+    });
+  </script>
+</html>

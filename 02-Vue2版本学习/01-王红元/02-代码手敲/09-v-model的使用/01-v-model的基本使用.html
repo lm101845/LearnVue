@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="message">
+        <!-- 直接在input标签里面写上v-model指令 -->
+        <!-- v-model可以实现数据的双向绑定 -->
+
+        <!-- 以前的响应式，你把元素里面的内容改了，app里面的message是不会变的 -->
+        <!-- 即以前的胡子语法只能实现单向绑定 -->
+        {{message}}
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            }
+        })
+    </script>
+</body>
+
+</html>

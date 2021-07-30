@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn v-show="isShow"></cpn>
+        <!-- 它会使用实例里面的isShow,而不是组件里面的isShow -->
+        <!-- 意味着模版里的东西会显示出来(实例里的isShow是true) -->
+        <!-- 它不关心你用的是哪个组件，它把cpn当成是普通的div看待了 -->
+        <!-- 虽然里面出现了cpn标签，但是整体上里面的内容是在Vue模版里写的 -->
+        <!-- 它看你在哪个模版里，我们当前的模版属于Vue实例的模版，所以就在Vue实例里找 -->
+        <!-- 所以里面出现的变量都会在Vue实例里找，不会在组件里找的 -->
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>我是子组件</h2>
+            <p>我是内容，哈哈哈</p>
+            <button v-show="isShow">按钮</button>
+            <!-- 这个按钮无法显示，因为组件里面的isShow是false -->
+            <!-- 模版里的东西会在自己的作用域(组件)里查找变量的 -->
+            <!-- 我的这个template是属于我的组件的，所以在template里出现的任何变量都会在组件里找的-->
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                isShow: true
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    data() {
+                        return {
+                            isShow: false
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

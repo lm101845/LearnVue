@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <h2>{{message}}</h2> -->
+        <!-- 之前的插值操作学的是将Vue实例里的值(如data里面的值)插入到模版的内容中(如插入得到div中) -->
+        <!-- 之前学的都是动态绑定内容 -->
+
+        <!--现在学的是动态绑定属性，如src里面的内容我们不想写死，就先把src里面的数据放到Vue实例中再引入-->
+
+        <!-- <img src="{{imgURL}}" alt=""> -->
+        <!-- 错误的做法：这里不可以使用胡子语法 -->
+        <!-- 但是我们不能这样写。胡子语法只能写在标签内容中，不能写在标签属性里-->
+
+        <!-- <img src="imgURL" alt=""> -->
+        <!-- 这样写也不行，它无法解析 -->
+
+        <!-- 正确的做法：使用v-bind指令 -->
+        <!-- 你想给哪个属性绑定值，你就在它前面加上v-bind: -->
+        <!-- 加了v-bind:后，"imgURL"就不是一个简单的字符串了，摇身一变成为了一个变量了 -->
+        <img v-bind:src="imgURL" alt="">
+        <!-- imgURL是从Vue实例里中转过来的数据，而不是写死的数据 -->
+
+        <a href="https://www.baidu.com">百度一下</a>
+        <!-- 在真实开发中，很少这样把某个东西给写死，都是从服务器请求过来数据，根据请求来的数据决定的 -->
+
+        <a v-bind:href="aHref">百度一下</a>
+        <!-- 都是这样写 -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                imgURL: 'https://vuejs.bootcss.com/images/logo.png',
+                // 从服务器请求过来的数据，一般都在Vue实例里做一个中转
+                aHref: 'https://www.baidu.com'
+            }
+        })
+    </script>
+</body>
+
+</html>

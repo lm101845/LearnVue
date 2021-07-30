@@ -1,0 +1,121 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-30 15:16:19
+ * @LastEditTime: 2021-07-30 18:37:26
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\18_非单文件组件(开发时几乎不用)\01_基本使用2.0.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <hello></hello>
+      <h1>{{msg}}</h1>
+      <hr />
+      <!-- 第三步：编写组件标签 -->
+      <school></school>
+      <hr />
+      <student></student>
+    </div>
+
+    <div id="root2">
+        <!-- <student></student> -->
+        <!-- 报错：Unknown custom element: <student> - did you register the component correctly? 
+            For recursive components, make sure to provide the "name" option. -->
+        <!-- 除非在root2里也注册一个student组件 -->
+        <hello></hello>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+    //第一步：创建组件
+
+    //注意：Vue.extend必须要写到new Vue代码前面！！！
+
+    const school = Vue.extend({
+      template: `
+        <div>
+             <h2>学校名称：{{schoolName}}</h2>
+            <h2>学校地址：{{address}}</h2>
+            <button @click='showName'>点我提示学校名</button>
+        </div>
+        `,
+      data() {
+        return {
+          schoolName: "尚硅谷",
+          address: "北京昌平",
+        };
+      },
+      methods: {
+        showName() {
+          alert(this.schoolName);
+        },
+      },
+    });
+
+    //创建student组件
+    // const student = Vue.extend({
+    const student = Vue.extend({
+      template: `
+      <div>
+           <h2>学生姓名：{{studentName}}</h2>
+           <h2>学生年龄：{{age}}</h2> 
+      </div>
+      `,
+      data() {
+        return {
+          studentName: "张三",
+          age: 18,
+        };
+      },
+    });
+
+    
+    const hello = Vue.extend({
+           template: `
+      <div>
+           <h2>你好啊！{{name}}</h2>
+      </div>
+      `,
+      data(){
+          return {
+              name:'Tom'
+          }
+      }
+    })
+
+    //第二步：全局注册组件！！！！——不过其实局部注册用的更多一些
+    //此时所有的vm都能使用hello组件了
+    Vue.component('hello',hello)
+
+    //创建vm
+    new Vue({
+      el: "#root",
+      //data数据在组件里面，这里就不用写了
+      //我想要有自己的东西，那也可以写
+      data: {
+        msg: "你好啊，这个是Vue实例里面的data数据",
+      },
+      //第二步：注册组件(局部注册)
+      components: {
+        school,
+        student,
+      },
+    });
+
+    new Vue({
+      el: "#root2",
+      components: {
+        //   student
+        //注册一个组件就不会报错了
+      }
+    });
+  </script>
+</html>

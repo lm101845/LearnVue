@@ -1,0 +1,31 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-30 23:52:18
+ * @LastEditTime: 2021-07-31 00:00:15
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\19_单文件组件(开发时用这个)\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习一下单文件组件的语法</title>
+</head>
+<body>
+    <!-- index.html里面就放容器#root -->
+    <div id="root">
+        <!-- <App/> -->
+        <!-- 容器里面你不写<App/>，它就出不来，那么一切就为0！！！！！！！-->
+        <!-- 如果容器里面你不想写<App/>，想要干干净净，那就在main.js里面写template配置项也行 -->
+    </div>
+    <script src="../js/vue.js"></script>
+    <!-- 在引入main.js之前引入vue.js -->
+    <script src="./main.js"></script>
+    <!-- 记得引入main.js的时候一定要在整个body的最下方进行引入！！！ 要先让模版出来才行！！！-->
+    <!-- main.js我们叫入口文件，一切的事情都是从这里开始的！！！-->
+
+    <!-- 报错：Uncaught SyntaxError: Cannot use import statement outside a module -->
+    <!-- 因为浏览器不能直接支持ES6的模块化语法 -->
+</body>
+</html>

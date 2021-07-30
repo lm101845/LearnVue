@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <input type="text" v-model="message"> -->
+        <!-- v-model实际上相当于是两个指令的结合，它就是一个语法糖 -->
+        <!-- 我不用v-model,我也能实现双向绑定 -->
+
+        <!-- 第一步：把下面的message想办法绑定到上面来 -->
+        <!-- <input type="text" :value="message"> -->
+
+        <!-- 第二步： -->
+        <!-- v-on上面有个input事件(内部事件)，就像button有个click一样 -->
+        <input type="text" :value="message" v-on:input="valueChange">
+
+        <!-- <input type="text" :value="message" v-on:input="valueChange1(event)"> -->
+        <!-- valueChange1()函数有一个参数event,但是这里不用写，参数会自动带上来 -->
+        <input type="text" :value="message" v-on:input="valueChange1">
+
+        <input type="text" :value="message" @input="message = $event.target.value">
+        <!-- 不想写表达式了，直接这样写也行 -->
+        <!-- $event在v-on那一节里讲过，记忆不深刻 -->
+        <h2>{{message}}</h2>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            methods: {
+                valueChange() {
+                    // console.log('---------------');
+                    // 我一旦在表单里面输入内容或内容发生变化都会触发这个函数
+                    // 当一个 <input>, <select>, 或 <textarea> 元素的 value 被修改时，会触发 input 事件。
+
+                    // message = "aaa";
+                    this.message = "aaa";
+                    // 一旦表框里面的内容发生变化，下面的message就变成了aaa
+                    // 我对this的理解还是不那么透彻啊，前面不写this就不行
+                },
+                valueChange1(event) {
+                    // 要获取到app下面的message,要通过event来获取
+                    // 一旦在界面上产生一个事件之后，浏览器会生成一个event对象
+                    // event对象里面就会包含我们想要的信息了
+                    // this.message = "bbb";
+                    console.log(event);
+                    this.message = event.target.value;
+                    // event里面有一个target,target里面有一个value
+                    // 我找了一下确实可以找到
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

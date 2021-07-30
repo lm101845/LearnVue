@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="message">
+        <h2>{{message}}</h2>
+    </div>
+    <!-- <script src="js/vue.js"></script> -->
+    <script>
+        class Vue {
+            constructor(options) {
+                // 1.保存数据
+                this.$options = options;
+                this.$data = options.data;
+                this.$el = options.el;
+            }
+        }
+    </script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            }
+        })
+    </script>
+</body>
+
+</html>

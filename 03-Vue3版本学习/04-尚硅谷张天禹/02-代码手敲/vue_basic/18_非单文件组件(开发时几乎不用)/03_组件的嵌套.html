@@ -1,0 +1,115 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-30 19:06:52
+ * @LastEditTime: 2021-07-30 19:43:23
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\18_非单文件组件(开发时几乎不用)\03_组件的嵌套.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <!-- <hello></hello> -->
+      <!-- <school></school> -->
+      <!-- <student></student> -->
+      <!-- <app></app> -->
+      <!-- 容器里面我连app组件都不想写，可以在vm里面配置template -->
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    //定义student组件
+    //报错： Cannot access 'student' before initialization
+    //把student放到school前面定义就可以了
+    const student = Vue.extend({
+      name: "student",
+      template: `
+				<div>
+					<h2>学生姓名：{{name}}</h2>	
+					<h2>学生年龄：{{age}}</h2>	
+				</div>
+			`,
+      data() {
+        return {
+          name: "张三",
+          age: 18,
+        };
+      },
+    });
+
+    //定义school组件
+    const school = Vue.extend({
+      name: "school",
+      template: `
+				<div>
+					<h2>学校姓名：{{name}}</h2>	
+					<h2>学校地址：{{address}}</h2>	
+                     <student></student>
+				</div>  
+			`,
+      data() {
+        return {
+          name: "尚硅谷",
+          address: "北京",
+        };
+      },
+      //school本身就是一个组件，里面还可以注册别的组件！！
+      //注册组件(局部)
+      //student组件也确实是局部注册的，注册给谁了呢？注册给school了
+      //注册给谁了，就在注册的地方写。因为school在vm中注册的，所以可以直接在容器里写
+      //而student没有在vm里注册，所以只能在school组件【里面】写
+      components: {
+        student,
+      },
+    });
+
+    //定义一个hello组件
+    const hello = Vue.extend({
+      template: ` 
+            <h1>{{msg}}</h1>
+        `,
+      data() {
+        return {
+          msg: "欢迎来到尚硅谷学习",
+        };
+      },
+    });
+
+    //定义一个app组件
+    const app = Vue.extend({
+        components: {
+            hello,
+            school,
+            //student已经被school领导了，所以不用单独写了
+        },
+        template: `
+            <div>
+                <hello></hello>
+                <school></school>
+            </div>
+        `
+    })
+    new Vue({
+      el: "#root",
+      template: '<app></app>',
+      //注册组件(局部)
+      //school组件确实是局部注册的，注册给谁的呢？注册给vm了
+      components: {
+        // school,
+        //student,
+        // hello,
+        // 我想要让hello组件和school组件是平级关系，就在这里写
+        app
+        //这里就只写一个app就行了，vm只领导一个app组件，其他组件都受app领导
+      },
+    });
+  </script>
+</html>

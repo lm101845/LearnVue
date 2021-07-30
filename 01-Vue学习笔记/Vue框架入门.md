@@ -2696,7 +2696,7 @@ const app = new Vue({
       // return totalPrice;
 
       //方法3:for...of循环
-      //for(let i od this.books)
+      //for(let i of this.books)
       //let totalPrice = 0;
       //for (let item of this.books) {
         //totalPrice += item.price * item.count;
@@ -3737,7 +3737,7 @@ const app = new Vue({
         <cpn></cpn>
         <!-- 根据下面注册的组件，创建出来了3个组件实例 -->
         <!-- 这3个组件实例有无共享同一个data对象啊？？？ 答案是否！！！-->
-        <!-- 因为组件中的data是一个函数，创建组件实例时会调用data函数，-->								<!-- 我们会在每次调用的时候return个新的对象-->
+        <!-- 因为组件中的data是一个函数，创建组件实例时会调用data函数，-->							<!-- 我们会在每次调用的时候return个新的对象-->
     </div>
 
     <template id="cpn">

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 通过v-if和v-else来控制到底显示上面这段代码还是显示下面这段代码 -->
+
+        <span v-if="isUser">
+            <!-- label 标签为 input 元素定义标注（标签） -->
+            <!-- 作用:用于绑定一个表单元素, 当点击label标签的时候, 被绑定的表单元素就会获得输入焦点-->
+            <label for="username">用户账号</label>
+            <!-- 上面的input的key值是abc,下面input的key值是123,Vue就知道你不想让input元素被复用了-->
+            <!-- 于是它就会重新创建出一个新的input元素 -->
+            <input type="text" id="username" placeholder="用户账号" :key="abc">
+        </span>
+
+        <span v-else>
+            <label for="email">用户邮箱</label>
+            <input type="text" id="email" placeholder="用户邮箱" :key="123">
+        </span>
+        <button @click="isUser = !isUser">切换类型</button>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                isUser: true
+            }
+        })
+    </script>
+</body>
+
+</html>

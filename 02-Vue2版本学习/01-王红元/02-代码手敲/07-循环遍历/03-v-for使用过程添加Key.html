@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <!-- <li v-for="item in letters" :key="index">{{item}}</li> -->
+            <!-- 不要绑定index,因为index和item不是一一对应的关系 -->
+            <li v-for="item in letters" :key="item">{{item}}</li>
+        </ul>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                letters: ['A', 'B', 'C', 'D', 'E']
+            }
+        })
+    </script>
+</body>
+
+</html>

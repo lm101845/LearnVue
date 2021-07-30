@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+    <script>
+        //ES5中的var是没有块级作用域的(if/for没有)
+        //ES6中的let是有块级作用域的(if/for有)
+
+        //在ES5之前，因为if和for都没有块级作用域的概念，所以在很多时候，我们都必须借助于函数(function)的作用域
+        //来解决我们引用外面变量的问题。
+
+        //而在ES6中加入了let,let它是有if和for的块级作用域的，这个问题也就随之解决了
+
+        //1.变量的作用域：变量在什么范围内是可用的
+        // {
+        //     // 这个大括号是代码块
+        //     var name = 'why';
+        //     console.log(name);
+        // }
+
+        // console.log(name);
+        // 在外面也可以访问到大括号里面的变量name：大括号形同虚设，变量name非常自由，随时可以翻墙去外面玩
+        // 但是外面的小孩(变量)无法翻墙进去和墙里面的孩子玩。
+
+        //2.没有块级作用域引起的问题：if的块级
+        var func;
+        //这个func先不给它赋值,在if语句里面再给它赋值
+        if (true) {
+            var name = 'why';
+            // 在这里定义的name,在其他地方都能把这个name给改掉，这样就会出现一些问题
+            func = function () {
+                console.log(name);
+            }
+
+            // func();
+            //你想用函数的话直接这样来使用就可以了
+        }
+        name = 'kobe';
+        // 如果别人把name改掉了，这个函数打印的就是kobe了，而不是why了(但我们只想打印why)
+        func();
+        // 在if语句外面也是可以访问这个函数的
+        // console.log(name);
+
+        //3.没有块级作用域引起的问题：for的块级
+        //下面全用ES5的语法写
+        var btns = document.getElementsByTagName('button');
+        for (var i = 0; i < btns.length; i++) {
+            // 这个i在函数外面
+            btns[i].addEventListener('click', function () {
+                // 这个函数只在被点击时才触发，不点击不触发
+                // 但是循环，它不管你点不点击，它直接就循环完了，最终结果i为5
+                console.log('第' + i + '个按钮被点击了');
+                // 这个i在函数里面，引用的函数外面的i(for里面的i)
+                //在我点击第一个按钮之前，已经进行了好几次循环，函数外面的这个i被改掉了
+                // 这样写的话，不管你点击第几个按钮，都会显示第5个按钮被点击了
+            })
+        }
+
+        //为了解决3这个问题没有ES6的时候我们可以用立即执行函数解决(但是代码有点恶心)
+        //为什么立即执行函数可以解决这个问题：因为函数是一个作用域
+        for (var j = 0; j < btns.length; j++) {
+            // (function (j) {
+            // 我这里甚至可以不叫j,我随便叫什么都可以，不影响 
+            (function (num) {
+                btns[j].addEventListener('click', function () {
+                    // 这里一共有5个函数
+                    // 这个j是不会被别人改掉的
+                    console.log('第' + num + '个按钮被点击了');
+                })
+            })(j)
+        }
+
+        // 举个例子说明上面j不会变的原因
+        //例子1
+        var age = 18;
+        function abc(age) {
+            // 函数内部有属于我自己的age
+            // 这个age在函数范围之内是有自己的作用域的
+            // 里面的age和外面的age是没有任何影响的
+            console.log(age);
+        }
+        age = 20;
+        abc(25);
+        // 不管你外面的age怎么改，我的abc里面的age还是25(函数age里有作用域)
+
+        //例子2
+        var name1 = 'Li';
+        function abc(bbb) {  //bbb = 'Li'
+            console.log(bbb);
+        }
+        abc(name1);
+        // 你再改name1的值，对前面没有任何影响，最终打印出来还是'Li'
+        //如果把abc(name1);放在name1 = 'Wang'下面，那打印出来的就是'Wang'了
+        name1 = 'Wang';
+
+        //ES6中这样写就可以了
+        const btns1 = document.getElementsByTagName('button');
+        for (let k = 0; k < btns1.length; k++) {
+            // 现在这个大括号有自己的作用域了，意味着for小括号里面的k只属于这个大括号
+            // 我们在第一次执行for循环的时候会执行大括号里面这段代码，这段代码有属于自己的k
+            btns1[k].addEventListener('click', function () {
+                console.log('第' + k + '个按钮被点击了');
+            });
+        }
+
+        // {
+        //     i = 0;
+        //     btns1[k].addEventListener('click', function () {
+        //         console.log('第' + k + '个按钮被点击了');
+        //     });
+        // }
+
+        // {
+        //     i = 1;
+        //     btns1[k].addEventListener('click', function () {
+        //         console.log('第' + k + '个按钮被点击了');
+        //     });
+        // }
+
+        // {
+        //     i = 2;
+        //     btns1[k].addEventListener('click', function () {
+        //         console.log('第' + k + '个按钮被点击了');
+        //     });
+        // }
+
+        // {
+        //     i = 3;
+        //     btns1[k].addEventListener('click', function () {
+        //         console.log('第' + k + '个按钮被点击了');
+        //     });
+        // }
+
+        // {
+        //     i = 4;
+        //     btns1[k].addEventListener('click', function () {
+        //         console.log('第' + k + '个按钮被点击了');
+        //     });
+        // }
+
+        // 以前因为if,for都没有作用域，所以相当于共用了一个k
+        // 而现在有了作用域以后，作用域范围内有属于我们每个人自己的k
+    </script>
+</body>
+
+</html>

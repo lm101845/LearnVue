@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1.0版 -->
+        {{movies}}
+        <!-- 这样展示是直接展示的 -->
+
+        <!-- 2.0版 -->
+        <ul>
+            <li>{{movies[0]}}</li>
+            <li>{{movies[1]}}</li>
+            <li>{{movies[2]}}</li>
+            <li>{{movies[3]}}</li>
+        </ul>
+        <!-- 这样做可以列表展示，但是这样写很捞 -->
+
+        <!-- 3.0版 -->
+        <ul>
+            <li v-for="item in movies">{{item}}</li>
+            <!-- v-for表示遍历 -->
+            <!-- 它会自动创建4个li -->
+        </ul>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                movies: ['海上钢琴师', '星际穿越', '忠犬八公', '白夜行']
+            }
+        })
+    </script>
+</body>
+
+</html>

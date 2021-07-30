@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 这个是父组件的模版 -->
+    <div id="app">
+        <cpn v-on:item-click="cpnClick"></cpn>
+        <!-- 子组件发射出去的事件也是一种事件，也可以监听 -->
+        <!-- 不要写驼峰，用横杠代替 -->
+        <!-- 在脚手架里才能写驼峰 -->
+    </div>
+
+    <!-- 这个是子组件的模版 -->
+    <template id="cpn">
+        <div>
+            <button v-for="item in categoryies" @click="btnClick(item)">{{item.name}}</button>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 1.子组件
+        const cpn = {
+            // 常见子组件发生了一些事情，希望父组件知道
+            template: '#cpn',
+            data() {
+                return {
+                    categoryies: [
+                        { id: "01", name: "热门推荐" },
+                        { id: "02", name: "手机数码" },
+                        { id: "03", name: "家用电器" },
+                        { id: "04", name: "服装鞋帽" },
+                    ]
+                }
+            },
+            methods: {
+                btnClick(item) {
+                    console.log(item);
+                    // 我们在自己的组件里面知道点击了谁
+                    // 但是是我们的组件里面根据点击了谁发送请求的吗？——不是
+                    // 要把这个点击事件告诉父组件，让父组件向服务器发送请求
+                    this.$emit('item-click', item)
+                    // 第一个参数是事件的名称
+                    // 子组件负责发射事件：自定义事件
+                }
+            },
+        }
+        // 2.父组件
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                cpn: cpn
+            },
+            methods: {
+                cpnClick(item) {
+                    console.log("cpnClick");
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

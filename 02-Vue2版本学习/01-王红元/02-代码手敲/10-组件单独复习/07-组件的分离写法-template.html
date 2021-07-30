@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn></cpn>
+    </div>
+
+    <template id="cpn">
+        <!-- 这个同样也要加id号 -->
+        <div>
+            <p> 这是用template标签生成的template模版</p>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.component('cpn', {
+            template: '#cpn'
+        })
+        const app = new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{url}}</h2>
+        <!-- 服务器会将这个整个作为字符串返回，不会进行解析 -->
+
+        <h2 v-html='url'></h2>
+        <!-- 这个表示我将以html的形式展示这个url -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                url: '<a href="http://www.baidu.com">百度一下</a>'
+            }
+        })
+    </script>
+</body>
+
+</html>

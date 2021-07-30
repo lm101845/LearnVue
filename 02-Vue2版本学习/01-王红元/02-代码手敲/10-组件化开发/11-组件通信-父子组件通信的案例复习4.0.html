@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn :number1="num1" :number2="num2" @num1change="num1change" @num2change="num2change"></cpn>
+        <!-- 等号左边的@num1change是黑中介的名字 -->
+        <!-- 等号右边的"num1change"是父组件(Vue实例里的方法) -->
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>props里面的：{{number1}}</h2>
+            <h2>data里面的：{{dnumber1}}</h2>
+            <!-- 但是这样写的话有点写死了，可以下面这样写 -->
+            <!-- 相当于把v-model代码进行了分拆，最终效果还是一样的 -->
+            <!-- <input type="text" v-model="dnumber1"> -->
+            <input type="text" :value="dnumber1" @input="num1Input">
+            <!-- 我们可以弄一个value，动态绑定dumber1 -->
+            <!-- v-model的本质就是2个指令的结合体：v-bind:和@input事件 -->
+            <!-- v-model只不过是一个语法糖而已 -->
+            <!-- 不熟悉的可以看我上面讲v-model的博文 -->
+            <!-- <input type="text" :value="dnumber1" @input="dnumber1=$event.target.value"> -->
+            <h2>props里面的：{{number2}}</h2>
+            <h2>data里面的：{{dnumber2}}</h2>
+            <!-- <input type="text" v-model="dnumber2"> -->
+            <input type="text" :value="dnumber2" @input="num2Input">
+            <!-- 我们希望dnumber1,2数字发生改变后，将改变后的数字再传给父组件 -->
+            <!-- 将父组件的num1,num2也改变掉 -->
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                num1: 1,
+                num2: 0
+            },
+            methods: {
+                num1change(value) {
+                    // 根据下面的this.$emit(传过来一个参数dnumber1,2)
+                    // 所以这里有一个value参数来访问它
+                    // 这里报错，估计是因为value的类型不对
+                    // 这里value估计是字符串类型
+                    console.log(typeof value);
+                    // String类型，要把它转为数字类型
+                    // 因为props里面的number1,2设置为Number类型的
+                    // this.num1 = value
+                    this.num1 = parseFloat(value)
+                },
+                num2change(value) {
+                    this.num2 = parseFloat(value)
+                }
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    props: {
+                        number1: Number,
+                        number2: Number
+                    },
+                    data() {
+                        return {
+                            dnumber1: this.number1,
+                            dnumber2: this.number2,
+                        }
+                    },
+                    methods: {
+                        num1Input(event) {
+                            this.dnumber1 = event.target.value;
+                            // 在这个值发生改变的同时，发出一个事件,起个名字叫num1change
+                            // 并且把dnumber1给它传出去
+                            this.$emit('num1change', this.dnumber1)
+                        },
+                        num2Input(event) {
+                            this.dnumber2 = event.target.value;
+                            this.$emit('num2change', this.dnumber2)
+                        },
+                    },
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

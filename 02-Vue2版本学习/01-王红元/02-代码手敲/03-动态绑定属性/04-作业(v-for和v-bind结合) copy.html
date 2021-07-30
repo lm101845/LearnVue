@@ -1,0 +1,31 @@
+<!-- css -->
+<style>
+    .red {
+        color: red;
+    }
+</style>
+
+<!-- html -->
+<div id="app">
+    <ul>
+        <li v-for="(item,index) in movies" :class="{red: changeRed == index}" v-on:click="change(index)">
+            {{index}}{{item}}</li>
+    </ul>
+</div>
+
+<!-- JavaScript -->
+<script src="js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            movies: ['肖申克的救赎', '泰坦尼克号', '当幸福来敲门', '流浪地球'],
+            changeRed: -1
+        },
+        methods: {
+            change: function (index) {
+                this.changeRed = index;
+            }
+        }
+    })
+</script>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>总价格：{{books[0].price + books[1].price +books[2].price +books[3].price }}</h2>
+        <!-- 这样写能得到结果，但是这个代码太恶心 -->
+
+        <h2>总价格：{{totalPrice}}</h2>
+        <!-- 这样写就好多了 -->
+
+        <!-- 像这种数据你是不可能直接用胡子语法直接把数据给写上去的，必须要进行一定的操作和转换 -->
+        <!-- 这个时候你就不得不用计算属性了(计算属性比方法要好！) -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                books: [
+                    { id: 001, name: 'Unix编程艺术', price: 128 },
+                    { id: 002, name: '代码大全', price: 25 },
+                    { id: 003, name: '深入理解计算机原理', price: 158 },
+                    { id: 004, name: '现代操作系统', price: 38 },
+                ]
+            },
+            // methods: {
+            // 我们这里就不用methods了，改用computed:计算属性了
+            // }
+
+            // 计算属性和methods的区别：多次调用时计算属性只会调用一次，而methods你调用几次它就会执行几次
+            //methods是没有缓存的，它的性能会更低一点
+            computed: {
+                totalPrice: function () {
+                    // 这个用高阶函数比较好，以后讲
+                    //高阶函数如：filter/map/reduce
+                    // return this.books.reduce()
+
+                    // 计算属性的名字记得起个名词形式的:totalPrice
+                    let result = 0;
+
+                    // for循环写法1：
+                    // for (let i = 0; i < this.books.length; i++) {
+                    //     result += this.books[i].price;
+                    // }
+
+                    // ES6中的for也可以这样简写
+                    //for循环写法2：
+                    // for (let i in this.books) {
+                    //     result += this.books[i].price;
+                    // }
+
+                    //for循环写法3：
+                    for (let book of this.books) {
+                        // console.log(book.price);
+                        result += book.price;
+                    }
+                    return result;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

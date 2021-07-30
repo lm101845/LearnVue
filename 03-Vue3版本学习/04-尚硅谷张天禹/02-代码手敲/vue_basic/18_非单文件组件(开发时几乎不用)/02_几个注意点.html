@@ -1,0 +1,112 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-30 18:39:19
+ * @LastEditTime: 2021-07-30 19:05:20
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\18_非单文件组件(开发时几乎不用)\02_几个注意点.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+			几个注意点：
+					1.关于组件名:
+								一个单词组成：
+											第一种写法(首字母小写)：school
+											第二种写法(首字母大写)：School
+								多个单词组成：
+											第一种写法(kebab-case命名)：my-school
+											第二种写法(CamelCase命名)：MySchool (需要Vue脚手架支持)
+								备注：
+										(1).组件名尽可能回避HTML中已有的元素名称，例如：h2、H2都不行。
+										(2).可以使用name配置项指定组件在【开发者工具中】呈现的名字。
+
+					2.关于组件标签:
+								第一种写法：<school></school>
+								第二种写法：<school/>
+								备注：不用使用脚手架时，<school/>会导致后续组件不能渲染。
+
+					3.一个简写方式：
+								const school = Vue.extend(options) 可简写为：const school = options
+		-->
+
+    <!-- 准备好一个容器 -->
+    <div id="root">
+      <h1>{{msg}}</h1>
+      <h2>====================================</h2>
+      <school></school>
+      <h2>====================================</h2>
+      <school />
+      <school />
+      <school />
+      <!-- <my-school></my-school> -->
+      <!-- <MySchool></MySchool> -->
+      <!-- 这个要在脚手架里面这样写才行！！！首字母大写 -->
+      <!-- 使用自闭合也行，不过要在脚手架环境下(虽然它不报错，但是有bug)  -->
+      <h2>====================================</h2>
+      <jianxie></jianxie>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+
+    //1.定义组件(定义组件的时候我们并不能决定组件的名字)
+    const s = Vue.extend({
+      name: "atguigu",
+      // 有时候我们希望在定义的时候也能给它起个名字，这是可以的，在Vue.extend()里面加一个配置项name即可
+      // 此时在【开发者工具】里面就呈现出什么名字了
+      template: `
+            <div>
+            <h2>学校名称：{{schoolName}}</h2>
+            <h2>学校地址：{{address}}</h2>
+            </div>
+        `,
+      data() {
+        return {
+          schoolName: "尚硅谷",
+          address: "北京昌平",
+        };
+      },
+    });
+
+    const p = {
+      // 简写模式：定义组件的时候可以直接写个对象
+      name: "atguigup",
+      template: `
+            <div>
+            <h2>学校名称111：{{schoolName}}</h2>
+            <h2>学校地址111：{{address}}</h2>
+            </div>
+        `,
+      data() {
+        return {
+          schoolName: "尚硅谷p",
+          address: "北京昌平p",
+        };
+      },
+    };
+
+    //2.注册组件(我们只在使用的时候才能决定它叫什么名字，比如这里叫school)
+    //想要注册就必须有一个vm，所有的组件都要经过一个vm的管理
+    new Vue({
+      el: "#root",
+      data: {
+        msg: "欢迎学习Vue",
+      },
+      components: {
+        school: s,
+        // key是组件名，value是变量名
+        // 'my-school':s
+        // MySchool:s
+        // 这个要在脚手架环境里这样写才行！！！
+        jianxie: p,
+      },
+    });
+  </script>
+</html>

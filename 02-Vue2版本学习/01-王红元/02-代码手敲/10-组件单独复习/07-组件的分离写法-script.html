@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn></cpn>
+    </div>
+
+    <script type="text/x-template" id="cpn">
+    <!-- 我发现这个script标签是写在src上面的 -->
+    <!-- script标签内还要记得写id -->
+    <!-- template模版就写在这里了 -->
+    <div>
+        <p> 这是用script标签生成的template模版</p>
+    </div>
+    </script>
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.component('cpn', {
+            template: '#cpn'
+            // 不用在这里写template模版了，script标签里有id号，拿id和上面的模版进行联系就好了
+        })
+        const app = new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+
+</html>

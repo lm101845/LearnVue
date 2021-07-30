@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn2></cpn2>
+        <cpn1></cpn1>
+        <!-- 单独写cpn1无法渲染，还会报错 -->
+        <!-- 在Vue实例这个作用域里面，要想使用某一个组件，要么它是一个全局组件，
+             要么在Vue实例中组件的components里已经注册过了(只注册过cpnC2,没有注册过cpnC1)
+             所以直接在上面写cpn1会报错，写cpn2的话会渲染出里面的cpn1,
+             儿子自己不能展示，只能通过爸爸像别人介绍来展示自己的儿子
+             要想儿子自己独立展示，只能在Vue实例中再单独自己注册一次cpn1:cpnC1-->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        // 因为是父子组件，所以我至少要创建2个组件才行
+        // 1.创建第一个组件构造器cpnC1(子组件)
+        const cpnC1 = Vue.extend({
+            template: `
+                <div>
+                    <h2>我是标题1</h2>   
+                    <p>我是内容，哈哈哈</p> 
+                </div>
+            `
+        })
+
+        // 2.创建第二个组件构造器cpnC2(父组件)
+        const cpnC2 = Vue.extend({
+            template: `
+                <div>
+                    <h2>我是标题2</h2>   
+                    <p>我是内容，呵呵呵</p> 
+                    <cpn1></cpn1>
+                </div>
+            `,
+            // 我们只给它添加了一个属性：template,其实它还可以添加别的属性
+            components: {
+                // 这个components不是放到Vue实例里的，而是放到组件构造器对象里的
+                cpn1: cpnC1
+                // 如果cpn1只在这里注册，不再Vue实例里再注册一次，则永无出头之日，
+                // 只能通过爸爸向其他人展示，自己不能主动展示
+            }
+        })
+        // root组件
+        const app = new Vue({
+            //  Vue实例其实你也可以把它看成是一个组件，它是最顶层的组件(root)
+            //  Vue实例是爷爷，cpnC2是爸爸，cpnC1是儿子
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                cpn2: cpnC2,
+                // 组件构造器cpnC1不是在Vue实例里注册的，而是在组件构造器cpnC2里注册的\
+                // 要想自己主动单独展示，而不是被动的通过爸爸展示，需要在这里再注册一次
+                cpn1: cpnC1
+                // 不写这个会报错
+            }
+        })
+        // 总结：组件构造器cpnC1放在组件构造器cpnC2里面注册的，而组件构造器cpnC2是放在Vue实例里注册的
+        // 这样就可以保证2个组件构造器都注册过了
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .bgc {
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click="btnClick" :class="{bgc:isBgc}">按钮1</button>
+        <button v-on:click="btnClick" :class="{bgc:isBgc}">按钮2</button>
+        <button v-on:click="btnClick" :class="{bgc:isBgc}">按钮3</button>
+        <script src="js/vue.js"></script>
+        <script>
+            const app1 = new Vue({
+                el: '#app',
+                data: {
+                    message: '你好啊',
+                    bgc: 'bgc',
+                    isBgc: true
+                },
+                methods: {
+                    btnClick: function () {
+                        return this.isBgc = !isBgc;
+                    }
+                }
+            })
+        </script>
+</body>
+
+</html>
+
+<!-- 失败了，不知道为什么 -->

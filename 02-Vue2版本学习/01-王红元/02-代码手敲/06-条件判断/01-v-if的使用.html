@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 有时候我们希望只有在满足一定条件时才渲染这个message,这个时候就用到了v-if -->
+        <h2 v-if='true'>{{message}}</h2>
+
+        <!-- 当为false时，不会被渲染，所以不会显示 -->
+        <h2 v-if='false'>{{message}}</h2>
+
+        <h2 v-if='isShow'>{{message}}</h2>
+        <!--变量isShow外边记得加引号 -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                isShow: true
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 1.".stop"修饰符的使用 -->
+        <div @click="divClick">
+            div里面的内容
+            <!-- btn在div里面，而且都绑定了点击事件，会产生冒泡 -->
+            <!-- 在Vue中阻止冒泡使用修饰符就可以了 -->
+            <button @click="btnClick">按钮1</button>
+            <button @click.stop="btnClick">按钮2</button>
+        </div>
+
+        <br>
+
+        <!-- 2.".prevent"修饰符的使用 -->
+        <form action="baidu">
+            <!-- 有些情况下我可能希望自己手动提交，而不用它自动帮我提交-->
+            <!-- 这样写有打印("提交表单了"这句话会一闪而过)，同时有提交 -->
+            <input type="submit" value="提交1" @click="submitClick">
+
+            <!-- 这样写只有打印，不会再提交了 -->
+            <input type="submit" value="提交2" @click.prevent="submitClick">
+        </form>
+
+        <br>
+
+        <!-- 3.监听某个键盘的键帽的点击 -->
+        <!-- ".keyCode"修饰符的使用 -->
+        <!-- keyup表示键盘弹起时触发的事件 -->
+        <!-- 如果我们只想监听用户敲下回车的按键，加上修饰符".enter"就可以了 -->
+        <input type="text" @keyup="keyUp">
+
+        <!-- 这个只会监听敲回车的事件 -->
+        <input type="text" @keyup.enter="keyUp">
+
+        <!-- 4.监听组件 -->
+        <!-- 这个要等到我们学组件的时候再说了 -->
+        <!-- ".native"修饰符的使用 -->
+        <!-- <cpn @click="cpnClick"></cpn> -->
+        <!-- 如果不写修饰符".native"则组件无法监听到这个cpnClick这个方法 -->
+        <!-- <cpn @click.native="cpnClick"></cpn> -->
+
+        <!-- 5.只触发一次回调 -->
+        <!-- ".once"修饰符的使用 -->
+        <!-- 有了这个修饰符则按钮就只有在第一次点击的时候才会触发btn2Click这个方法，之后怎么点也不会再触发了-->
+        <button @click="btn2Click">按钮3</button>
+        <button @click.once="btn2Click">按钮4</button>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            methods: {
+                btnClick() {
+                    console.log("btn被打印了");
+                },
+                divClick() {
+                    console.log("div被打印了");
+                },
+                submitClick() {
+                    console.log('提交表单了');
+                },
+                keyUp() {
+                    console.log("按键被弹起了");
+                },
+                cpnClick() {
+                    console.log("组件被监听了");
+                },
+                btn2Click() {
+                    console.log("按钮2被打印了");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

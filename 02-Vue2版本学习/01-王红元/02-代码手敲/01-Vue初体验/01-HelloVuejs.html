@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 在创建Vue实例的时候，我们给它创建了一个对象 -->
+    <!-- 这个对象它首先有一个参数，用于挂载这些元素 -->
+    <!-- <div id="app">{{message}}</div> -->
+    <!-- 一个保姆只能照顾一个孩子，按照id认孩子 -->
+    <div id="app">
+        <h2>{{message}}</h2>
+        <h1>{{name}}</h1>
+    </div>
+    <!-- 要想在div里显示message里的数据，就用双大括号 -->
+    <div>{{message}}</div>
+    <!-- 第2个div没有交给Vue实例管理，是个没人管的孤儿 -->
+    <script src="js/vue.js"></script>
+    <!-- <script>
+        function Vue() {
+            //Vue源码里面肯定是类似这样写的,肯定会创建个Vue实例
+            //Vue实例里面可以有参数，而且参数是对象类型的
+        }
+    </script> -->
+
+    <script>
+        // 我们既然创建了一个实例，就可以用一个变量来接收它。
+        //let(定义变量)/const(定义常量)
+        //Vue中基本上不会再用到var了，用ES6中的let和const
+        // let name = 'why';
+        // name = 'kobe';
+        // 这个app我们以后不会再改了，所以用const常量
+        //这是另一种编程范式：声明式编程(编程范式变化了，思想也要变化)
+        //好处是能做到数据和界面完全分离：界面在上面写(孩子)，数据在下面写(保姆)
+        const app = new Vue({
+            //你在new Vue实例的时候，就把div交给它管理了。(Vue实例就是个保姆，div是个宝宝)
+            //一旦交给它(Vue实例)管理，它就会解析里面的语法
+            el: '#app',
+            //el属性用于挂载要管理的元素
+            //把div这个元素传给了Vue实例，让Vue实例来管理一下上面的div
+            //管理上面的div有什么用呢？
+            data: {
+                //data属性用于定义一些数据
+                message: '你好，世界！',
+                // message数据一旦改掉后，界面会自动跟着改：这个就叫响应式
+                name: 'codewhy'
+            }
+        })
+
+        //原生JS的做法(变成范式：命令式编程——第一步怎么做，第二步怎么做)
+        //1.创建div元素，设置id属性
+        //2.定义一个变量叫message
+        //3.将message变量放在前面的div元素中显示
+        //4.修改message数据：今天天气不错
+        //5.将修改后的数据再次替换到div元素中
+    </script>
+</body>
+
+</html>

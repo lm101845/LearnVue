@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{firstName + ' '+ lastName}}</h2>
+        <h2>{{firstName}} {{lastName}}</h2>
+        <!-- 这样写很长，书写不方便，不简洁，也不易阅读 -->
+
+        <h2>{{getFullName()}}</h2>
+        <!-- 这个要好一点了，但是里面跟的是方法，不是名字，看起来有点别扭 -->
+
+        <!-- 为了看上去不那么别扭，我们引入了计算属性 -->
+        <!-- 计算属性：当我们需要对我们的数据进行某种变化之后再来进行显示，可以在计算属性里给它重新定义一个属性 -->
+        <!-- 并且给它返回你变化之后的数据 -->
+        <h2>{{fullName}}</h2>
+        <!-- 计算属性我们是把它当作属性来用的，所以后面不加小括号！！！！看着更加舒服 -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'kobe',
+                lastName: 'Bryant'
+            },
+            methods: {
+                // 方法里面定义的是函数
+                // 方法里面的函数名一般是动词：getFullName
+                getFullName() {
+                    // getFullName: function () {
+                    //上面的是函数的简写形式，省去了:function 
+                    return this.firstName + ' ' + this.lastName;
+                }
+            },
+            computed: {
+                // computed:计算属性。(我们在起名字的时候一般按照名词的方式给这个函数起名字)
+                // 计算属性和方法(methods)一样，定义的也是函数
+                // 计算属性里的函数名一般是名词：fullName
+                fullName: function () {
+                    return this.firstName + ' ' + this.lastName;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

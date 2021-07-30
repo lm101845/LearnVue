@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="app">
+        <parentcpn></parentcpn>
+        <childcpn></childcpn>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+
+    //1.创建第一个组件构造器cpnC1(子组件)
+    // 我发现子组件必须要写到父组件代码上面，否则会报错
+    const cpnC1 = Vue.extend({
+        template: `
+          <div>
+                这是子组件!
+            </div>`
+    })
+
+    // 2.创建第二个组件构造器cpnC2(父组件)
+    const cpnC2 = Vue.extend({
+        // 在父组件模版中使用子组件标签
+        template: `
+            <div>
+                这是父组件!
+                <childcpn></childcpn>
+            </div>`
+        ,
+        components: {
+            // 4.局部注册子组件
+            // 该组件只能在父组件内使用了
+            childcpn: cpnC1
+        }
+    })
+
+
+
+    // 3.全局注册父组件
+    Vue.component('parentcpn', cpnC2)
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '你好啊'
+        }
+    })
+
+</script>
+
+</html>

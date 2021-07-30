@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <table width="400" height="100" border="1">
+            <thead>
+                <caption>父组件数据</caption>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>myname</td>
+                    <td>{{name}}</td>
+                    <td><input type="text" v-model="name"></td>
+                </tr>
+                <tr>
+                    <td>myage</td>
+                    <td>{{age}}</td>
+                    <td><input type="text" v-model="age"></td>
+                </tr>
+            </tbody>
+        </table>
+        <my-component :my-name="name" :my-age="age"></my-component>
+        <!-- props中的myName和myAge要转变成my-name和my-age才行 -->
+    </div>
+
+    <template id="myComponent">
+        <table width="400" height="100" border="1">
+            <thead>
+                <caption>子组件数据</caption>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>myname</td>
+                    <td>{{myName}}</td>
+                    <td><input type="text" v-model="myName"></td>
+                </tr>
+                <tr>
+                    <td>myage</td>
+                    <td>{{myAge}}</td>
+                    <td><input type="text" v-model="myAge"></td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            //Vue实例其实你也可以把它看成是一个组件(绝对的父组件)，它是最顶层的组件(root)
+            el: '#app',
+            data: {
+                name: 'Keepfool',
+                age: 28
+                // 这个是父组件里的数据
+            },
+            components: {
+                // 这个是子组件的内容，借用父组件(Vue)这个地方进行注册
+                'my-component': {
+                    // my-component是子组件标签名，是在父组件(Vue实例里注册的)
+                    //因为子组件名中间有横杠，所以外面加个单引号，如果没有横杠不加单引号也没事
+                    template: '#myComponent',
+                    // myComponent是子组件的id
+                    props: ['myName', 'myAge']
+                    // 不要把它当成字符串，把它当成变量!!
+
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

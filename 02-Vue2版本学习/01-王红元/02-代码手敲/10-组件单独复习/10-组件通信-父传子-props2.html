@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn :cmessage='message' :cmovies="movies"></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <!-- 这个div不能少！！我少写了div就报错了，找了好久错误在哪！！ -->
+            <p>{{cmessage}}</p>
+            <p>{{cmovies}}</p>
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                // 这个message是在data里面的,data是在Vue实例里面的(组件中无法访问)
+                movies: ['海王', '海贼王', '海尔兄弟']
+                // movies也是在Vue实例里面的(组件中无法访问)
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    props: {
+                        // props不仅可以传入数组，也可以传入对象
+                        cmessage: {
+                            // c表示child，子组件在父组件(Vue实例)里借窝生蛋(注册组件)
+                            type: String,
+                            default: 'aaa',
+                            // default是指当别人没有给你传值的情况下，默认值是什么
+                            // required: true
+                            // 表明cmessage必须要传值
+                        },
+                        cmovies: {
+                            type: Array,
+                            // 类型是对象或数组时，默认值必须是一个函数
+                            default() {
+                                return []
+                                // 这样写就不会报错了
+                            }
+
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

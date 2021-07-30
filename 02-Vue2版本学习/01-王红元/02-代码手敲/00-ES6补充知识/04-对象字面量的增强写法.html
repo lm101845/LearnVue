@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // const obj = new Object();
+        // 我们一般不这么写
+
+        // var obj = {
+        //     name: 'why',
+        //     age: 18,
+        //     run: function () {
+        //         console.log('我在奔跑');
+        //     },
+        //     eat: function () {
+        //         console.log('我在吃东西');
+        //     }
+        // };
+        // 这个叫对象字面量写法
+
+        //1.属性的增强写法
+        const name = 'why';
+        const age = 18;
+        const height = 1.88;
+
+        //ES5的写法
+        // const obj = {
+        //     name: name,
+        //     age: age,
+        //     height: height
+        // }
+
+        //ES6属性的增强写法
+        const obj = {
+            name,
+            age,
+            height
+        }
+        console.log(obj);
+
+        //2.函数的增强写法
+        // ES5的写法
+        // const obj = {
+        //     run: function () {
+        //         console.log('我在奔跑');
+        //     },
+        //     eat: function () {
+        //         console.log('我在吃东西');
+        //     }
+        // };
+
+        //ES6函数的增强写法
+        const obj = {
+            run() {
+                console.log('我在奔跑');
+            },
+            eat() {
+                console.log('我在吃东西');
+            }
+        }
+    </script>
+</body>
+
+</html>

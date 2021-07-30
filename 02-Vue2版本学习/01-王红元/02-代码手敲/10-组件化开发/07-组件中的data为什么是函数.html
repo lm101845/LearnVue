@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 组件实例：就是实例对象的意思 -->
+    <div id="app">
+        <cpn></cpn>
+        <cpn></cpn>
+        <cpn></cpn>
+        <!-- 根据下面注册的组件，创建出来了3个组件实例 -->
+        <!-- 这3个组件实例有无共享同一个data对象啊？？？ 答案是否！！！-->
+        <!-- 因为组件中的data是一个函数，创建组件实例时会调用data函数，我们会在每次调用的时候return一个新的对象-->
+        <!-- 这样的话这3个组件彼此都是独立的，互不干扰！！ -->
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>当前计数：{{counter}}</h2>
+            <button @click="increment">+</button>
+            <button @click="decrement">-</button>
+            <!-- 这2个方法不能写到Vue实例里面！！ -->
+            <!-- 组件里面还可以有自己的methods，写到组件里的methods里面 -->
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 1.注册组件(先来个全局的)
+        Vue.component('cpn', {
+            template: '#cpn',
+            data() {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                // 组件也有自己的methods
+                // 组件就是一个封闭的空间，我自己里面有自己的数据，有自己的方法
+                increment() {
+                    this.counter++
+                },
+                decrement() {
+                    this.counter--
+                }
+            }
+        })
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            }
+        })
+    </script>
+
+    <script>
+        // 例子1：obj1,obj2,obj3不是同一个对象
+        function abc() {
+            return {
+                name: 'why',
+                age: 18
+            }
+        }
+
+        let obj1 = abc();
+        let obj2 = abc();
+        let obj3 = abc();
+        // 调用了3次abc函数，函数有返回值，分别给个名字obj1,obj2,obj3
+        // 问题：obj1,obj2,obj3是不是同一个对象？？？肯定不是！！！
+        // 因为函数每次执行的时候都会在栈空间创建很多新的变量
+
+        // 验证obj1，obj2，obj3不是同一个对象——比较内存地址
+        obj1.name = 'Kobe';
+        console.log(obj2.name);     //why
+        console.log(obj3.name);     //why
+        // 改变obj1的name,obj2和obj3中的name都没有变化，所以它们3个不是同一个东西
+
+
+        //例子2:obj4,obj5,obj6是同一个对象
+        const objj = {
+            name: 'why',
+            age: 18
+        }
+
+        function bcd() {
+            return objj;
+        }
+
+        let obj4 = bcd();
+        let obj5 = bcd();
+        let obj6 = bcd();
+        // 此时obj4,obj5,obj6是同一个对象！！！
+        obj4.name = 'Kobe';
+        console.log(obj5.name);     //Kobe
+        console.log(obj6.name);     //kobe
+
+        // 所以如果data不是函数而是对象的话，所有的组件实例都会引用同一个data对象
+        // 这个时候你改其中一个组件，其他组件也都会改变，所有的组件之间都相互关联，没有独立性。
+        // 组件之间一定要独立！！改了这个组件不能其他组件也会随着变化，这样就会乱套了！！！
+    </script>
+</body>
+
+</html>

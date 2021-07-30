@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <script src="./src/mathUtils.js"></script> -->
+    <!-- <script src="./src/main.js"></script> -->
+    <!-- 我们按照模块化的思想去开发，不用这样来写的 -->
+
+    <!-- 代码写好后我们要测试，但是不能直接打开index.html来测试 -->
+    <!-- 因为里面什么也没有，因为我们是没有通过scr的方式来引用main.js和mathUtils.js文件的 -->
+    <!-- 这2个js文件使用了模块化思想，没有采用src的方式来引用 -->
+    <!-- 况且这2个js文件包含了CommonJS代码，而浏览器根本不认识CommonJS代码的 -->
+    <!-- 解决方法：可以利用我们之前安装的Webpack进行打包 -->
+    <!-- 你只要打包出一个浏览器能够认识的文件，然后让index.html引用那个打包的文件(浏览器认识)就可以了 -->
+
+    <!-- 在这里我们引用打包好的bundle.js(浏览器认识)，可以进行代码测试了-->
+    <script src="./dist/bundle.js"></script>
+    <!-- 我们的开发模式：在src里面开发，想用什么模块化开发，就用什么模块化开发，
+         开发完后用webpack打包一下，打包完后我们再引用打包后的文件，
+         就可以进行测试，发送给服务器等一系列操作了 -->
+</body>
+
+</html>

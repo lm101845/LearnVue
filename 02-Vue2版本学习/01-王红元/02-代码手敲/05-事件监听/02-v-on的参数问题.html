@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 事件调用的方法没有参数,此时加不加小括号都行-->
+        <button @click="btnClick">按钮1不加小括号</button>
+        <button @click="btnClick()">按钮1加小括号</button>
+
+        <!-- 在事件定义时，写方法时省略了小括号(小括号都没有，更别说参数了)，但是方法本身是需要一个参数的，
+             这个时候Vue会默认将浏览器生成的event事件对象作为参数传入到方法中-->
+        <button @click="btn2Click(123)">按钮2正常情况</button>
+
+        <!-- btn2Click这个函数定义时是要传参数的，但是引用时没有写参数 -->
+        <!-- 后面写了小括号，但是里面没有写参数，会显示undefined -->
+        <button @click="btn2Click()">按钮2有小括号但里面没参数</button>
+
+        <!-- 函数后面连小括号都没写会显示MouseEvent -->
+        <button @click="btn2Click">按钮2连小括号都没有</button>
+
+        <!--方法定义时，我们需要event对象，同时又需要其他参数-->
+
+        <!-- 2个参数都不写会显示MouseEvent对象和undefined-->
+        <!-- Vue会把MouseEvent对象赋值给第一个参数——abc,undefined赋值给第二个参数event-->
+        <button @click="btn3Click">按钮3中2个参数都不写</button>
+
+        <!-- 只写第1个参数，第二个参数写的还是形参 -->
+        <!-- 此时小括号里的第二个参数event会被当成变量解析 -->
+        <button @click="btn3Click(123,event)">按钮3第2个参数是形参event</button>
+
+        <!-- 在调用方法时，如何手动的获取到浏览器参数的event对象呢？ 答：通过$event即可 -->
+        <!-- 如果第1个参数写的是'abc',那它会将其当成字符串；如果是abc,它会将其当成变量，就会
+             在下面找有没有这个变量，如果没有这个变量它就会报错-->
+        <button @click="btn3Click(123,$event)">按钮3第2个参数是$event</button>
+
+        <button>按钮4</button>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                // event: 'codewhy'
+                //如果没有找到变量event的值，就会报错说找不到这个属性。
+            },
+            methods: {
+                btnClick() {
+                    console.log("点击第一个按钮了");
+                },
+                btn2Click(event) {
+                    console.log('------------------', event);
+                },
+                btn3Click(abc, event) {
+                    console.log('++++++++++++++++++', abc, event);
+                }
+            }
+        })
+
+        // 如果函数需要参数，但是没有传入，那么函数的形参为undefined
+        // function fun(name) {
+        //     console.log(name);
+        // }
+        // fun();
+        // fun()因为小括号里没有传入参数,所以会显示undefined
+    </script>
+</body>
+
+</html>

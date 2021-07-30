@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="app1">
+        <cpn></cpn>
+        <!-- 组件可以正常渲染 -->
+    </div>
+
+    <div id="app2">
+        <cpn></cpn>
+        <!-- 组件可以正常渲染 -->
+    </div>
+
+    <cpn></cpn>
+    <!-- 该组件因为不在Vue实例中，所以不会被渲染 -->
+</body>
+<script src="js/vue.js"></script>
+<script>
+    const cpnC = Vue.extend({
+        template: `
+            <div>
+                这是我的第一个组件!
+            </div>`
+    })
+
+    Vue.component('cpn', cpnC)
+
+    const app1 = new Vue({
+        el: '#app1'
+    })
+
+    const app2 = new Vue({
+        el: '#app2'
+    })
+    // 实际开发中我们基本上只生成一个Vue实例的
+</script>
+
+</html>

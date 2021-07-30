@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app1">
+        <cpn1></cpn1>
+        <cpn2></cpn2>
+        <cpn3></cpn3>
+        <!-- 局部组件cpn2,cpn3只能在id为app的Vue实例中使用-->
+        <!-- 正好这个div的id为app,所以可以直接使用 -->
+    </div>
+
+    <div id="app2">
+        <cpn1></cpn1>
+        <cpn2></cpn2>
+        <cpn3></cpn3>
+        <!-- 这里cpn1可以用,它是全局组件，全局组件也只能在Vue实例下使用。
+             cpn2,cpn3都用不了，它们两个只能在id为app1的Vue实例下使用-->
+    </div>
+
+    <div>
+        <cpn1></cpn1>
+        <cpn2></cpn2>
+        <cpn3></cpn3>
+        <!-- 这里cpn1,cpn2,cpn3都用不了，全局组件也只能在Vue实例下使用-->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.component('cpn1', {
+            template: `
+            <div>
+                这是一个全局组件
+            </div>`
+        })
+        const app1 = new Vue({
+            el: '#app1',
+            components: {
+                cpn2: {
+                    template: `
+                     <div>
+                        这是局部第一个组件
+                    </div>`
+                },
+                cpn3: {
+                    template: `
+                     <div>
+                        这是局部第二个组件
+                    </div>`
+                }
+            }
+        })
+
+        const app2 = new Vue({
+            el: '#app2'
+            // 全局组件也只能在Vue实例下使用！！
+        })
+    </script>
+</body>
+
+</html>

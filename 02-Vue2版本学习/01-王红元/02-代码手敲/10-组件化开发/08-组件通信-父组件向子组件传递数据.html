@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn cmovies="movies" cmessage="message"></cpn>
+        <!-- 如果不写v-bind:它就会把字符串赋值给变量 -->
+        <cpn v-bind:cmovies="movies" v-bind:cmessage="message"></cpn>
+    </div>
+
+    <template id="cpn1">
+        <!-- 这个是子组件的模版 -->
+        <div>
+            <!-- {{movies}} -->
+            <!-- 我们是不能直接使用Vue实例里的数据的 -->
+
+            <p>{{cmovies}}</p>
+            <h2>{{cmessage}}</h2>
+            <!-- <ul>
+                <li v-for="item in cmovies">{{item}}</li>
+            </ul> -->
+            <!-- 但是可以用自己的变量：cmovies和cmessage-->
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 父传子：props
+        // 这种写法是省略了Vue.component吧？？？
+        const cpnC = {
+            template: '#cpn1',
+            // 方式1：传入数组——不好，怪怪的
+            // props: ['cmovies', 'cmessage'],
+            // 不要把它当成字符串，把它当成变量
+            // 但是把变量的名字放到字符串里面看起来就有点别扭
+            // props有好几种类型，可以写成数组或者对象
+            // c代码children:子组件
+
+            //方式2：传入对象
+            props: {
+                // 1.类型限制
+                // cmovies: Array,
+                // cmessage: String,
+
+                // 2.提供一些默认值
+                cmessage: {
+                    type: String,
+                    default: 'aaa',
+                    // default是指当别人没有给你传值的情况下，默认值是什么
+                    required: true
+                    // 表明cmessage必须要传值
+                },
+                cmovies: {
+                    // 类型是对象或数组时，默认值必须是一个函数
+                    type: Array,
+                    // default: []     //Vue2.5.17以下没问题
+                    default() {
+                        return []
+                        // 这样写就不会报错了
+                    }
+                }
+            }
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                movies: ['海王', '海贼王', '海尔兄弟']
+                // 这个数据是定义在父组件(root组件)中的(Vue实例里)
+            },
+            components: {
+                // 写法1：普通写法
+                // cpn: cpn
+
+                // 写法2：增强写法——直接写个cpn
+                // cpn
+
+                // 我还不太熟，先写下面这个吧
+                cpn: cpnC
+            }
+        })
+
+        // 对象自变量增强写法之属性的增强写法
+        // const name = 'why'
+        // const obj = {
+        //     // name: name,
+        //     // 写法1：普通写法
+        //     name
+        //     // 写法2：增强写法——直接写个name
+        // }
+    </script>
+</body>
+
+</html>

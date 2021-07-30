@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn></cpn>
+        <cpn></cpn>
+        <cpn></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <!-- <h2>{{message}}</h2> -->
+            <!-- 这样写不行，组件内部是无法访问到Vue实例里的数据的 -->
+
+            <h2>{{title}}</h2>
+            <!-- 这个title是组件里面data函数定义的变量，可以用胡子语法进行访问 -->
+            <p>我是内容，呵呵呵</p>
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+
+    <script>
+
+        Vue.component('cpn', {
+            template: '#cpn',
+            // data: {
+            //     title: 'abc'
+            //     // 如果硬要写对象类型的话会报错
+            // }
+            // 这个data属性用于存放组件内部属于我自己的一些变量，这样就不会写死了
+            // Vue实例里的data是一个对象类型，但是组件里的data不能是对象类型，只能是函数！！！
+            data() {
+                return {
+                    title: 'abc'
+                    // data本身是一个函数，返回的是一个对象，这个则没有问题
+                }
+            }
+        })
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            }
+        })
+    </script>
+</body>
+
+</html>

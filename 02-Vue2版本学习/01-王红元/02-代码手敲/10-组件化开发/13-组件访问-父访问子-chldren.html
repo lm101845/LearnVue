@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn ref="bbb"></cpn>
+        <!-- <my-cpn></my-cpn> -->
+        <!-- 中间不管你怎么加其他的组件，refs不会因为位置错乱而产生错误 -->
+        <cpn></cpn>
+        <cpn ref="aaa"></cpn>
+        <!-- 通过ref属性和下面的$refs进行对应上，aaa就相当于key了 -->
+        <button @click="btnClick">按钮</button>
+        <!-- 弄一个按钮，点击按钮的时候，就把子组件对象打印一下 -->
+    </div>
+
+    <template id="cpn">
+        <div>我是子组件</div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            methods: {
+                btnClick() {
+                    // 方法1：通过$children(数组类型)获取子组件信息(用的少，10%)
+                    // 只有当我们希望拿到所有的子组件时才会用它
+                    // 我们希望在Vue实例里访问刚才的子组件
+                    console.log(this.$children);
+                    console.log(this.$children[0]);
+                    // $children是一个数组，数组里只有一项，VueComponent
+                    console.log(this.$children[0].name);
+                    this.$children[0].showMessage();
+
+                    for (let c of this.$children) {
+                        console.log(c.name);
+                        c.showMessage();
+                    }
+                    // 但是在真实开发中我们一般不会用$children
+                    // 因为我们组件之间的位置可能会变化，变化了结果就不一样了
+
+                    // console.log(this.$children[2].name);
+                    // 用下标值来拿东西不好，不稳定
+
+                    // 方法2：通过$refs(对象类型)获取子组件信息(用的多，90%！)
+                    // 默认是一个空的对象
+                    console.log(this.$refs);
+                    console.log(this.$refs.aaa);
+                    console.log(this.$refs.aaa.name);
+                    // 必须要在组件标签上面给它加上属性
+                }
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    data() {
+                        return {
+                            name: '我是子组件的name'
+                        }
+                    },
+                    methods: {
+                        showMessage() {
+                            // 子组件里面有个简单的函数叫showMessage
+                            console.log('这是一个子组件');
+                        }
+                    },
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 语法糖写法：直接写个冒号(:)就可以了,前面的v-bind可以省略不写 -->
+        <img :src="imgURL" alt="">
+        <a :href="aHref">百度一下</a>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                imgURL: 'https://vuejs.bootcss.com/images/logo.png',
+                aHref: 'https://www.baidu.com'
+            }
+        })
+    </script>
+</body>
+
+</html>

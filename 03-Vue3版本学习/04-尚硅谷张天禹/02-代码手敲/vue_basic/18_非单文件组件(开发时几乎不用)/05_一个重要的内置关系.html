@@ -1,0 +1,107 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-07-30 21:03:01
+ * @LastEditTime: 2021-07-30 22:54:10
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\18_非单文件组件(开发时几乎不用)\05_一个重要的内置关系.html
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <!-- 引入Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 
+				1.一个重要的内置关系：VueComponent.prototype.__proto__ === Vue.prototype
+				2.为什么要有这个关系：让组件实例对象（vc）可以访问到 Vue原型上的属性、方法。
+		-->
+    <!-- 准备好一个容器 -->
+    <div id="root">
+        <school></school>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    Vue.config.productionTip = false; //阻止 vue 在启动时生成生产提示。
+  
+
+    const school = Vue.extend({
+      name: "school",
+      template: `
+				<div>
+					<h2>学校名称：{{name}}</h2>	
+					<h2>学校地址：{{address}}</h2>	
+					<button @click="showX">点我输出x</button>
+				</div>
+			`,
+      data() {
+        return {
+          name: "尚硅谷",
+          address: "北京",
+          x:100
+        };
+      },
+      methods: {
+        showX() {
+          console.log(this);
+          console.log(this.x);
+        },
+      },
+    });
+
+      const vm = new Vue({
+      //vm本身是没有$mount,$watch等属性的，不过你顺着原型链找(vm.__proto__),是可以找到的
+      el: "#root",
+      data: {
+          msg:'你好啊',
+          x:99
+      },
+      components: {
+          school
+      }
+    });
+
+    // console.log(VueComponent.prototype.__proto__ === Vue.prototype);
+    //报错：VueComponent is not defined
+    //【VueComponent是怎么出来的呢？？它要调用Vue.extend才能出来！！！】
+    //调用Vue.extend后才返回VueComponent构造函数，这里我们给你取了个名字叫school
+    console.log(school);
+    console.dir(school)
+    console.log(school.prototype.__proto__ === Vue.prototype);
+    //把VueComponent换成school就对了
+    
+
+
+    //复习一下prototype
+    //定义一个构造函数
+    // function Demo() {
+    //   this.a = 1;
+    //   this.b = 2;
+    // }
+
+    //创建一个Demo的实例对象
+    //const d = new Demo();
+
+    //console.log(Demo.prototype); //prototype的中文名叫显式原型属性
+    //d也有一个属性叫__proto__
+    //console.log(d.__proto__); //__proto__的中文名叫隐式原型属性
+
+    //prototype和__proto__，它们统统指向了一个对象，被我们称为原型对象
+
+    //注意：我们说的【显式和隐式】是对属性的一个修饰，最终的原型对象只有【一个】！！
+    //而不能理解为有2个原型对象，一个显示原型对象，一个隐式原型对象，这种理解是错误的
+    //console.log(Demo.prototype === d.__proto__); //true
+
+    //程序员通过显示原型属性操作原型对象，追加一个x属性，值为99
+    //Demo.prototype.x = 99;
+
+    // console.log(d.__proto__.x); //99
+    // console.log(d.x); //99
+
+    // console.log(d === d.__proto__); //false
+
+    // console.log(d);
+  </script>
+</html>

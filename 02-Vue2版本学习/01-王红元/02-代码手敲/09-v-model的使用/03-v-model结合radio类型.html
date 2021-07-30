@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <label for="male">
+            <input type="radio" id="male" name="sex" value="男" v-model="sex">男
+            <!-- 绑定了相同的v-model="sex",此时name可以不用写也能实现互斥了！！ -->
+            <!-- 在没有v-model的情况下，必须添加name属性，2个选项才能互斥，有了v-model就可以不用添加name属性了 -->
+        </label>
+
+        <label for="female">
+            <input type="radio" id="female" name="sex" value="女" v-model="sex">女
+        </label>
+        <h2>您选择的性别是：{{sex}}</h2>
+        <!-- 用户在选择时，要么选择男，要么选择女，现在可以两个都选上，有问题 -->
+        <!-- 我们要让这2个input互斥:给它们每个人都加上相同的name:sex即可-->
+        <!-- 一旦两个radio绑定的都是sex,name可以不用写！！！ -->
+        <!-- 往服务器提交表单的时候，key都是name,2个key的名字相同只能提交一个-->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                // sex: ''
+                // 我在表单里选择男，你就把男绑定到下面的sex里面，选择女同理。
+                sex: '男'
+                // 如果想要有个默认值，sex可以填上内容，如"男",因为数据双向绑定，
+                //所以上面的单选按钮选项会选择为男
+            }
+        })
+    </script>
+</body>
+
+</html>

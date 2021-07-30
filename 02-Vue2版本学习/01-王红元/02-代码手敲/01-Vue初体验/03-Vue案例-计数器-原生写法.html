@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        h2 {
+            display: inline;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h2>当前计数：</h2>
+        <h2 class="data">0</h2>
+    </div>
+    <button class="add">+</button>
+    <button class="sub">-</button>
+
+    <script>
+        var add = document.querySelector(".add");
+        var sub = document.querySelector(".sub");
+        var data = document.querySelector(".data");
+        console.log(data.innerHTML);
+        add.onclick = function () {
+            data.innerHTML++;
+        }
+        sub.onclick = function () {
+            data.innerHTML--;
+        }
+    </script>
+</body>
+
+</html>

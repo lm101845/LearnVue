@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{fullName}}</h2>
+        <!-- fullName不是一个函数，它是一个属性，所以可以直接用胡子语法 -->
+        <!-- 如果用写法1.0，fullName成了一个函数，但也可以直接用胡子语法啊 -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'Kobe',
+                lastName: 'Bryant'
+            },
+            computed: {
+                //computed后面的大括号里面的内容(fullName)本质上就是一个对象 
+
+                // 写法1.0
+                // fullName: function () {
+                //     return this.firstName + ' ' + this.lastName;
+                // }
+
+                //写法2.0
+                fullName: {
+                    // 我们在{}这个对象里面定义了一个属性叫fullName,而fullName它的类型也是对象
+                    // fullName在外面是一个属性(属性有setter和getter方法)，在内部是一个方法
+                    // 完整的计算属性它其实是这样写的
+
+                    set: function (newValue) {
+                        // 计算属性一般情况下实现get方法就可以了，set方法一般不用实现
+                        // 我们不希望别人随便给我们计算属性设置值，所以我们经常会把set方法给删除掉
+                        //当我们在控制台输入app.fullName = 'abc'时就会调用set方法(修改属性)，会打印'---'
+                        console.log('-----------');
+                        // 像下面这样写的话如果修改属性值，浏览器上显示的内容也会响应的修改了！！
+                        console.log('-----------', newValue);
+                        const names = newValue.split(' ');
+                        this.firstName = names[0];
+                        this.lastName = names[1];
+                    },
+
+                    // 计算属性一般是没有set方法的，没有了set方法其实它就是一个只读属性
+                    get: function () {
+                        // return 'abc';
+                        // 之后使用fullName属性时，会显示abc。
+                        // 因为当我们使用fullName属性时，本质上会来调用我们get方法，拿到的结果进行显示
+                        return this.firstName + ' ' + this.lastName;
+                    }
+                },
+                //写法3.0（2.0的简便写法）
+                //一般我们不写set方法，只写get方法，在此基础上的简写如下：
+                // fullName: function () {
+                //     return this.firstName + '-' + this.lastName;
+
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>

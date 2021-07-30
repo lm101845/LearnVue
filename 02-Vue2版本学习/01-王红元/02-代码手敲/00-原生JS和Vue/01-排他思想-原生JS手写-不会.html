@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+    <script>
+        var btns = document.querySelector('button');
+        btns.onclick = function () {
+            // btn.style.backgroundColor = '';
+            // this.style.backgroundColor = 'pink';
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].style.backgroundColor = '';
+                this.btn.style.backgroundColor = 'pink';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

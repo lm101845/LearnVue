@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn></cpn>
+    </div>
+    <template id="cpn">
+        <div>
+            {{a}}
+            我是组件
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.component('cpn', {
+            template: '#cpn',
+            // data: {
+            //     a: 1
+            //     // 组件中的data是一个对象，不行！！
+            //     // 组件中的data只能是一个函数，然后这个函数返回一个对象
+            // }
+            data() {
+                return {
+                    a: 1
+                }
+            }
+        })
+        const app = new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>

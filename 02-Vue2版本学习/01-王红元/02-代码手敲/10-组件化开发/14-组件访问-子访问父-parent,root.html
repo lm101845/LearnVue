@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>我是cpn组件</h2>
+            <ccpn></ccpn>
+        </div>
+    </template>
+
+    <template id="ccpn">
+        <div>
+            <h2>我是子子组件</h2>
+            <button @click="btnClick">按钮</button>
+            <!-- 这个按钮是在子子组件里面的 -->
+            <!-- 在子组件里点击之后看如何访问父组件 -->
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    data() {
+                        return {
+                            name: "我是cpn组件的name"
+                        }
+                    },
+                    components: {
+                        // 真实开发中不会这样组件套组件的
+                        // 因为这样写的话，子组件就不够独立了(没有复用性了)
+                        ccpn: {
+                            template: '#ccpn',
+                            methods: {
+                                btnClick() {
+                                    // 1.访问父组件(亲爸爸，不是爷爷)$parent
+                                    console.log(this.$parent);
+                                    // 打印出来的就是一个VueComponent
+                                    console.log(this.$parent.name);
+
+                                    // 2.访问根组件$root
+                                    console.log(this.$root);
+                                    //打印出来的就是一个Vue实例
+                                    console.log(this.$root.message);
+                                    // 这个也很少用，因为真实开发中Vue实例里面一般什么东西也没有
+                                    // 非常简单，里面就一些非常重要的东西
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

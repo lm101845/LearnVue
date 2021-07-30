@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <my-cpn></my-cpn>
+        <!--位置1：组件在id为app的div里(在Vue的实例里)-->
+        <div>
+            <div>
+                <my-cpn></my-cpn>
+                <!-- 位置2：组件在id为app的div的更深几层(也在Vue的实例里) -->
+            </div>
+        </div>
+    </div>
+    <my-cpn></my-cpn>
+    <!-- 位置3：组件不在id为app的div里(不在Vue的实例里，这个不行，无法渲染出来) -->
+    <!-- 只会显示这个标签，但浏览器不认识这个标签，所以没有太大意义 -->
+    <script src="js/vue.js"></script>
+    <script>
+
+        const cpnC = Vue.extend({
+
+            template: `
+                <div>
+                    <h2>我是标题</h2>
+                    <p>我是内容，哈哈哈</p>
+                    <p>我是内容，呵呵呵</p>
+                </div>`
+        })
+
+
+        Vue.component('my-cpn', cpnC)
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            }
+        })
+    </script>
+</body>
+
+</html>

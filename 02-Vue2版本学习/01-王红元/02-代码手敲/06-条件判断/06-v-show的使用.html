@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 
+            v-if:死亡(当条件为false时，包含v-if指令的元素，根本就不会存在DOM中)
+            如果将条件再次改为true,它会再重新创建一个新的元素，原来的那个死了，再也回不来了。
+            你不需要我的时候，我就直接自杀了(铮铮铁骨)
+
+            v-show:隐身(当条件为false时，v-show只是给我们的元素添加一个行内样式:display:none)
+            你不需要我的时候，我就隐身，但仍然留在你身边(终极舔狗)，等你需要的时候，我再现身服务你:display:block
+         -->
+        <h2 v-if="isShow" id="aaa">v-if的{{message}}</h2>
+        <h2 v-show="isShow" id="bbb">v-show的{{message}}</h2>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                isShow: true
+            }
+        })
+    </script>
+</body>
+
+</html>

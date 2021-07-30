@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn :number1="num1" :number2="num2"></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>{{number1}}</h2>
+            <!-- 需求：在子组件里面想要做一件事：弄一个input -->
+            <!-- input可以通过v-model做一个双向绑定 -->
+            <!-- 想要通过input对number1做一个双向绑定 -->
+            <!-- 希望input里面的数字发生变化的话，number1跟着变 -->
+            <!-- 并且Vue实例里面的num1,2也一起跟着发生改变 -->
+            <input type="text" v-model="number1">
+            <!-- 刚开始这样写的，直接绑定number1 -->
+            <h2>{{number2}}</h2>
+            <input type="text" v-model="number2">
+            <!-- 以前v-model绑定的都是Vue实例里面data数据 -->
+            <!-- 现在这个v-model绑定的是组件里面通过props自定义的两个属性number1,2了 -->
+            <!-- 虽然v-model直接绑定number1,2看上去没有问题，但其实控制台报错了 -->
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                num1: 1,
+                num2: 0
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    props: {
+                        number1: Number,
+                        number2: Number
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

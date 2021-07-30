@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <!-- 作业需求：点击列表中的哪一项，那么该项的文字就会变成红色。一定要试着自己独立写！！-->
+    <div id="app">
+        <ul>
+            <!-- <li v-for="m in movies">{{m}}</li> -->
+            <!-- 因为遍历的是li不是ul,所以v-for要写到li里面！！！ -->
+            <!--m是个变量名，叫什么名字都可以-->
+            <!-- <br> -->
+            <!-- 老师提示：不仅要拿到元素，最好还要再拿到下标 -->
+            <!-- 第一个参数表示遍历的元素，第二次参数表示下标：我还自己实验了一下... -->
+            <!-- <li v-for="(m,m) in movies">{{m}}-{{m}}</li>
+
+            <br>
+            <li v-for="(m,n) in movies">{{n}}-{{m}}</li>
+
+            <br> -->
+            <li v-for="(m,index) in movies" :class="{active:changeRed == index}" v-on:click="change(index)">
+                {{index}}-{{m}}</li>
+
+        </ul>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                movies: ['海尔兄弟', '猫和老鼠', '舒克贝塔', '太阳之子'],
+                changeRed: -1
+            },
+            methods: {
+                change: function (index) {
+                    this.changeRed = index;
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

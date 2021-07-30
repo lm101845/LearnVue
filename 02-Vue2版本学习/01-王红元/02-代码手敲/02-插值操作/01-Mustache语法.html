@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{message}}</h2>
+        <h2>{{message}},世界</h2>
+        <!-- Mustache语法中，不仅仅可以直接写变量，也可以写简单的表达式 -->
+        <h2>{{firstName + lastName}}</h2>
+        <h2>{{firstName + ' ' + lastName}}</h2>
+        <h2>{{firstName}} {{lastName}}</h2>
+        <h2>{{counter * 2}}</h2>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                firstName: 'Hello',
+                lastName: 'Kitty',
+                counter: 100
+            }
+        })
+        app.firstName = 'Tom';
+        //app由const修饰，是常量，但是改app内部的属性是可以的
+    </script>
+</body>
+
+</html>

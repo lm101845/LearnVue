@@ -1,0 +1,15 @@
+{
+  "name": "meetwebpack",
+  "version": "1.0.0",
+  "description": "这个主要是学习配置webpack.config.js,就可以直接使用webpack命令打包了，不用输入webpack ./src/main.js ./dist/bundel.js这么长的命令了",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "lm",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^3.12.0"
+  }
+}

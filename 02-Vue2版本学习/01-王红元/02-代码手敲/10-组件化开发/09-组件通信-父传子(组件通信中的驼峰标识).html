@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <cpn :cInfo="info"></cpn> -->
+        <!-- 这里是不支持驼峰写法的，所以写cInfo是不认识的 -->
+        <cpn :c-info="info"></cpn>
+        <!-- 如果一定要写驼峰方法：可以在中间加个横杠 -->
+        <!-- <cpn :cinfo="info"></cpn> -->
+    </div>
+    <template id="cpn">
+        <h2>{{cInfo}}</h2>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+
+        const cpn = {
+            template: '#cpn',
+            props: {
+                // props一般都用对象
+                cInfo: {
+                    type: Object,
+                    default() {
+                        // default如果是对象的话必须要是一个函数
+                        return {}
+                    }
+                }
+            }
+        }
+        const app = new Vue({
+            el: '#app',
+            data: {
+                info: {
+                    // 现在的个人信息是被定义在父组件里面了(root组件)
+                    //想要把父组件的个人信息传到子组件里面并且做一个展示
+                    name: 'why',
+                    age: 18,
+                    height: 1.88
+                }
+            },
+            components: {
+                cpn
+                // ES6属性增强写法
+            }
+        })
+    </script>
+</body>
+
+</html>

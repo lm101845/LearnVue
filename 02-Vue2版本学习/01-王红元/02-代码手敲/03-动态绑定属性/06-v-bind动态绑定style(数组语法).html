@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2 :style='[baseStyle,baseStyle1,baseStyle2]'>{{message}}</h2>
+        <!-- 数组中放的是一个一个元素，而不是键值对 -->
+        <!-- 里面的baseStyle不要加单引号，要把它当成变量 -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                baseStyle: { backgroundColor: 'pink' },
+                baseStyle1: { fontSize: '100px' },
+                baseStyle2: { color: 'green' }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

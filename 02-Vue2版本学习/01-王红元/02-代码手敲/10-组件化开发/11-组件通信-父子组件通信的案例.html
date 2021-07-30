@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn :number1="num1" :number2="num2" @num1change="num1change" @num2change="num2change"></cpn>
+        <!-- 注：cpn使用单标签也是可以的 -->
+    </div>
+
+
+    <template id="cpn">
+        <div>
+            <h2>props:{{number1}}</h2>
+            <h2>data:{{dnumber1}}</h2>
+            <input type="text" v-model="dnumber1">
+            <input type="text" v-bind:value="dnumber1" @input="dnumber1=$event.target.value">
+            <input type="text" v-bind:value="dnumber1" @input="num1Input">
+            <!-- 以前的v-model都是绑定data里面的数据，现在v-model绑定的是props里的数据了 -->
+            <h2>props:{{number2}}</h2>
+            <h2>data:{{dnumber2}}</h2>
+            <input type="text" v-model="dnumber2">
+            <input type="text" v-bind:value="dnumber2" @input="dnumber2=$event.target.value">
+            <input type="text" v-bind:value="dnumber2" @input="num2Input">
+            <!-- 下面这种写法更加的清爽 -->
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                num1: 1,
+                num2: 0
+            },
+            methods: {
+                num1change(value) {
+                    // console.log(typeof value);
+                    // 这个是String类型，要转换为数字类型
+                    // this.num1 = value * 1
+                    // 上面这样也是可以的
+                    this.num1 = parseFloat(value)
+                    // parseFloat专门用于把字符串转变为数值
+                },
+                num2change(value) {
+                    // console.log(typeof value);
+                    // this.num2 = value * 1
+                    this.num2 = parseFloat(value)
+
+                }
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    props: {
+                        // props强烈建议写成对象，不写数组
+                        number1: Number,
+                        number2: Number
+                        // 不推荐这样写，会报错
+                        // 如果你想直接展示，可以这样写，如果你想修改，一定要放到data函数里面
+                        // 这2个属性一定要通过父组件对它进行修改
+                        // 因为props最终的目的是让父组件给它传数据
+                    },
+                    data() {
+                        return {
+                            dnumber1: this.number1,
+                            dnumber2: this.number2
+                        }
+                    },
+                    methods: {
+                        num1Input(event) {
+                            // 1.将input中的value赋值到了dnumber中
+                            this.dnumber1 = event.target.value;
+                            // 2.为了让父组件可以修改值，发出一个事件
+                            this.$emit('num1change', this.dnumber1)
+                            // 3.同时修改dnumber2的值
+                            this.dnumber2 = this.dnumber1 * 100
+                            this.$emit('num2change', this.dnumber2)
+                        },
+                        num2Input(event) {
+                            this.dnumber2 = event.target.value;
+                            this.$emit('num2change', this.dnumber2)
+
+                            // 同时修改dnumber2的值
+                            this.dnumber1 = this.dnumber2 / 100;
+                            this.$emit('num1change', this.dnumber1)
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

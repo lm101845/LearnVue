@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>计算器</title>
+    <style>
+        .box {
+            width: 400px;
+            display: flex;
+            margin: 0 auto;
+            flex-flow: column nowrap;
+            align-items: center;
+        }
+
+        .row {
+            display: flex;
+            flex-flow: row wrap;
+        }
+
+        .column {
+            display: flex;
+            flex-flow: column nowrap;
+        }
+
+        .row-1 {
+            justify-content: flex-end;
+        }
+
+        .row-2>div {
+            width: 300px;
+        }
+
+        .row-3>div {
+            width: 300px;
+        }
+
+        .show {
+            width: 400px;
+            height: 100px;
+            border: 1px solid;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .show-1 {
+            font-size: 30px;
+            line-height: 35px;
+        }
+
+        .show-2 {
+            font-size: 40px;
+            line-height: 45px;
+        }
+
+        button {
+            width: 100px;
+            height: 100px;
+            font-size: 30px;
+        }
+
+        .width-2 {
+            width: 200px;
+        }
+
+        .height-2 {
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class='box'>
+        <div class="show">
+            <div class="show-1">0</div>
+            <div class="show-2">0</div>
+        </div>
+        <div class="num-button">
+            <div class="row row-1">
+                <button>/</button>
+                <button>*</button>
+                <button>-</button>
+            </div>
+            <div class="row row-2">
+                <div class="row">
+                    <button>7</button>
+                    <button>8</button>
+                    <button>9</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button>
+                </div>
+                <button class="height-2">+</button>
+            </div>
+            <div class="row row-3">
+                <div class="row">
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button class="width-2">0</button>
+                    <button>.</button>
+                </div>
+                <button class="height-2">Enter</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let elementHeight = function (e) {
+            return `height: ${e.offsetHeight}, width: ${e.offsetWidth}`
+        }
+        let show1 = document.getElementsByClassName('show-1')[0]
+        let show2 = document.getElementsByClassName('show-2')[0]
+        let oc = 1
+        let button = document.getElementsByClassName('box')[0].addEventListener('click', function (e) {
+            if (!oc) {
+                show1.innerHTML = 0
+                oc = 1
+            }
+            if (e.target.innerText == 'Enter') {
+                show2.innerHTML = eval(show1.innerHTML)
+                oc = 0
+            } else {
+                if (show1.innerHTML == 0 && isNaN(e.target.innerText)) return
+                show1.innerHTML = show1.innerHTML == 0 ? e.target.innerText : (show1.innerHTML + e.target.innerText)
+            }
+        })
+    </script>
+</body>
+
+</html>

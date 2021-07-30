@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 这里是Vue的模版 -->
+    <div id="app">
+        <!-- 有了组件里定义的两个属性number1,2 -->
+        <!-- {{num1}} -->
+        <!-- {{num2}} -->
+        <!-- num1,num2也是在Vue里面的数据，所以可以在这里直接用 -->
+        <cpn :number1="num1"></cpn>
+        <cpn :number2="num2"></cpn>
+        <!-- 但是在Vue模版里使用组件的时候，组件里不能直接使用num1,2 -->
+        <!-- 需要间接使用number1,2属性进行动态绑定 -->
+    </div>
+
+    <!-- 这里是组件的模版 -->
+    <template id="cpn">
+        <div>
+            <!-- 组件模版里必须有个根，所以这里写个div -->
+            <!-- 在Vue实例里面写好后，我们再在这里做一个展示，看有没有传过来 -->
+            <h2>{{number1}}</h2>
+            <h2>{{number2}}</h2>
+            <!-- 注意：number1,number2是组件里面定义的属性!! -->
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                num1: 1,
+                num2: 0
+                // 这个是组件里面的数据
+                // 现在需要将num1,num2传到组件里面
+            },
+            // 在Vue实例里面注册了一个组件
+            components: {
+                // 如果抽离的话可以cpn:cpnC
+                // 其中cpn是标签名，cpnC是组件构造器名
+                // 然后在外面写组件构造器cpnC里面的内容
+                cpn: {
+                    template: '#cpn',
+                    // 如果想要往组件里面传值(父组件Vue实例里面的num1,num2)
+                    // 并且在div里面进行展示
+                    // 必须在组件内部定义props
+                    props: {
+                        number1: Number,
+                        number2: Number
+                        // 注意：number1,number2是组件里面定义的属性
+                        // 名字是随便起的
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

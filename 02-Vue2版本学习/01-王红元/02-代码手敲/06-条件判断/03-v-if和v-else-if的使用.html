@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 方法1 -->
+        <!-- 下面这样的写法用的不是特别多，因为如果真有这样复杂的逻辑判断，不建议使用标签的形式来进行判断 -->
+        <!-- 一方面阅读性不强，另一方面写起来也会感到很别扭 -->
+        <h2 v-if='score>=90'>优秀</h2>
+        <h2 v-else-if='score>=80'>良好</h2>
+        <!-- 因为是else-if，是在上面条件不满足的情况下才会判断下面的条件，
+            所以第二个条件可以不用写'&&score < 90' -->
+        <h2 v-else-if='score>=60'>及格</h2>
+        <h2 v-else>不及格</h2>
+
+        <!-- 方法2 -->
+        <!-- 可以使用计算属性来做，更加简单 -->
+        <h1>{{result}}</h1>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                score: 99
+            },
+            computed: {
+                result() {
+                    let showMessage = '';
+                    if (this.score >= 90) {
+                        showMessage = '优秀';
+                    } else if (this.score >= 80) {
+                        showMessage = '良好';
+                    } else if (this.score >= 60) {
+                        showMessage = '及格';
+                    } else {
+                        showMessage = '不及格';
+                    }
+                    return showMessage;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

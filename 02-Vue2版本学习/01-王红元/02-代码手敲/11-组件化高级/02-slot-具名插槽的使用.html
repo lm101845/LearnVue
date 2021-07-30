@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn><span>标题1</span></cpn>
+        <!-- 组件模版有3个插槽，你只写了一个组件，它会把默认的插槽都替换为标题 -->
+        <!-- 但是现在我只想你给我改一个，另外的不要给我改 -->
+        <!-- 这个时候你可以给插槽起个名字就可以了 -->
+
+        <!-- 要想替换有名字的插槽，必须在使用的时候给它写上名字 -->
+        <cpn><span slot="center">标题2</span></cpn>
+        <cpn><button slot="right">返回</button></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <slot name="left"><span>左边</span></slot>
+            <slot name="center"><span>中间</span></slot>
+            <slot name="right"><span>右边</span></slot>
+            <slot>哈哈哈</slot>
+            <!-- 别的插槽有名字，你这个插槽没有名字，它只会替换没有名字的插槽 -->
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                cpn: {
+                    template: '#cpn'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn></cpn>
+        <cpn></cpn>
+        <cpn></cpn>
+    </div>
+
+    <div id="app2">
+        <cpn></cpn>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        // 1.创建组件构造器
+        // cpnC是cpnContructor的缩写
+        const cpnC = Vue.extend({
+            template: `
+                <div>
+                    <h2>我是标题</h2>
+                    <p>我是内容，哈哈哈</p>
+                </div>  
+            `
+        })
+        // 2.注册组件(全局组件!!!意味着可以在多个Vue实例下面使用)
+        // 全局组件这样写
+        // Vue.component('cpn', cpnC)
+        // 我们之前在Vue开发的时候，只是创建了一个Vue实例对象(开发中可以有很多个)
+        // 但是真实开发一般只有一个
+
+        // 疑问：怎么注册的组件才是局部组件呢
+        // 答：你去某个Vue的实例下面注册，它就只能在这个Vue的实例下面用了
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                // 直接在Vue实例里面注册组件，就只能在这个Vue实例里用了
+                // components是复数，意味着可以注册多个组件
+                // 局部组件这样写
+                cpn: cpnC
+                // 这个是使用组件时的标签名
+                // 和上面的全局组件的写法Vue.component('cpn', cpnC)效果一样，只不过这是局部组件的写法
+                // components是个对象，key(cpn)就是标签名，value(cpnC)就是组件构造器
+                // 在开发中用的最多的还是局部组件
+            }
+        })
+
+        const app2 = new Vue({
+            el: '#app2'
+        })
+    </script>
+</body>
+
+</html>

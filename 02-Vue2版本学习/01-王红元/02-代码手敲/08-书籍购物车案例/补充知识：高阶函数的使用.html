@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //编程范式划分1：命令式编程/声明式编程
+        //编程范式划分2：面向对象编程(第一公民：对象)/函数式编程(第一公民：函数)
+        //三个高阶函数：filter/map/reduce
+        //高阶函数的意思是：函数本身需要的参数，它可能也是一个函数
+        const nums = [10, 20, 111, 222, 444, 40, 50];
+
+        // 需求1：要求把所有小于100的数字都取出来
+        let newNums = [];
+        for (let n of nums) {
+            //for...in保存的是键名
+            //for...of保存的是键值
+            if (n < 100) {
+                newNums.push(n);
+            }
+        }
+        console.log(newNums);
+
+        // 需求2：将所有小于100的数字进行转化，全部乘以2
+        let new2Nums = [];
+        for (let n of newNums) {
+            new2Nums.push(n * 2)
+        }
+        console.log(new2Nums);
+
+        // 需求3：将new2Nums里面的数字相加，得到最终的结果
+        let total = 0;
+        for (let n of new2Nums) {
+            total += n;
+        }
+        console.log(total);
+
+        //如果用高阶函数来做这3个需求，一切都会变得简单很多了
+
+        // filter第一个参数就是一个函数
+        // 而这个函数的第一个参数则表示数组当前项的值，第一次是10，第二次是20，所以一共会回调7次 
+        // filter中的回调函数有一个要求：必须返回一个布尔值(true或false)
+        // true:当返回true时，函数内部会自动将这次回调的value加入到新的数组中去
+        // false:当返回false时，函数内部会过滤掉这次的value(不再使用这个value了，过滤掉了)
+
+        // 高阶函数filter实现需求1
+        let new3Nums = nums.filter(function (value) {
+            // 第一个参数(函数)必须返回一个布尔值
+            // return true;
+            return value < 100;
+            // 过滤掉大于100的项，只留下小于100的项，变成新的数组
+        })
+        console.log(new3Nums);
+
+        // 高阶函数map实现需求2
+        let new4Nums = newNums.map(function (value) {
+            // 这个函数每次返回的值会作为我们新的值
+            // return 100;
+            return value * 2;
+            // 20,40,80,100
+        })
+        console.log(new4Nums);
+
+        // 高阶函数reduce实现需求3
+        //用法：对数组中所有内容进行汇总(比如数组中所有内容进行相加)
+        let total1 = new4Nums.reduce(function (preValue, value) {
+            //reduce有2个参数，第一个参数是函数，里面还有2个参数；第2个参数是初始化值，我们一般填0
+            // preValue表示前一个值，value表示当前的值
+            // 数组中有4个值，所以这个函数会遍历4次
+            // 第1次：preValue为0(因为它的初始化为0)——在我们的案例里面value是20
+            // 第2次：preValue为0+20(它返回100)——在我们的案例里面value是40
+            // 第3次：preValue为0+20+40(它返回100)——在我们的案例里面value是80
+            // 第4次：preValue为0+20+40+80(它返回100)——在我们的案例里面value是100
+            // return 0+20+40+80+100=240;
+            return preValue + value;
+        }, 0)
+        console.log(total1);
+
+        // 终结版：通过高阶函数直接把240给弄出来
+        // 进行链式编程
+        // 原先要写三坨代码才能得到240，现在只要1坨代码就可以了！！！牛皮！！
+        let total2 = nums.filter(function (value1) {
+            return value1 < 100;
+        }).map(function (value1) {
+            return value1 * 2;
+        }).reduce(function (preValue1, value1) {
+            return preValue1 + value1;
+        }, 0)
+        console.log(total2);
+
+        // 使用箭头函数的终结版:看上去更加的简洁优美
+        let total3 = nums.filter(value2 => value2 < 100)
+            .map(value2 => value2 * 2)
+            .reduce((preValue2, value2) => (preValue2 + value2));
+        console.log(total3);
+    </script>
+</body>
+
+</html>

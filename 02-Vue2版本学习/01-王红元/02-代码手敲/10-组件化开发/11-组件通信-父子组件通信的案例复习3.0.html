@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn :number1="num1" :number2="num2"></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>props里面的：{{number1}}</h2>
+            <h2>data里面的：{{dnumber1}}</h2>
+            <input type="text" v-model="dnumber1">
+
+            <h2>props里面的：{{number2}}</h2>
+            <h2>data里面的：{{dnumber2}}</h2>
+            <input type="text" v-model="dnumber2">
+            <!-- v-model不绑定number1,2而是绑定dnumber1,2，这样更合理 -->
+            <!-- 因为v-model绑定的是data里面的dnumber1,2，所以number1,2不会变化 -->
+        </div>
+    </template>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                num1: 1,
+                num2: 0
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    props: {
+                        number1: Number,
+                        number2: Number
+                    },
+                    data() {
+                        // 这个是组件里面的data
+                        return {
+                            dnumber1: this.number1,
+                            dnumber2: this.number2,
+                            // 根据props里面的number1,2来初始化一下组件里面的dnumber1,2
+                            // 等你初始化完成之后，上面的v-model就不绑定number1,2了
+                            // 而是转而绑定dnumber1,2了
+                            // 这样绑定才是一个合理的做法
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

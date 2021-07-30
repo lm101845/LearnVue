@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn></cpn>
+        <!-- 注意这里如果使用单标签它就无法显示下面的按钮了，不知道为什么 -->
+        <button @click="btnClick">按钮</button>
+        <!-- 当你点击Vue实例(父组件)的这个按钮时，要求访问子组件里面的一些东西 -->
+        <!-- 注意：这个按钮是Vue实例里面的！！点击它却可以访问到子组件里面的方法！！ -->
+    </div>
+
+    <template id="cpn">
+        <div>我是子组件</div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            methods: {
+                btnClick() {
+                    console.log(this.$children);
+                    // 会显示[VueComponent],是一个数组类型
+                    // 这个VueComponent里面也有一个$children的属性，只不过是一个空的数组
+                    // 因为cpn子组件里面已经没有子组件了
+                    // 这个VueComponent里面也有一个showMessage函数的
+                    this.$children[0].showMessage()
+                    //通过this.$children[0]拿到这个子组件，然后调用它里面的showMessage方法
+                }
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    methods: {
+                        showMessage() {
+                            console.log('我是子组件里面的showMessage');
+                        }
+                    },
+                }
+            }
+        }); 
+    </script>
+</body>
+
+</html>

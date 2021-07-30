@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>当前计数: {{counter}}</h2>
+        <!-- 写法1.0 -->
+        <!-- h2里面的"当前计数"是死的，不用放到大括号里面去 -->
+        <!-- <button v-on:click="counter++">+</button> -->
+        <!-- 改的时候直接使用变量的名字counter改的 -->
+        <!-- 监听事件用v-on -->
+        <!-- :click表示监听的是click事件 -->
+        <!-- <button v-on:click="counter--">-</button> -->
+
+        <!-- 写法2.0 -->
+        <!-- <button v-on:click='add'>+</button> -->
+        <!-- 表示点击按钮会执行add和sub函数 -->
+        <!-- <button v-on:click='sub'>-</button> -->
+
+        <!-- 写法3.0：语法糖版 -->
+        <!-- 语法糖：本质就是简写 -->
+        <button @click='add'>+</button>
+        <button @click="sub">-</button>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        // 响应式里面有做一层代理(proxy)的
+        // 2.0 data升级版
+        const obj = {
+            counter: 0
+        }
+        const app = new Vue({
+            // el: '#app',
+            //el也可以传HTMLElement
+            // el: document.querySelector("#app"),
+            // 1.0 data初始版
+            // data: {
+            //     counter: 0
+            // },
+
+            // 2.0 data升级版
+            data: obj,
+            methods: {
+                // s表示负数，说明可以定义很多个方法
+                add: function () {
+                    console.log("add被执行了");
+                    // 在方法里不能直接写变量的名字counter了，否则它会在全局里找counter，但是找不到
+                    // console.log(this.data);
+                    // this表示当前对象
+                    this.counter++;
+                    //疑问：为什么是this.counter而不是this.data呢？？？？？
+                    //这个this不是应该指向的是app吗？还是指向谁？？
+                    //应该是counter是个变量(属性名)吧
+                },
+                sub: function () {
+                    console.log("sub被执行了");
+                    this.counter--;
+                }
+            },
+        })
+
+        //原生JS做法：
+        //1.拿buttton元素
+        //2.添加监听事件
+    </script>
+</body>
+
+</html>

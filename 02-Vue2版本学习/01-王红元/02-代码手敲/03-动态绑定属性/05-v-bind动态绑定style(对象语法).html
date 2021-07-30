@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+
+        <!-- <h2 v-bind:class="{key1：value1,key2:value2}">{{message}}</h2> -->
+        <!-- v-bind绑定class时，里面的value1,value2是布尔值 -->
+
+        <!-- <h2 :style="{key(CSS属性名):value(属性值)}">{{message}}</h2> -->
+        <!-- v-bind绑定style时，里面的value是字符串 -->
+
+        <!-- 属性名可以用驼峰语法写，也可以短横线分隔，但是驼峰语法用的更多 -->
+        <!-- <h2 :style="{font-size:}">{{message}}</h2> -->
+
+        <!-- <h2 :style="{fontSize:50px}">{{message}}</h2> -->
+        <!-- 如果不加单引号，Vue会把50px当成是一个变量去解析,会报错 -->
+
+        <h2 :style="{fontSize:'50px'}">{{message}}</h2>
+        <!-- 把50px外面写上2个单引号就可以了 -->
+        <!-- 这样写类似于行内式，还是写死的 -->
+
+        <h2 :style="{fontSize:finalSize}">{{message}}</h2>
+        <!-- 这里的finalSize不用加单引号，将finalSize当成变量进行解析的 -->
+
+        <h2 :style="{fontSize:finalSize2 + 'px',color:finalColor}">{{message}}</h2>
+        <!-- 这里finalSize2后面跟的是数字，不是字符串，那么必须在后面加上+'px'进行连接 -->
+
+        <h2 :style=getStyles()>{{message}}</h2>
+        <!-- 如果感觉style里面的东西(对象)很长，也可以把它给抽出来 -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                finalSize: '100px',
+                finalSize2: 30,
+                finalColor: 'red'
+            },
+            methods: {
+                getStyles: function () {
+                    return { fontSize: this.finalSize2 + 'px', backgroundColor: this.finalColor }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 以后就写语法糖了，v-bind就直接省略不写了啊 -->
+        <h2 class="title" :class="['active','line']">{{message}}</h2>
+        <!-- 这个写的很少，因为类还是写死的 -->
+        <!-- 3个类：title active line -->
+
+        <h2 class="title" :class="[active,line]">{{message}}</h2>
+        <!-- 如果将单引号删除的话，它就会当成变量解析 -->
+        <!-- 三个类：title aaaaaa bbbbbb -->
+
+        <h2 class="title" :class="getClasses()">{{message}}</h2>
+        <!-- 也可以把class里面的内容放到methods里面 -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊',
+                active: 'aaaaaa',
+                line: 'bbbbbb'
+            },
+            methods: {
+                getClasses: function () {
+                    return [this.active, this.line]
+                    // 还是要记得加this啊
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

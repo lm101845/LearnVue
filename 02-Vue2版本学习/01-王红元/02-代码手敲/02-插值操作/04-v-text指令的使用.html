@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{message}},世界</h2>
+        <!-- 上面这个可以进行拼接 -->
+
+        <h2 v-text='message'>，世界</h2>
+        <!-- 下面这个不会拼接，会覆盖掉元素里面的内容(,世界)，不够灵活-->
+        <!-- 和Mustache语法相比，v-text就黯然失色了 -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            }
+        })
+    </script>
+</body>
+
+</html>

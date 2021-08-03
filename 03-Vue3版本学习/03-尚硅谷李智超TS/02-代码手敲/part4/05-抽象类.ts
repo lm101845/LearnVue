@@ -1,8 +1,8 @@
 /*
  * @Author: liming
  * @Date: 2021-05-21 19:02:51
- * @LastEditTime: 2021-05-21 20:09:21
- * @FilePath: \LearnTypeScript\01-尚硅谷李智超\part4\05-抽象类.ts
+ * @LastEditTime: 2021-08-01 16:37:36
+ * @FilePath: \03-尚硅谷李智超TS\02-代码手敲\part4\05-抽象类.ts
  */
 
 (function () {
@@ -54,7 +54,8 @@
     sayHello() {
       console.log("喵喵喵");
     }
-  }
+    }
+    
   const dog = new Dog("小黑");
   dog.sayHello();
 

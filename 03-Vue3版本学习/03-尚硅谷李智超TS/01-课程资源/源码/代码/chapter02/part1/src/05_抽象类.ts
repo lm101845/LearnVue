@@ -1,5 +1,10 @@
+/*
+ * @Author: liming
+ * @Date: 2020-12-11 11:34:43
+ * @LastEditTime: 2021-08-01 16:36:03
+ * @FilePath: \03-尚硅谷李智超TS\01-课程资源\源码\代码\chapter02\part1\src\05_抽象类.ts
+ */
 (function () {
-
     /*
     *   以abstract开头的类是抽象类，
     *       抽象类和其他类区别不大，只是不能用来创建对象

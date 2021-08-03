@@ -1,8 +1,8 @@
 /*
  * @Author: liming
  * @Date: 2021-05-21 18:18:36
- * @LastEditTime: 2021-05-21 18:43:00
- * @FilePath: \LearnTypeScript\01-尚硅谷李智超\part4\04-super.ts
+ * @LastEditTime: 2021-08-01 16:52:38
+ * @FilePath: \03-尚硅谷李智超TS\02-代码手敲\part4\04-super.ts
  */
 (function () {
   // super:超级的意思
@@ -38,7 +38,7 @@
     //   而如果你现在写了constructor构造函数的话，你就必须手动的去调用一下父类的构造函数
 
     //   注意：父类的构造函数有一个name参数，子类中也要把它给写上！！！！！！！！！
-      
+
     //   这个你可以把它理解成ts或者js给我们遗留下来的一个问题，这个就稍微有点麻烦了，以后记得写就好了
     constructor(name: string, age: number) {
       //   这里就是在调用父类的构造函数
@@ -47,15 +47,14 @@
     }
     // sayHello() {
     //     super.sayHello()
-    //     // super表示的就是我们的父类
-    //     // 在类的方法中，super就表示当前类的父类(或当成当前类的父类的实例都行)
+    // super表示的就是我们的父类
+    // 在类的方法中，super就表示当前类的父类(或当成当前类的父类的实例都行)
 
-    //     // 我试了，不写sayHello()也是可以的，因为sayHello方法子类是自动继承父类的
+    // 我试了，不写sayHello()也是可以的，因为sayHello方法子类是自动继承父类的
     //     console.log('汪汪汪');
-
     // }
   }
 
-  const dog = new Dog("小黑",3);
+  const dog = new Dog("小黑", 3);
   dog.sayHello();
 })();

@@ -1,3 +1,9 @@
+/*
+ * @Author: liming
+ * @Date: 2020-12-11 11:34:43
+ * @LastEditTime: 2021-08-01 16:55:06
+ * @FilePath: \03-尚硅谷李智超TS\01-课程资源\源码\代码\chapter02\part1\src\06_接口.ts
+ */
 (function () {
 
     // 描述一个对象的类型
@@ -44,7 +50,6 @@
     * */
     class MyClass implements myInter{
         name: string;
-
         constructor(name: string) {
             this.name = name;
         }

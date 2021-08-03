@@ -1,4 +1,10 @@
 /*
+ * @Author: liming
+ * @Date: 2020-12-11 11:34:43
+ * @LastEditTime: 2021-08-01 18:19:48
+ * @FilePath: \03-尚硅谷李智超TS\01-课程资源\源码\代码\chapter02\part1\src\08_泛型.ts
+ */
+/*
 function fn(a: any): any{
     return a;
 }*/

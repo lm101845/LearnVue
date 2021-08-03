@@ -1,3 +1,9 @@
+/*
+ * @Author: liming
+ * @Date: 2021-03-15 21:09:30
+ * @LastEditTime: 2021-08-01 16:09:28
+ * @FilePath: \03-尚硅谷李智超TS\02-代码手敲\part1\02_basis.ts
+ */
 // let a;
 // a = 10;
 // a = 'hello'
@@ -31,7 +37,7 @@ let c: boolean = true;
 c = false
 
 // let d = true
-// 编译器很操作，你没有写boolean,它看到赋值为true,就知道d为布尔值了
+// 编译器很聪明，你没有写boolean,它看到赋值为true,就知道d为布尔值了
 // d = 123
 // 你就算没有写变量类型(声明变量时没有写boolean)
 // 更改变量为123时还是会报错

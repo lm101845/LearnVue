@@ -1,8 +1,8 @@
 /*
  * @Author: liming
  * @Date: 2021-05-21 17:14:40
- * @LastEditTime: 2021-05-21 17:37:14
- * @FilePath: \LearnTypeScript\01-尚硅谷李智超\part4\03-继承.ts
+ * @LastEditTime: 2021-08-01 16:47:54
+ * @FilePath: \03-尚硅谷李智超TS\02-代码手敲\part4\03-继承.ts
  */
 
 // 定义一个表示狗的类
@@ -42,7 +42,7 @@
 
   // 一个问题：Dog类和Cat类里面的结构和内容基本是一模一样的
   // 唯一不同的是：狗的sayHello是汪汪汪，猫的sayHello是喵喵喵
-  // 所以我们可以在外面定义一个Animal类
+  // 所以我们可以在外面定义一个Animal类,写上通用的代码，让Dog和Cat类来继承Animal类
   const dog = new Dog("旺财", 3);
   const cat = new Cat("咪咪", 2);
 

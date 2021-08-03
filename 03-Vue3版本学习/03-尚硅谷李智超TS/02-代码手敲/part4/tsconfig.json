@@ -4,8 +4,10 @@
         "target":"ES2015",
         "strict":true,
         "outDir":"./dist",
+        "noEmitOnError":true
+        //有错误时不去编译
     },
     // "include":[
     //     "./src/**/*"
     // ]
-}
+} 

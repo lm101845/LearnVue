@@ -1,0 +1,31 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-08-03 09:55:48
+ * @LastEditTime: 2021-08-03 16:55:06
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_test\public\index.html
+-->
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <!-- 针对IE浏览器的一个特殊配置，含义是让IE浏览器以最高的渲染级别渲染页面 -->
+    <!-- 不过加了这句话也没有什么实质上的作用，Vue不支持IE8及以下版本 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 开启移动端的理想视口 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!-- 如果你想引入public文件夹里面的东西，不要用./这种相对路径，使用BASE_URL来防止出错 -->
+    <!-- 配置页签图标 -->
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <!-- 配置网页的标题 -->
+    <!-- 它默默的找到package.json里面的name作为标题 -->
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+      <!-- 当浏览器不支持JS时，noscript里面的标签就会渲染 -->
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

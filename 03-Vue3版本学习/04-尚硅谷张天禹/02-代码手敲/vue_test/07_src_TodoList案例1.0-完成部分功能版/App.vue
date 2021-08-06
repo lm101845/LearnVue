@@ -1,7 +1,7 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-03 16:41:23
- * @LastEditTime: 2021-08-07 03:54:22
+ * @LastEditTime: 2021-08-07 01:23:33
  * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_test\src\App.vue
 -->
 <template>
@@ -12,18 +12,10 @@
         <MyHeader :addTodo="addTodo" />
         <!-- 同时我也可以把一个函数传给MyHeader -->
         <!-- APP是一个父亲，想给孩子传什么就传什么，数组可以传，函数同样也可以传 -->
-        <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo" />
-        <!-- 爷爷想给孙子传东西，只能先经过父亲 -->
-        <!-- <MyList :todos="todos" /> -->
+        <MyList :todos="todos" :checkTodo="checkTodo" />
         <!-- todos是一个数组，我可以把数组传给MyList-->
         <!-- checkTodo先给MyList，之后再通过MyList传给MyItem -->
-        <MyFooter
-          :todos1="todos"
-          :checkAllTodo="checkAllTodo"
-          :clearAllTodo="clearAllTodo"
-        />
-        <!-- 这里我想测试一下todos1和todos的关系，todos1是自定义属性的名字，todos是传入的数据-->
-        <!-- MyFooter在使用的时候，使用的是todos1，属性的名字 -->
+        <MyFooter />
       </div>
     </div>
   </div>
@@ -64,29 +56,6 @@ export default {
         //遍历数组找对应的id
         if (todo.id === id) todo.isCompleted = !todo.isCompleted;
       });
-    },
-    // 删除一个todo
-    deleteTodo(id) {
-      this.todos = this.todos.filter((todo) => {
-        //过滤掉我不想要的就是一种删除
-        // 细节问题：fileter是不改变原来数组的
-        return todo.id !== id;
-      });
-    },
-
-    //全选或取消全选
-    checkAllTodo(done) {
-      this.todos.forEach((todo) => {
-        todo.isCompleted = done;
-      });
-    },
-    //清楚所有已经完成的todo
-    clearAllTodo() {
-      if (confirm("确认清除已完成任务吗?")) {
-        this.todos = this.todos.filter((todo) => {
-          return !todo.isCompleted;
-        });
-      }
     },
   },
 };

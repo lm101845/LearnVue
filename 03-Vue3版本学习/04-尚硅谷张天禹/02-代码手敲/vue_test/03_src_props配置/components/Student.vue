@@ -1,7 +1,7 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-04 00:22:35
- * @LastEditTime: 2021-08-04 02:58:35
+ * @LastEditTime: 2021-08-06 22:17:42
  * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_test\03_src_props配置\components\Student.vue
 -->
 <template>
@@ -50,7 +50,7 @@ export default {
   //   我这里微信收款确认了，但是钱存到哪里去了？？
   //   是在Student组件实例对象vc里面存起来的
 
-  //    App.vue是付款方(写外部数据)，Student.vue是收款方(写props)
+  //    App.vue是付款方(提供外部数据)，Student.vue是收款方(写props，接收外部数据)
   //    但是收款方也是有原则的，不是什么东西都收的，可以给props属性写限制条件
 
   //    收款方式2：有条件接收写法(接收的同时给它们进行类型进行限制)

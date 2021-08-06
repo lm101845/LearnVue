@@ -5,15 +5,14 @@
  * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_test\src\components\Student.vue
 -->
 <template>
-  <div>
-    <h2 @click="showName">学生姓名：{{ name }}</h2>
+  <!-- <div class="test"> -->
+  <div class="demo">
+    <h2 class="qwe">学生姓名：{{ name }}</h2>
     <h2>学生性别：{{ sex }}</h2>
   </div>
 </template>
 
 <script>
-//这里是局部混合，还可以全局混合(在main.js里面引入)
-// import { hunhe, hunhe2 } from "../mixin";
 export default {
   name: "Student",
   data() {
@@ -22,8 +21,18 @@ export default {
       sex: "男",
     };
   },
-  //   mixins: [hunhe, hunhe2],
 };
 </script>
 
-<style></style>
+<style scoped lang="less">
+/* 在Vue里面你不仅仅可以用css来写样式，还可以用css预处理器,比如less,sass,stylus等来写样式 */
+// 但是Vue脚手架处理不了less，需要安装一个less-loader来处理
+//注意：Vue脚手架是依托于webpack的，现在webpack的最高版本是5，但是vue官方依托的webpack脚手架版本是4.46【官方求稳】，就出现了兼容性问题了
+// 所以你不要直接安装最新版的less-loader，要安装低版本的less-loader即可(建议安装7版本的——最新版的都是10了)
+.demo {
+  background-color: orange;
+  .qwe {
+    font-size: 40px;
+  }
+}
+</style>

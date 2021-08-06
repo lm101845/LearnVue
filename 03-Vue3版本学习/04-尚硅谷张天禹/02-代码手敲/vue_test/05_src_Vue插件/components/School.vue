@@ -5,13 +5,18 @@
  * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_test\src\components\School.vue
 -->
 <template>
-  <div class="demo">
+  <div>
     <h2>学校名称：{{ name }}</h2>
+    <h2>学校名称：{{ name | mySlice }}</h2>
     <h2>学校地址：{{ address }}</h2>
+    <button @click="test">点我测试一下hello方法</button>
   </div>
 </template>
 
 <script>
+//引入一个hunhe
+//这里是局部混合，还可以全局混合(在main.js里面引入)
+// import { hunhe, hunhe2 } from "../mixin";
 export default {
   name: "School",
   data() {
@@ -28,11 +33,4 @@ export default {
 };
 </script>
 
-<style scoped lang="css">
-/* 你在这些组件里写的样式，最终都是汇总到一起的 */
-/* 既然它们汇总到一起，就会出现一个问题：【类名冲突 】 */
-/* 但是写了scoped样式就有了作用域了，就解决这个问题了 */
-.demo {
-  background-color: skyblue;
-}
-</style>
+<style></style>

@@ -1,0 +1,71 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-08-14 00:43:29
+ * @LastEditTime: 2021-08-15 17:25:44
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\08_浏览器本地存储\localStorage.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage</title>
+</head>
+<body>
+    <h2>localStorage</h2>
+    <!-- localStorage最大的特点是：你把浏览器关闭，它也不会消失。你把电脑关了，它也不会消失,除非用户主动清空缓存或者你引导用户点击删除API-->
+    <!-- sessionStorage最大的特点是：你把浏览器关闭，它就没了-->
+    <button onclick='saveData()'>点我保存一个数据</button>
+    <button onclick='readData()'>点我读取一个数据</button>
+    <button onclick='deleteData()'>点我删除一个数据</button>
+    <button onclick='clearData()'>点我清空一个数据(删除数据的完全版)</button>
+    <script>
+        function saveData(){
+            let p  = {name:'张三',age:18}
+            console.log(p.toString());
+            // [object Object]
+            // 注意：对象千万不要给它调用toString方法，调完后就不认识了，不认识[object Object]是什么
+
+            // localStorage是window身上的属性，可以直接写
+            // setItem:设置一个值，类型是键值对
+            localStorage.setItem('msg','hello!!的!')
+            // 注意：key和value都得是字符串
+            localStorage.setItem('msg2',666)
+            // 这里它帮你把数字类型(颜色是蓝色)的666转换为了字符串类型(颜色是黑色)
+            // localStorage.setItem(msg3,666)
+            //这样写无效
+            localStorage.setItem('person',p)
+            // 只要你第二个参数value，给的不是String类型，它就会调用toString()方法
+            // 但是对象.toString()的结果是[object Object]，我们没办法看到里面是什么
+            // 所以我们用对象的JSON.stringify()方法(将对象==>字符串，且能提现出里面的内容)
+            localStorage.setItem('person',JSON.stringify(p))
+            //JSON.stringify可以把一个对象变成字符串的形式，并且可以提现里面的内容，不像刚才的toString方法
+        }
+
+         function readData(){
+            let p  = {name:'张三',age:18}
+            console.log(localStorage.getItem('msg'));
+            console.log(localStorage.getItem('msg2'));
+            const result = localStorage.getItem('person')
+            console.log(result);
+            console.log(JSON.parse(result));   //json字符串解析为对象
+        }
+
+           function deleteData(){
+               // 注意：删除的语法是removeItem,不叫deleteItem
+            let p  = {name:'张三',age:18}
+            localStorage.removeItem('msg');
+            localStorage.removeItem('msg2');
+            localStorage.removeItem('person')
+
+        }
+
+
+            function clearData(){
+               // 注意：删除的语法是removeItem,不叫deleteItem
+                localStorage.clear()
+        }
+    </script>
+</body>
+</html> 

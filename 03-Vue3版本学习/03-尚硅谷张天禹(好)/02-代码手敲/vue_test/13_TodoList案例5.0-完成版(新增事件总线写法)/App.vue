@@ -1,7 +1,7 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-03 16:41:23
- * @LastEditTime: 2021-08-17 00:06:41
+ * @LastEditTime: 2021-08-16 20:59:36
  * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\App.vue
 -->
 <template>
@@ -26,9 +26,6 @@
 </template>
 
 <script>
-//引入消息订阅库pubsub
-// 第三方库一般往上靠
-import pubsub from "pubsub-js";
 import MyHeader from "./components/MyHeader";
 import MyList from "./components/MyList";
 // 不要引入MyItem了，因为MyItem是MyList的子组件,父亲代表儿子即可
@@ -54,19 +51,8 @@ export default {
         if (todo.id === id) todo.isCompleted = !todo.isCompleted;
       });
     },
-    //更改编辑后的数据
-    //更新一个todo
-    updateTodo(id, title) {
-      this.todos.forEach((todo) => {
-        //遍历数组找对应的id
-        if (todo.id === id) todo.title = title;
-      });
-    },
     // 删除一个todo
-    // deleteTodo(msgName, id) {
-    deleteTodo(_, id) {
-      // 并且这个deleteTodo不能直接用，它有2个参数，第一个是消息的id，第二个是消息的名字
-      // 可以使用下划线去占个位，表示前面有一个参数，但是我不用，这样才能保证我收到的是正常的参数
+    deleteTodo(id) {
       this.todos = this.todos.filter((todo) => {
         return todo.id !== id;
       });
@@ -105,28 +91,17 @@ export default {
     // 不写this报错： checkTodo is not defined，害我找了半天。。。。。。
     this.$bus.$on("zidingyicheckTodo", this.checkTodo);
     // 如果有一天zidingyicheckTodo这个自定义事件被触发了(肯定是Item它自己触发的，Item要用emit进行触发)，我这里就调用我自己这里定义的回调函数checkTodo
-    // this.$bus.$on("zidingyideleteTodo", this.deleteTodo);
-
-    //什么时候去订阅？？组件挂载完毕就去订阅
-    // pubsub.subscribe("deleteTodo", deleteTodo);
-    // 不要忘了加this！！！！并且这个deleteTodo不能直接用，它有2个参数，第一个是消息的id，第二个是消息传过来的数据
-    this.pubId = pubsub.subscribe("deleteTodo", this.deleteTodo);
-    // 当有人发布消息时，我再拿到传过来的数据，执行我自己写的回调
-
-    this.$bus.$on("updateTodo", this.updateTodo);
+    this.$bus.$on("zidingyideleteTodo", this.deleteTodo);
   },
   //   最好在组件即将被销毁的时候，进行一下解绑
   beforeCreate() {
     this.$bus.$off("zidingyicheckTodo");
-    // this.$bus.$off("zidingyideleteTodo");
-    pubsub.unsubscribe(this.pubId);
-    this.$bus.$off("updateTodo ");
+    this.$bus.$off("zidingyideleteTodo");
   },
 };
 </script>
 
 <style>
-/* App里面的样式全体都用，不要加scoped */
 body {
   background: #fff;
 }
@@ -148,13 +123,6 @@ body {
   color: #fff;
   background-color: #da4f49;
   border: 1px solid #bd362f;
-}
-
-.btn-edit {
-  color: #fff;
-  background-color: skyblue;
-  border: 1px solid rgb(103, 159, 180);
-  margin-right: 5px;
 }
 
 .btn-danger:hover {

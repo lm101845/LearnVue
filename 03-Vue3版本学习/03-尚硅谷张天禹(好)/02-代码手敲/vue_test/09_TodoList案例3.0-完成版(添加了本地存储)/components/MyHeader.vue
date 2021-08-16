@@ -1,8 +1,8 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-06 21:24:12
- * @LastEditTime: 2021-08-16 14:19:49
- * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\components\MyHeader.vue
+ * @LastEditTime: 2021-08-06 23:56:03
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_test\src\components\MyHeader.vue
 -->
 <template>
   <div class="todo-header">
@@ -55,11 +55,9 @@ export default {
       //   以目前我们的知识量，想从组件外部给组件里面携带一些数据进去，只能有一个写法：props
       //   但是MyHeader和MyList不是包裹关系，不是父子，它们是兄弟关系
       //   APP组件是宰相，给谁传东西都能传。(直接在App组件里面写<MyList a="1"></MyList>即可)
-      //    使用自定义事件的写法
-      //   this.$emit("zidingyiaddTodo", todoObj);
-      this.$emit("addTodo", todoObj);
+
       //通知App组件去添加一个对象
-      //   this.addTodo(todoObj);
+      this.addTodo(todoObj);
       //   写法1
       //   event.target.value = "";
       //文字敲完了添加一行了之后要清空
@@ -67,10 +65,11 @@ export default {
       this.title = "";
     },
   },
-  //   props: ["addTodo"],
-  // 使用自定义事件的话就不需要再接收了
+  props: ["addTodo"],
+  //父亲传的很高级，传的是一个函数
 };
 </script>
+
 <style scoped>
 /*header*/
 .todo-header input {

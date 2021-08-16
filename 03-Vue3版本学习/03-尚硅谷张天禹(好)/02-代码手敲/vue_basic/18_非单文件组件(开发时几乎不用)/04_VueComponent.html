@@ -1,8 +1,8 @@
 <!--
  * @Author: liming
  * @Date: 2021-07-30 19:45:30
- * @LastEditTime: 2021-07-30 21:16:48
- * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\18_非单文件组件(开发时几乎不用)\04_VueComponent.html
+ * @LastEditTime: 2021-08-16 18:21:01
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_basic\18_非单文件组件(开发时几乎不用)\04_VueComponent.html
 -->
 <!DOCTYPE html>
 <html>
@@ -15,30 +15,25 @@
   <body>
     <!-- 
 			关于VueComponent：
-						1.school组件本质是一个名为VueComponent的构造函数，且不是程序员定义的，是Vue.extend生成的。
-
-						2.我们只需要写<school/>或<school></school>，Vue解析时会帮我们创建school组件的实例对象，
-							即Vue帮我们执行的：new VueComponent(options)。
-
-						3.特别注意：每次调用Vue.extend，返回的都是一个全新的VueComponent！！！！
-
-						4.关于this指向：
-								(1).组件配置中：
-											data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【VueComponent实例对象】。
-								(2).new Vue(options)配置中：
-											data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【Vue实例对象】。
-
-						5.VueComponent的实例对象，以后简称vc（也可称之为：组件实例对象）。
-							Vue的实例对象，以后简称vm。
-                            vm里的东西vc都有，不过，我们不能在它们两个之间划等号
-                            vm是老大，vm管理着一个个的vc
-                            vm可以通过el属性我到底为哪个容器服务，但是vc里面不能写el来指定为哪个容器服务
-                            vc只能跟着大哥混
-                            vc和vm之间有99%东西都是一样的，就1%(比如el，data中vm可以写对象，函数，vc中只能写函数)不一样
-
-                            Vue官方文档：
-                            组件是可复用的 Vue 实例，因为组件是可复用的 Vue 实例，所以它们与 new Vue 接收相同的选项，
-                            例如 data、computed、watch、methods 以及生命周期钩子等。仅有的例外是像 el 这样根实例特有的选项。
+	1.school组件本质是一个名为VueComponent的构造函数，且不是程序员定义的，是Vue.extend
+	2.我们只需要写<school/>或<school></school>，Vue解析时会帮我们创建school组件的实例对象，
+		即Vue帮我们执行的：new VueComponent(options)
+	3.特别注意：每次调用Vue.extend，返回的都是一个全新的VueComponent
+	4.关于this指向：
+			(1).组件配置中：
+				data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【VueComponent实例对象】。
+			(2).new Vue(options)配置中：
+				data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【Vue实例
+	5.VueComponent的实例对象，以后简称vc（也可称之为：组件实例对象）。
+		Vue的实例对象，以后简称vm。
+        vm里的东西vc都有，不过，我们不能在它们两个之间划等号
+        vm是老大，vm管理着一个个的vc
+        vm可以通过el属性我到底为哪个容器服务，但是vc里面不能写el来指定为哪个容器服务
+        vc只能跟着大哥混
+        vc和vm之间有99%东西都是一样的，就1%(比如el，data中vm可以写对象，函数，vc中只能写函数
+        Vue官方文档：
+        组件是可复用的 Vue 实例，因为组件是可复用的 Vue 实例，所以它们与 new Vue 接收相同的选项，
+        例如 data、computed、watch、methods 以及生命周期钩子等。仅有的例外是像 el 这样根实例特有的选项。
 		-->
 
     <!-- 准备好一个容器 -->

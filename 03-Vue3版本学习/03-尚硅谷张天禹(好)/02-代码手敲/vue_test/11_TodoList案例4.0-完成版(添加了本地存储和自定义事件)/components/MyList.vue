@@ -1,13 +1,19 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-06 21:24:12
- * @LastEditTime: 2021-08-16 20:30:43
- * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\components\MyList.vue
+ * @LastEditTime: 2021-08-07 02:24:53
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_test\src\components\MyList.vue
 -->
 <template>
   <ul class="todo-main">
     <!-- 因为复用，所以只要一个li就可以了 -->
-    <MyItem v-for="todoObj in todos" :key="todoObj.id" :todo="todoObj" />
+    <MyItem
+      v-for="todoObj in todos"
+      :key="todoObj.id"
+      :todo="todoObj"
+      :checkTodo="checkTodo"
+      :deleteTodo="deleteTodo"
+    />
     <!-- 不仅要根据数据的数量去遍历我用多少次MyItem,而且还要把每一条具体信息对象传给item  -->
     <!-- 要使用props给MyItem（儿子）组件传数据 -->
     <!-- todoObj是遍历的时候每一个要遍历的对象 -->
@@ -27,8 +33,19 @@ import MyItem from "./MyItem";
 export default {
   name: "MyList",
   components: { MyItem },
-  props: ["todos"],
-  //   props: ["todos", "checkTodo", "deleteTodo"],
+  //   data() {
+  //     return {
+  //       todos: [
+  //         { id: "001", title: "吃饭", isCompleted: true },
+  //         { id: "002", title: "睡觉", isCompleted: false },
+  //         { id: "003", title: "打豆豆", isCompleted: true },
+  //         //这id要用字符串，因为你用number的话，在JS里面number是有尽头的
+  //         //我是爹，我要把我里面的数据传给儿子(微信给儿子钱，儿子要写props确认)
+  //       ],
+  //     };
+  //   },
+  props: ["todos", "checkTodo", "deleteTodo"],
+  //   props: ["todos"],
 };
 </script>
 

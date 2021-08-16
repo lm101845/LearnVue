@@ -1,8 +1,8 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-06 21:24:12
- * @LastEditTime: 2021-08-16 14:19:24
- * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\components\MyFooter.vue
+ * @LastEditTime: 2021-08-07 03:48:27
+ * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_test\src\components\MyFooter.vue
 -->
 <template>
   <div class="todo-footer" v-show="total">
@@ -22,8 +22,7 @@
 export default {
   name: "MyFooter",
   //   html5里面有个标签叫footer，所以组件最好不要叫footer
-  //   props: ["todos1", "checkAllTodo", "clearAllTodo"],
-  props: ["todos1"],
+  props: ["todos1", "checkAllTodo", "clearAllTodo"],
   computed: {
     doneTotal() {
       // 这个是计算属性的简写，没有get,set
@@ -66,9 +65,7 @@ export default {
       },
       set(value) {
         // console.log("###", value);
-        // this.checkAllTodo(value);
-        this.$emit("checkAllTodo", value);
-        // value就是儿子想给父亲传递的东西
+        this.checkAllTodo(value);
       },
     },
   },
@@ -80,8 +77,7 @@ export default {
     },
     clearAll() {
       //告诉App把所有isCompeleted为真的都删掉
-      //   this.clearAllTodo();
-      this.$emit("clearAllTodo");
+      this.clearAllTodo();
     },
   },
 };

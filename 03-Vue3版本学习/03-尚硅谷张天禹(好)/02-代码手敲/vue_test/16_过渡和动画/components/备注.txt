@@ -1,0 +1,14 @@
+Test是使用动画写的，只用了hello-enter-active、hello-leave-active2个类名
+
+
+Test2是使用过渡写的，使用了6个类名：
+.hello-enter,
+.hello-leave-to 
+
+.hello-enter-active,
+.hello-leave-active 
+
+.hello-enter-to,
+.hello-leave 
+
+Test3是使用第三方库写的

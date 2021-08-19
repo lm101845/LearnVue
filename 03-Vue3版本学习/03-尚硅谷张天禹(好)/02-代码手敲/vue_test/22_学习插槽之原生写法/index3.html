@@ -1,0 +1,85 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-08-19 03:16:52
+ * @LastEditTime: 2021-08-19 03:19:28
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\22_学习插槽之原生写法\index3.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn></cpn>
+        <hr>
+        <cpn>
+            <span>Java-</span>
+            <span>JavaScript-</span>
+            <span>C-</span>
+            <span>C++-</span>
+            <span>Go-</span>
+            <span>Python</span>
+        </cpn>
+        <hr>
+        <!-- 第二次展示的时候我希望能用横杠进行分割来展示 -->
+        <!-- 但是我们总不能手写吧！！ -->
+        <!-- 父组件替换插槽中间的标签，但是内容仍由子组件提供。 -->
+
+        <!-- <cpn v-for="item in pLanguages"></cpn> -->
+        <!-- 这样写也是不行的，因为在Vue实例里找不到pLanguages这个变量！！ -->
+        <!-- 可以看前面学的编译作用域就知道了 -->
+        <!-- 我们父组件想要展示子组件的数据，但是父组件里拿不到子组件的数据(编译作用域) -->
+        <cpn>
+            <!-- 我们的目的是获取子组件中的变量:pLanguages -->
+            <!-- Vue2.5.x以下必须要用template模版 -->
+            <template slot-scope="slot">
+                <!-- <span v-for="item in slot.data">{{item}} -</span> -->
+                <!-- 但是这样写最后还会有一个横杠，强迫症表示不行 -->
+                <span>{{slot.data.join(' - ')}}</span>
+            </template>
+
+            <template slot-scope="slot">
+                <!-- <span v-for="item in slot.data">{{item}} * </span> -->
+                <!-- 但是这样写最后还会有一个乘号，强迫症表示不行 -->
+                <span>{{slot.data.join(' * ')}}</span>
+            </template>
+        </cpn>
+    </div>
+    
+    <template id="cpn">
+        <div>
+            <slot :data="pLanguages">
+                <!-- slot这样写 -->
+                <ul>
+                    <li v-for="item in pLanguages">{{item}}</li>
+                    <!-- 有些人希望这样展示，有些人不希望，所以我们要弄一个插槽 -->
+                    <!-- 当别人没有写的时候，就默认ul li这样展示 -->
+                </ul>
+            </slot>
+        </div>
+    </template>
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    data() {
+                        return {
+                            pLanguages: ['Java', 'JavaScript', 'C', 'C++', 'Go', 'Pytho']
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

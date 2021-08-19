@@ -1,11 +1,11 @@
 /*
  * @Author: liming
  * @Date: 2021-08-04 16:05:26
- * @LastEditTime: 2021-08-04 16:30:25
- * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_test\src\plugins.js
+ * @LastEditTime: 2021-08-18 22:06:50
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\05_src_Vue插件\plugins.js
  */
 
-//插件本质上就是一个对象
+//插件本质上就是一个【对象】
 // const obj = {
 export default {
   install(Vue, x, y, z) {

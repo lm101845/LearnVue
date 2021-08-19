@@ -1,0 +1,73 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-08-19 03:07:27
+ * @LastEditTime: 2021-08-19 03:10:53
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\22_学习插槽之原生写法\index1.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        1.插槽的基本使用：在组件里定义一个slot标签 <slot></slot>
+        2.插槽的默认值：<slot>button</slot>
+        3.如果有多个值，同时放到组件中进行替换时，会一起作为替换元素(替换掉默认的button)
+    -->
+    <div id="app">
+        <cpn></cpn>
+        <hr>
+        <!-- 这样写的话，就会把这个按钮替换到插槽slot这个位置上面去了 -->
+        <cpn><span>哈哈哈</span></cpn>
+        <hr>
+        <!-- 如果有某一类东西显示的次数非常多(大部分都显示按钮)，只有一些是特殊的， -->
+        <!-- 如果我们这样写反而显得有些啰嗦了 -->
+        <!-- 解决方法：在插槽里面给它一个默认值(比如默认是button) -->
+        <cpn>
+            <i>呵呵呵</i>
+            <div>我是div元素</div>
+            <p>我是p元素</p>
+            <!-- 这3个会全部显示出来 -->
+        </cpn>
+        <hr>
+        <cpn></cpn>
+        <!-- 这里封装的组件是没有扩展性的-->
+        <!-- 比如第一个组件下面我想显示一个button,第二个组件下面我想显示span标签
+             第三个组件下面我想显示一个i标签等等等 -->
+        <!-- 在模板下面给组件定义一个插槽就可以了 -->
+    </div>
+
+    <template id="cpn">
+        <div>
+            <h2>我是组件</h2>
+            <p>我是组件，哈哈哈</p>
+            <!-- <button>按钮</button> -->
+            <!-- 如果我直接把按钮加到这个组件模版里面，那所有组件下面都有一个按钮 -->
+            <slot></slot>
+            <!-- 插槽就相当于给组件预留了一个空间，就像电脑上预留的USB插孔一样 -->
+            <!-- 你想让我这里显示什么，你可以自主决定 -->
+            <!-- 在真实开发过程中封装的组件，你都要给它预备插槽 -->
+            <slot><button>按钮</button></slot>
+            <!-- 这个插槽有默认值，如果你没有指定的话，就默认值button了 -->
+        </div>
+    </template>
+    <script src="vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                cpn: {
+                    template: '#cpn'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

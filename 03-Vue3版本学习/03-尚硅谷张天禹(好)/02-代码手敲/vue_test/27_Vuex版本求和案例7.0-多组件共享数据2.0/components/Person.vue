@@ -12,7 +12,6 @@
     <input type="text" placeholder="请输入名字" v-model="name" />
     <button @click="add">添加</button>
     <button @click="addWang">添加一个姓王的人</button>
-    <button @click="addPersonServer">添加一个人，名字随机</button>
     <ul>
       <!-- <li v-for="p in $store.state.personList" :key="p.id">{{ p.name }}</li> -->
       <li v-for="p in personList" :key="p.id">{{ p.name }}</li>
@@ -23,7 +22,6 @@
 <script>
 // import { mapState } from "vuex";
 import { nanoid } from "nanoid";
-
 export default {
   name: "Person",
   data() {
@@ -44,8 +42,7 @@ export default {
     },
     firstPersonName() {
       //   return this.$store.getters.personAbout.firstPersonName;
-      return this.$store.getters["personAbout/firstPersonName"];
-      //   return this.$store.getters;
+      return this.$store.getters["personAbout / firstPersonName"];
       //   报错：拿不到personAbout
       //   如果不用set...这种方式而是像这样自己写，就稍微麻烦一点
     },
@@ -68,11 +65,6 @@ export default {
       // 报错
       this.$store.dispatch("personAbout/addPersonWang", personObj);
       this.name = "";
-    },
-
-    addPersonServer() {
-      this.$store.dispatch("personAbout/addPersonServer");
-      //   这里可以不用带数据了，直接带一个context即可
     },
   },
 };

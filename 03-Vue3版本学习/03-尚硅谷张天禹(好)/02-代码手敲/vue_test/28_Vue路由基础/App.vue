@@ -1,7 +1,7 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-03 16:41:23
- * @LastEditTime: 2021-08-23 23:33:26
+ * @LastEditTime: 2021-08-23 20:45:43
  * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\App.vue
 -->
 <template>
@@ -35,14 +35,6 @@
             <router-link class="list-group-item" active-class="active" to="/home"
               >Home</router-link
             >
-
-            <!-- to你也可以使用对象的写法，当你要传递一些参数的时候，建议使用这种写法-->
-            <!-- <router-link
-              class="list-group-item"
-              active-class="active"
-              :to="{ path: '/home' }"
-              >Home</router-link
-            > -->
 
             <!-- 注意：不用的路由组件或者说当你切换切走了的路由组件，它是被【销毁】了！！！ -->
           </div>

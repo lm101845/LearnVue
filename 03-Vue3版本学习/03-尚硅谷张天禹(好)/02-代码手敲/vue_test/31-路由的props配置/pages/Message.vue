@@ -1,7 +1,7 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-23 21:09:40
- * @LastEditTime: 2021-08-26 04:04:45
+ * @LastEditTime: 2021-08-26 01:42:36
  * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\pages\Message.vue
 -->
 <template>
@@ -78,8 +78,6 @@
           {{ m.title }}
         </router-link> -->
         <!-- 把query改成params,一个坑：如果你携带 params参数，则不允许你使用path,只允许你使用name-->
-        <button @click="pushShow(m)">push查看</button>
-        <button @click="replaceShow(m)">replace查看</button>
       </li>
       <!-- 路由也是可以携带参数的 -->
     </ul>
@@ -100,38 +98,6 @@ export default {
         { id: "003", title: "消息003" },
       ],
     };
-  },
-  beforeDestroy() {
-    //   注意：这个函数不能放到methods里面！！它是生命周期钩子函数！！需要单独放！！！
-    console.log("Message组件即将被销毁了！");
-  },
-  methods: {
-    pushShow(m) {
-      //   console.log(this.$router);
-      //   不要找路由(route)，路由只是一个规则，别人只是应用这个规则
-      //    要找router，这个是路由器，它很强大，它有绝对的指挥权
-      this.$router.push({
-        //你原来怎么写，现在还是怎么写，直接复制即可
-        name: "xiangqing",
-        query: {
-          id: m.id,
-          title: m.title,
-        },
-      });
-    },
-    replaceShow(m) {
-      //   console.log(this.$router);
-      //   不要找路由(route)，路由只是一个规则，别人只是应用这个规则
-      //    要找router，这个是路由器，它很强大，它有绝对的指挥权
-      this.$router.replace({
-        //你原来怎么写，现在还是怎么写，直接复制即可
-        name: "xiangqing",
-        query: {
-          id: m.id,
-          title: m.title,
-        },
-      });
-    },
   },
 };
 </script>

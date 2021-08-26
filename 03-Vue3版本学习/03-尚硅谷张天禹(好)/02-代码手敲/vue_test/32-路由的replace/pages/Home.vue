@@ -1,7 +1,7 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-23 20:00:35
- * @LastEditTime: 2021-08-26 04:05:45
+ * @LastEditTime: 2021-08-23 21:29:16
  * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\pages\Home.vue
 -->
 <template>
@@ -30,13 +30,7 @@
       </ul>
       <!-- ？？？？？？？ -->
       <!-- 等着你去点 -->
-      <!-- <keep-alive include="Peiqi"> -->
-      <keep-alive include="News">
-        <!-- include表示你想保存哪个组件，否则所有的组件它都缓存了，没有必要 -->
-        <!-- News组件和Message最终是在这里展示的 -->
-        <!-- 这里include的名字指的是【组件名！！】 -->
-        <router-view></router-view>
-      </keep-alive>
+      <router-view></router-view>
     </div>
   </h2>
 </template>

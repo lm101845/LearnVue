@@ -1,7 +1,7 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-23 21:09:40
- * @LastEditTime: 2021-08-26 04:04:45
+ * @LastEditTime: 2021-08-26 02:52:05
  * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\pages\Message.vue
 -->
 <template>
@@ -100,10 +100,6 @@ export default {
         { id: "003", title: "消息003" },
       ],
     };
-  },
-  beforeDestroy() {
-    //   注意：这个函数不能放到methods里面！！它是生命周期钩子函数！！需要单独放！！！
-    console.log("Message组件即将被销毁了！");
   },
   methods: {
     pushShow(m) {

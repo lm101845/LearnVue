@@ -1,7 +1,7 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-03 16:41:23
- * @LastEditTime: 2021-08-26 02:58:33
+ * @LastEditTime: 2021-08-26 02:29:16
  * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\App.vue
 -->
 <template>
@@ -35,13 +35,14 @@
 
             <!-- 给路由路径起个名字——只有路径过长的时候，它的优势才能提现出来 -->
             <router-link
+              replace
               class="list-group-item"
               active-class="active"
               :to="{ name: 'guanyu' }"
               >About</router-link
             >
             <!-- 默认是push模式，加上replace就是replace模式了(它进栈后会将下面的路由给杀掉) -->
-            <router-link class="list-group-item" active-class="active" to="/home"
+            <router-link replace class="list-group-item" active-class="active" to="/home"
               >Home</router-link
             >
 

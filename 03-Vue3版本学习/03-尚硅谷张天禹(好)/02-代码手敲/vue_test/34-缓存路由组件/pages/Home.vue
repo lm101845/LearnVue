@@ -1,8 +1,8 @@
 <!--
  * @Author: liming
  * @Date: 2021-08-23 20:00:35
- * @LastEditTime: 2021-08-26 04:05:45
- * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\pages\Home.vue
+ * @LastEditTime: 2021-08-26 04:09:05
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\34-缓存路由组件\pages\Home.vue
 -->
 <template>
   <!-- <h2>我是Home的内容</h2> -->
@@ -31,7 +31,9 @@
       <!-- ？？？？？？？ -->
       <!-- 等着你去点 -->
       <!-- <keep-alive include="Peiqi"> -->
-      <keep-alive include="News">
+      <!-- <keep-alive include="News"> -->
+      <keep-alive :include="['News', 'Message']">
+        <!-- 如果你想缓存多个组件，直接写数组，并且include前面加冒号 -->
         <!-- include表示你想保存哪个组件，否则所有的组件它都缓存了，没有必要 -->
         <!-- News组件和Message最终是在这里展示的 -->
         <!-- 这里include的名字指的是【组件名！！】 -->

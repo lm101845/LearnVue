@@ -1,7 +1,7 @@
 /*
  * @Author: liming
  * @Date: 2021-08-23 20:08:35
- * @LastEditTime: 2021-08-27 23:03:51
+ * @LastEditTime: 2021-08-27 16:28:59
  * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\router\index.js
  */
 
@@ -29,9 +29,6 @@ const router = new VueRouter({
   // route:路由
   // routes:一堆路由
   // 路由就是一组key-value的对应关系
-  mode: "history",
-//   mode: "hash",
-  // 路由器有2种工作模式，默认是哈希模式(带＃的那个)，虽然丑，但是兼容性好。还有一种是history模式，没有＃更好看，兼容性略差
   routes: [
     // 在一堆路由里面就可以写一组一组{key-value}的路由了，每组路由就是一个一个的配置对象
     {
@@ -45,7 +42,7 @@ const router = new VueRouter({
       //   meta: { isAuth: false },
       //   isAuth:是否授权
       //   谁需要权限的校验，我才把这个东西放到谁那里
-      meta: { isAuth: true, title: "关于" },
+      meta: { title: "关于" },
     },
     {
       name: "zhuye",
@@ -70,7 +67,7 @@ const router = new VueRouter({
               //判断是否需要鉴权——更好的写法
               // 你先符合前面的额条件我才判断
               //   if (localStorage.getItem("school") === "atguigu2") {
-              if (localStorage.getItem("school") === "atguigu") {
+              if (localStorage.getItem("school") === "atguigu2") {
                 // 如果进来了，并且学校名对了，那么也放行
                 // document.title = to.meta.title || "硅谷系统";
 
@@ -180,7 +177,7 @@ router.beforeEach((to, from, next) => {
     //判断是否需要鉴权——更好的写法
     // 你先符合前面的额条件我才判断
     //   if (localStorage.getItem("school") === "atguigu2") {
-    if (localStorage.getItem("school") === "atguigu") {
+    if (localStorage.getItem("school") === "atguigu2") {
       // 如果进来了，并且学校名对了，那么也放行
       // document.title = to.meta.title || "硅谷系统";
 

@@ -1,0 +1,85 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-09-03 14:13:26
+ * @LastEditTime: 2021-09-03 14:36:44
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue3_test\08-Vue3的响应式原理\03-Vue3的响应式原理之reflect.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //reflect(反射)是window身上的另一个内置对象
+      let obj = {
+        a: 1,
+        b: 2,
+      };
+      //使用reflect来读数据：Reflect.get(obj,'a')
+      //使用reflect来改数据：Reflect.set(obj,'a',666)
+      //使用reflect来删数据：Reflect.deleteProperty(obj,'a')
+
+      // 注意：ECMA正在尝试把Object身上很多有用的API都移植到Reflect身上
+      // 比如Object身上有一个defineProperty,Reflect身上也是有的！！！！
+    //   Object.defineProperty(obj, "c", {
+    //     get() {
+    //       return 3;
+    //       //你只要访问obj身上新增的属性c，我就给你返回3
+    //     },
+    //   });
+
+      // 你在下面再写一个，浏览器会报错，单线程，代码挂掉了，
+      // 抛出异常：Uncaught TypeError: Cannot redefine property: c——不能重复定义c
+      //所以你要通过Object.defineProperty来查询或添加一个属性，如果重名了，那么代码就会报错，很不人性化
+      //  Object.defineProperty(obj,'c',{
+      //     get(){
+      //         return 4
+      //         //你只要访问obj身上新增的属性c，我就给你返回3
+      //     }
+      // })
+
+      //注意：以上面的为主！！！是3!!!!
+      const x1 = Reflect.defineProperty(obj, "c", {
+        get() {
+          // return '使用reflect查询或新增属性，即使属性名重复了，也不会抛出异常'
+          return 3
+        },
+      });
+      if(x1){
+          console.log('x1操作成功了');
+      }else{
+          console.log('x1操作失败了');
+      }
+
+      //Reflect.defineProperty身上是有返回值的！
+      console.log('以上面的为准，c为3',x1);
+
+
+      //注意：以上面的为主！！！是3!!!!
+      const x2 = Reflect.defineProperty(obj, "c", {
+        get() {
+          // return '使用reflect查询或新增属性，即使属性名重复了，也不会抛出异常'
+          return 4
+        },
+      });
+
+      //这样写错误处理更加友好——不用写try...catch了
+      if(x2){
+          console.log('x2操作成功了');
+      }else{
+          console.log('x2操作失败了');
+      }
+      console.log('以上面的为准，c为3',x2);
+      console.log('=========================');
+
+
+      //如果使用Object.defineProperty，如果别人写错了，你需要提前进行错误处理(使用try...catch)
+      //(有的时候我都不关心你错误是什么，只想要代码能不能走下去)   
+      // 而Reflect.defineProperty错误处理更加简单，比如你想让x2是成功的才往下走，你可以在代码后写个if(x2){}判断，代码更加的健壮
+    </script>
+  </body>
+</html>

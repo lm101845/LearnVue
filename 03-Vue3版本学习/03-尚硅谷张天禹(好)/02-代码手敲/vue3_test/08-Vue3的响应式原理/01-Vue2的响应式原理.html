@@ -1,0 +1,61 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-09-03 12:10:04
+ * @LastEditTime: 2021-09-03 12:18:25
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue3_test\08-Vue3的响应式原理\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 源数据
+        let person = {
+            name:'张三',
+            age:18
+        }
+
+        //模拟Vue2中实现响应式
+        let p = {}
+        //delete用来删除一个对象的属性的时候，它会给你一个返回值的，true则删掉了，false则没有删掉
+        Object.defineProperty(p,'name',{
+            configurable: true,
+            //写了这个可配置的，就可以往下删除属性了
+            // 注意：你读取(get)和修改(set)一个属性，我可以捕获到。
+            // 但是你添加一个属性，我是捕获不到的。
+            // 你删除一个已经存在的属性，我也是捕获不到的。
+            // 所以，Vue2用这种方式实行响应式是有一点点问题的。
+            get(){
+                //有人读取name时调用
+                return person.name;
+            },
+
+            set(value){
+                //有人修改name时调用
+                person.name = value;
+                //用一行代码模拟Vue帮你更新界面
+                console.log('有人修改了name属性，我发现了，我要去更新界面');
+            }
+        });
+
+         Object.defineProperty(p,'age',{
+            get(){
+                //有人读取name时调用
+                return person.age;
+            },
+
+            set(value){
+                //有人修改name时调用
+                person.age = value;
+                //用一行代码模拟Vue帮你更新界面
+                console.log('有人修改了age属性，我发现了，我要去更新界面');
+            }
+        });
+    </script>
+</body>
+</html>

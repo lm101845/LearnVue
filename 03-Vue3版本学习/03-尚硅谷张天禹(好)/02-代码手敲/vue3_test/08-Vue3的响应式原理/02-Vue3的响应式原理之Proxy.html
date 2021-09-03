@@ -1,0 +1,77 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-09-03 12:19:58
+ * @LastEditTime: 2021-09-03 13:21:03
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue3_test\08-Vue3的响应式原理\02-Vue3的响应式原理.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 源数据
+      let person = {
+        name: "张三",
+        age: 18,
+      };
+
+      //模拟Vue3中的实现响应式 
+      //Proxy(中文是代理的意思)是window身上内置的构造函数，不用下载和引入，直接就能用
+      //第一个参数：你想让这个p代理对哪个对象的操作呢？？？
+    //   第二个参数，如果你什么都不想写，可以用空对象占位，但是不允许你什么都不写
+    //   const p = new Proxy(person,_)
+    // 我试了一下，使用_占位好像不行
+    //   const p = new Proxy(person,{})
+      //   此时你修改p的属性，比如修改p.name = 'lisi',这个时候person的name也变成lisi了(增删改都行)
+      // 你对Proxy进行的所有增删改操作，Proxy都能捕获到！！！
+      // 你改了p，person就跟了变，这个叫代理的操作，这个还不叫响应式
+      // 打在p的身上，疼在person的身上，这不叫响应式，响应式是你修改了，你得在控制台输出那句话
+      // 你想实现响应式，你得【捕获】到数据的修改——使用get,set进行捕获！！！
+      const p = new Proxy(person,{
+          //我这里是Proxy里的getter,setter,和Object.defineProperty里面的getter,setter不一样，后者比较弱智
+          //==============查 + 增================
+        // get函数不仅可以用于修改p的某个属性，也可以用于给p追加某个属性时调用
+          get(target,propName){
+            // 你new Proxy你传入的是谁，则target就是谁，target就是目标数据，即源数据
+            // propName表示你改的是源数据的哪个属性名
+
+            // get里面有2个参数，就靠它来实现响应式了
+            // return person.name
+            // console.log('有人读取了p身上的某个属性',target,propName);
+            console.log(`有人读取了p身上的${propName}属性`,target,propName);
+            // 注意：p.name叫"读",p.name = 'lisi'叫"改"
+            // return 100
+            // return target.propName
+            // 错误写法
+            return target[propName]
+          },
+          //==============改================
+          set(target, propName,value){
+            //set函数会多一个参数value:表示你修改的值是什么
+            // console.log('有人修改了');
+            console.log(`有人修改了p身上的的${propName}属性,我要去更新界面了`);
+            target[propName] = value;
+          },
+
+        //   一个问题：你读取属性用getter,修改属性用setter,但是如果你删除属性，那getter和setter函数都没有被调用，无法被捕获
+        //  Proxy牛就牛在这里，它还给你提供了一个deleteProperty函数！！！
+          //==============删================
+        deleteProperty(target, propName){
+            console.log(`有人删除了p身上的${propName}属性,我要去更新界面了 `);
+            return delete target[propName];
+            // delete target[propName];这句话一定要写，不然不会删的！！！
+            //当然，你也可以不写deleteProperty这个函数，直接删除对象里的属性
+            // 我们之所以在外面包了一层deleteProperty，主要目的是为了捕获这个修改，为了实现响应式！！！
+            
+            //注意：delete target[propName];这个表达式是有返回值的，给你一个布尔值，告诉你删没删成功
+            // 所以，我们直接在delete target[propName]前面写个return，告诉删没删成功即可
+        }
+      })
+    </script>
+  </body>
+</html>

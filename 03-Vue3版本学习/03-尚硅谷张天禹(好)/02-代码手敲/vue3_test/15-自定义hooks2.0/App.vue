@@ -9,15 +9,17 @@
   <Demo v-if="isShowDemo" />
   <!-- 这里很有意思，我是给的组件加的v-if,也就意味着，v-if所对应的表达式为假，那么这个组件直接卸载了-->
   <!-- 我每一次点击按钮都伴随着Demo组件的挂载和卸载 -->
+  <hr />
+  <Test />
 </template>
 
 <script>
 import { ref } from "vue";
 import Demo from "./components/Demo";
-
+import Test from "./components/Test";
 export default {
   name: "App",
-  components: { Demo },
+  components: { Demo, Test },
   setup() {
     let isShowDemo = ref(true);
     return {

@@ -1,0 +1,45 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-09-05 16:24:42
+ * @LastEditTime: 2021-09-05 16:32:31
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue3_test\src\demo.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let person = {
+            name: '张三',
+            age: 30,
+        }
+
+        let p = new Proxy(person,{
+            set(target,propName,value) {
+                console.log(`${propName}被修改了,我要去更新界面了`);
+                // target[propName] = value;
+                Reflect.set(target,propName,value)
+                // 要想写的好一点，借助Vue3里面的反射对象来写
+            }
+        })
+
+        let name = p.name
+        //这里写了let name = p.name,就等价于let name = '张三'
+        //它们之间是没有引用关系的,p.name它就是个字符串，你把这个字符串赋值给name了，以后你再改name，不会导致p.name里面的东西变化的！！！！！！
+
+        let obj  = {
+            a:100
+        }
+
+        let a = obj.a
+        a = 200
+        console.log(obj);
+        //obj里面的a还是100！！！！！！！！！！！！
+    </script>
+</body>
+</html>

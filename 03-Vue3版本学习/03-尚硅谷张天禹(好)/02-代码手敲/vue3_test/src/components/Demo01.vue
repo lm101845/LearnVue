@@ -1,70 +1,55 @@
 <!--
  * @Author: liming
- * @Date: 2021-09-03 19:01:30
- * @LastEditTime: 2021-09-03 19:01:31
+ * @Date: 2021-09-05 13:24:33
+ * @LastEditTime: 2021-09-05 16:17:17
  * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue3_test\src\components\Demo.vue
 -->
 <template>
-  <h1>一个人的信息——Vue3写法</h1>
-  姓:<input type="text" v-model="person.firstName" />
-  <br />
-  名:<input type="text" v-model="person.lastName" />
-  <br />
-  <!-- <span>全名：{{ fullName }}</span> -->
-  <span>全名：{{ person.fullName }}</span>
-  <br />
-  全名：<input type="text" v-model="person.fullName" />
-  <!-- 这样写表明计算属性也是可以修改的！但是你下面的计算属性使用了简写的形式，所以会报错 -->
+  <!-- <h2>姓名：{{ person.name }}</h2>
+  <h2>年龄{{ person.age }}</h2>
+  <h2>薪资：{{ person.job.j1.salary }}k</h2>
+  <hr />
+  <button @click="person.name += '~'">修改姓名</button>
+  <button @click="person.age++">增长年龄</button>
+  <button @click="person.job.j1.salary++">涨薪</button> -->
+
+  <!-- 现在我的要求：让模版里的代码简单点，不要有这么多的【person.】 -->
+  <!-- 为什么你在模版里面可以使用person，因为你下面return交出去了 -->
+
+  <h2>姓名：{{ name }}</h2>
+  <h2>年龄{{ age }}</h2>
+  <h2>薪资：{{ salary }}k</h2>
+  <hr />
+  <button @click="name += '~'">修改姓名</button>
+  <button @click="age++">增长年龄</button>
+  <button @click="salary++">涨薪</button>
+  <!-- 这样写初次展示没有问题，但是功能废了，点击数据不变化了，丢了响应式了 -->
 </template>
 
 <script>
-import { reactive, computed } from "vue";
-//Vue3里面把computed变成了一个组合式的API,所以你需要引入
+import { ref, reactive } from "vue";
 export default {
   name: "Demo",
-  //   在Vue3里面是可以按照Vue2的套路来写计算属性的，虽然可以这么写，但是不建议这么写
-  computed: {
-    //   注意：你在Vue3里面！！最好不要写Vue2里面的代码！！！这样写不好！！！！！
-    // fullName() {
-    //   console.log(this);
-    //   return this.person.firstName + "-" + this.person.lastName;
-    //   //注意：在Vue2的配置里是可以看到Vue3的数据和方法的
-    //   //   注意：this不能丢！！！！没有this是找不到person的！！！
-    // },
-  },
   setup() {
     let person = reactive({
-      firstName: "张",
-      lastName: "三",
-    });
-
-    //计算属性——这个是简写形式(没有考虑到计算属性被修改的情况)
-    // person.fullName = computed(() => {
-    //   return person.firstName + "-" + person.lastName;
-    //   // 因为我是用reactive来定义person的，所以你可以随意的往person身上增删改查一个属性
-    //   //   这样写有点怪，人有姓，人有名，这个全名也应该是这个person的一个属性才对
-    //   // let fullName = computed(() => {
-    //   // 这个计算属性的值不再是一个对象了，而是一个函数
-    // });
-
-    //计算属性——这个是完整写法(考虑读和写)
-    person.fullName = computed({
-      get() {
-        return person.firstName + "-" + person.lastName;
-      },
-      set(value) {
-        const nameArr = value.split("-");
-        person.firstName = nameArr[0];
-        person.lastName = nameArr[1];
+      name: "张三",
+      age: 18,
+      job: {
+        j1: {
+          salary: 20,
+        },
       },
     });
-
     return {
-      person,
-      //   fullName,
+      name: person.name,
+      // person.name就是个字符串"张三"
+      //   name: person.name<========> name:'张三
+      age: person.age,
+      //   age: person.age <========> age:18
+      salary: person.job.j1.salary,
+      //salary: person.job.j1.salary <========> salary:20
+      //person,
     };
   },
 };
 </script>
-
-<style></style>

@@ -1,8 +1,8 @@
 /*
  * @Author: liming
  * @Date: 2021-08-23 20:08:35
- * @LastEditTime: 2021-08-23 20:42:55
- * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\router\index.js
+ * @LastEditTime: 2021-09-08 19:05:15
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\28_Vue路由基础-复习1遍\router\index.js
  */
 
 // 该文件专门用于创建整个应用的路由器
@@ -19,7 +19,7 @@ import Home from "../pages/Home";
 
 // const router = new VueRouter({
 export default new VueRouter({
-    // 创建并暴露一个路由器
+  // 创建并暴露一个路由器
   // router:路由器
   // route:路由
   // routes:一堆路由
@@ -28,7 +28,7 @@ export default new VueRouter({
     // 在一堆路由里面就可以写一组一组{key-value}的路由了，每组路由就是一个一个的配置对象
     {
       path: "/about",
-      component: About,
+      component: About, 
       // 如果你的路径是/about,我就给你看About这个组件
     },
     {

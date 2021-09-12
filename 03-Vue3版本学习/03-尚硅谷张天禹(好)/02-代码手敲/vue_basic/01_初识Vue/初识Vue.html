@@ -1,8 +1,8 @@
 <!--
  * @Author: liming
  * @Date: 2021-07-14 10:10:43
- * @LastEditTime: 2021-07-20 21:35:41
- * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\01_初识Vue\初识Vue.html
+ * @LastEditTime: 2021-09-11 10:37:04
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_basic\01_初识Vue\初识Vue.html
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -39,8 +39,8 @@
     <!-- 准备好一个容器 -->
     <div class="root">
       <!-- <h1>Hello，尚硅谷</h1> -->
-      <h1>Hello，{{message}}-{{0+1}}-1</h1>
-      <h1>我的年龄是：{{age}}-{{Date.now()}}-1</h1>
+      <h1>Hello，{{message}}======{{0+1}}-1</h1>
+      <h1>我的年龄是：{{age}}======{{Date.now()}}-1</h1>
       <button>点我更换学校的名字</button>
       <!-- 把容器里面变化的数据交给Vue实例去保管 -->
       <!-- {{}}是插值语法 -->
@@ -49,6 +49,7 @@
 
     <!-- 再来一个相同的容器 -->
     <!-- 一个Vue实例不能同时接管2个容器！！！所以第2个无效！！！ -->
+    <!-- 以第一个为准 -->
     <div class="root">
       <h1>Hello，{{message}}-2</h1>
       <h1>我的年龄是：{{age}}-2</h1>
@@ -58,8 +59,10 @@
     <div id="root">
       <h1>Hello，{{message.toUpperCase()}}-3</h1>
       <h1>我的年龄是：{{age}}-3</h1>
+      <h1>我的年龄是：{{age-3}}</h1>
+      <h1>我的年龄是：({{age}}-3)</h1>
     </div>
-    <div>====================</div>
+    <div>=================================</div>
     <h1>{{message}}</h1>
 
     <script>

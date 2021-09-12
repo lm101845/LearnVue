@@ -1,8 +1,8 @@
 <!--
  * @Author: liming
  * @Date: 2021-07-20 23:09:14
- * @LastEditTime: 2021-07-20 23:55:30
- * @FilePath: \04-尚硅谷张天禹\02-代码手敲\vue_basic\04_el与data的两种写法\el与data的两种写法.html
+ * @LastEditTime: 2021-09-11 10:53:44
+ * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_basic\04_el与data的两种写法\el与data的两种写法.html
 -->
 <!DOCTYPE html>
 <html>
@@ -22,6 +22,7 @@
 									(1).对象式
 									(2).函数式
 									如何选择：目前哪种写法都可以，以后学习到组件时，data必须使用函数式，否则会报错。
+                                    Vue3中data必须要函数式了。
 					3.一个重要的原则：
 									由Vue管理的函数，【一定不要写箭头函数】，一旦写了箭头函数，this就不再是Vue实例了。
 	-->
@@ -64,7 +65,7 @@
       data() {
         //   简写方法：在对象里面写函数，一般都删除掉【:function】
         //data属性它的值是一个函数，这个函数不是你调用的，是Vue底层帮你调用的，你只是定义了而已
-        console.log("@@@" + this);
+        console.log("@@@" , this);
         //此处的this是vue实例对象——前提是你这个data是普通函数，【不能是箭头函数！！！】
         //如果data写成了箭头函数，这个this就指的是全局的window了
         // 原因：箭头函数没有自己的this,那就往外找，一找就找到了全局的window

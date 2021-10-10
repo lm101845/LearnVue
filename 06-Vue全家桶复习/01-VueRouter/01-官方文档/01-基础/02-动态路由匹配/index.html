@@ -1,0 +1,48 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-10-04 12:03:43
+ * @LastEditTime: 2021-10-10 15:01:32
+ * @FilePath: \01-基础\02-动态路由匹配\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="../../../vue@2.6.11.js"></script>
+    <script src="../../../vue-router@3.1.3.js"></script>
+    <div id="app">
+      <h1>Hello App!</h1>
+      <p>
+        <router-link to="/user/foo">Go to User/foo</router-link>
+        <router-link to="/user/bar">Go to User/bar</router-link>
+        <div>{{this.$route.params}}</div>
+        <!-- 有数 -->
+        <div>{{this.$route.query}}</div>
+        <!-- 没有东西 -->
+      </p>
+      <router-view></router-view>
+    </div>
+    <!-- 注意：这个script标签一定要写到最下面，不然不起作用 -->
+    <script>
+      const User = { template: "<div>User</div>" };
+      const router = new VueRouter({
+        routes: [
+          {
+            path: "/user/:id",
+            // path: "/user/:id",
+            component: User,
+          },
+        ],
+      });
+
+      const app = new Vue({
+        router,
+      }).$mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!--
+ * @Author: liming
+ * @Date: 2021-10-04 12:03:43
+ * @LastEditTime: 2021-10-10 17:07:32
+ * @FilePath: \01-基础\04-编程式路由导航\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="../../../vue@2.6.11.js"></script>
+    <script src="../../../vue-router@3.1.3.js"></script>
+    <div id="app">
+      <h1>Hello App!</h1>
+        <router-link :to="{path:'/user/foo'}">/user/foo的声明式写法</router-link><br>
+        <router-link to="/user/foo">/user/foo的一般写法</router-link><br>
+        <button @click='gotofoo'>/user/foo的编程式写法</button><br>
+        <router-link to="/user/bar/profile">/user/bar/profile</router-link><br>
+        <router-link to="/user/fzz/posts">/user/fzz/posts</router-link><br>
+      <router-view></router-view>
+    </div>
+    <!-- 注意：这个script标签一定要写到最下面，不然不起作用 -->
+    <script>
+      const User = {
+        // 这里的 <router-view> 是最顶层的出口，渲染最高级路由匹配到的组件。
+        // 同样地，一个被渲染组件同样可以包含自己的嵌套 <router-view>。例如，在 User 组件的模板添加一个 <router-view>：
+          // User里面的router-view是给User组件里面的子路由组件准备的
+        template: `
+           <div class="user">
+              <h2>User的params参数为：{{ $route.params.id }}</h2>
+              <router-view></router-view>
+          </div>
+        `,
+      };
+
+      const UserHome = { template: "<div>Home</div>" };
+      const UserProfile = { template: "<div>Profile</div>" };
+      const UserPosts = { template: "<div>Posts</div>" };
+
+      const router = new VueRouter({
+        routes: [
+          // 要注意，以 / 开头的嵌套路径会被当作根路径。 这让你充分的使用嵌套组件而无须设置嵌套的路径。
+          {
+            name:'home',
+            path: "/user/:id",
+            component: User,
+            children: [
+              { path: "", component: UserHome },
+              {
+                // 当 /user/:id/profile 匹配成功，
+                // UserProfile 会被渲染在 User 的 <router-view> 中
+                name:'profilerouter',
+                path: "profile",
+                component: UserProfile,
+              },
+              {
+                // 当 /user/:id/posts 匹配成功
+                // UserPosts 会被渲染在 User 的 <router-view> 中
+                path: "posts",
+                component: UserPosts,
+              },
+            ],
+          },
+        ],
+      });
+
+      const app = new Vue({
+        router,
+        methods: {
+          gotofoo(){
+            console.log(this.$router,'router')
+            console.log(this.$route,'route')
+            this.$router.push({
+              // path:'/user/abc/profile',
+              name:'profilerouter',
+              // 我发现这样写是可以的
+              // 注意：path和params是不能同时生效的!,否则params会被忽略掉.所以使用对象写法进行params传参时,要么就是path加冒号:,
+              // 要么就是像上例中的'命名路由'.通过name和params进行传参.然而query却并不受影响,有没有path都可以进行传参.
+              params:{
+                hhh:'happy'
+              }
+            })
+          }
+        },
+      }).$mount("#app");
+    </script>
+  </body>
+</html>

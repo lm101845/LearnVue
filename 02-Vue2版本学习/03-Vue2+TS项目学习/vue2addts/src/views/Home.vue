@@ -30,11 +30,11 @@ export default class TestTs extends Vue {
             desc: "35.4%",
             icon: require("../assets/images/icon/cat.jpg")
         },
-        right: {
-            title: "右边题目",
-            desc: "25.4%",
-            icon: require("../assets/images/icon/cat.jpg")
-        },
+        // right: {
+        //     title: "右边题目",
+        //     desc: "25.4%",
+        //     icon: require("../assets/images/icon/cat.jpg")
+        // },
     };
 
     onIconClick(index:Number){

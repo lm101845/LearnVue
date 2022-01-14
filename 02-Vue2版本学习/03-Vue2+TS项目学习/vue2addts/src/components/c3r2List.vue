@@ -13,14 +13,14 @@
                         span(v-if="data.left.icon" @click="iconClick(0)")
                             img.icon(:src="data.left.icon")
                     .b(v-if="data.left") {{data.left.desc}}
-            //- .line
+            .line
             .middle
                 slot(name="middle")
                     .t(v-if="data.middle" ) {{data.middle.title}}
                         span(v-if="data.middle.icon" @click="iconClick(1)")
                             img.icon(:src="data.middle.icon")
                     .b(v-if="data.middle") {{data.middle.desc}} 
-            //- .line
+            .line
             .right
                 slot(name="right")
                     .t(v-if="data.right" ) {{data.right.title}}
@@ -69,7 +69,8 @@ export default class c3r2List extends Vue {
         required: false
     })
 
-    hasLine?:{has:false,color:"#E5EAF5"}
+    // hasLine?:{has:false,color:"#E5EAF5"}
+    hasLine?:{has:false,color:"blue"}
 
     mounted() {}
 

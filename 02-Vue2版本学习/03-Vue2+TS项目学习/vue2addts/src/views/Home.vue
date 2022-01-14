@@ -22,7 +22,7 @@ export default class TestTs extends Vue {
     public data2: C3r2Props = {
         left: {
             title: "左边题目",
-            desc: "25.4%",
+            desc: "25.42%",
             icon: require("../assets/images/icon/cat.jpg")
         },
         middle: {

@@ -1,0 +1,51 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "experimentalDecorators": true,
+        "module": "esnext",
+
+        "jsx": "preserve",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "baseUrl": "./",
+        "resolveJsonModule": true,
+        "allowJs": true,
+        "declaration": true,
+        "outDir": "./dist/ts",
+        "removeComments": true,
+        "noEmit": true,
+        "importHelpers": true,
+        "noEmitOnError": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "alwaysStrict": true,
+        "skipLibCheck": true,
+        "types": ["webpack-env"],
+        "paths": {
+            "@/*": ["src/*"],
+            "router/*": ["src/router/*"],
+            "views/*": ["src/views/*"]
+        },
+        "lib": [
+            "es2015",
+            "es5",
+            "dom",
+            "es2015.promise",
+            "esnext",
+            "dom.iterable",
+            "scripthost"
+        ]
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "tests/**/*.ts",
+        "tests/**/*.tsx"
+    ],
+    //ts排除的文件
+    "exclude": ["node_modules", "js", "public"]
+}

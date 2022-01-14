@@ -9,12 +9,24 @@
         slot
             .left
                 slot(name="left")
-            .line
+                    .t(v-if="data.left" ) {{data.left.title}}
+                        span(v-if="data.left.icon" @click="iconClick(0)")
+                            img.icon(:src="data.left.icon")
+                    .b(v-if="data.left") {{data.left.desc}}
+            //- .line
             .middle
                 slot(name="middle")
-            .line
+                    .t(v-if="data.middle" ) {{data.middle.title}}
+                        span(v-if="data.middle.icon" @click="iconClick(1)")
+                            img.icon(:src="data.middle.icon")
+                    .b(v-if="data.middle") {{data.middle.desc}} 
+            //- .line
             .right
                 slot(name="right")
+                    .t(v-if="data.right" ) {{data.right.title}}
+                        span(v-if="data.right.icon" @click="iconClick(2)")
+                            img.icon(:src="data.right.icon")
+                    .b(v-if="data.right") {{data.right.desc}} 
 
 </template>
 
@@ -59,9 +71,7 @@ export default class c3r2List extends Vue {
 
     hasLine?:{has:false,color:"#E5EAF5"}
 
-    mounted() {
-
-    }
+    mounted() {}
 
     @Emit("iconClick")
 
@@ -73,5 +83,34 @@ export default class c3r2List extends Vue {
 
 
 <style scoped lang="stylus">
-
+    .c3r2-list{
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        .line{
+            width: 0.5px;
+            height: 40px;
+        }
+        .t{
+            font-size: 12px;
+            color: #858DA3;
+            line-height: 17px;
+        }
+        .b{
+            font-size: 15px;
+            font-weight: 500;
+            color: #282C3E;
+            line-height: 18px;
+            margin-top: 5px;
+        }
+        .left{
+            .b{
+                color: #EF4034;
+            }
+        }
+        .icon{
+            width: 16px;
+            height: 16px;
+        }
+    }
 </style>

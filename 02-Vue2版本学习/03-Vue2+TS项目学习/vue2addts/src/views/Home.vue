@@ -6,24 +6,46 @@
 -->
 <template lang="pug">
     div
-        p 123
         //- c3r2List(:data="data2" :hasLine="line" @iconClick="onIconClick")
-        c3r2List(:data="data2")
+        c3r2List(:data="data2" @iconClick="onIconClick")
 </template>
 
 <script lang="ts">
-import c3r2List from '@/components/c3r2List.vue';
+import c3r2List from "@/components/c3r2List.vue";
 import { Component, Vue } from "vue-property-decorator";
-import {C3r2Props} from '@/components/data/c3r2Props'
+import { C3r2Props } from "@/components/data/ComponentsProps";
 
 @Component({
-    components: {c3r2List}
+    components: { c3r2List },
 })
 export default class TestTs extends Vue {
-    public data2:C3r2Props = {
-        left:{
-            title: "左边题目"
-        }
+    public data2: C3r2Props = {
+        left: {
+            title: "左边题目",
+            desc: "25.4%",
+            icon: require("../assets/images/icon/cat.jpg")
+        },
+        middle: {
+            title: "中间题目",
+            desc: "35.4%",
+            icon: require("../assets/images/icon/cat.jpg")
+        },
+        right: {
+            title: "右边题目",
+            desc: "25.4%",
+            icon: require("../assets/images/icon/cat.jpg")
+        },
+    };
+
+    onIconClick(index:Number){
+        console.log('======',index);
+        
     }
 }
 </script>
+
+<style lang="stylus" scoped>
+*{
+    padding: 5px;
+}
+</style>

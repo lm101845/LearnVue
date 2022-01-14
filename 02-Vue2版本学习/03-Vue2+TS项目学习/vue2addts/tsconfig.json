@@ -27,7 +27,8 @@
         "paths": {
             "@/*": ["src/*"],
             "router/*": ["src/router/*"],
-            "views/*": ["src/views/*"]
+            "views/*": ["src/views/*"],
+            "assets/*": ["src/assets/*"],
         },
         "lib": [
             "es2015",

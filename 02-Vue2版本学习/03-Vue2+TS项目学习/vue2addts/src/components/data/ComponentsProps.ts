@@ -16,7 +16,7 @@ export interface IC3r2Model {
     stylus?:any
 }
 
-export class c3r2Model { 
+export class C3r2Props { 
     left?: IC3r2Model;
     middle?: IC3r2Model;
     right?: IC3r2Model;

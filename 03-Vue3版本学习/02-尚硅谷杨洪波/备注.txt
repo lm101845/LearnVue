@@ -1,3 +1,5 @@
 https://www.bilibili.com/video/BV1ra4y1H7ih?from=search&seid=1126861132084954939
 
 评价：只能说讲的一般吧，如果没有一定的基础，那听的就有点费劲了，就跟那个Vue官方文档一样，对新手极其不友好。
+
+而且里面的视频不全

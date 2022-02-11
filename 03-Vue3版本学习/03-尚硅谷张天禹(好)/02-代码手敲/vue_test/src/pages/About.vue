@@ -5,25 +5,34 @@
  * @FilePath: \03-尚硅谷张天禹(好)\02-代码手敲\vue_test\src\pages\About.vue
 -->
 <template>
-  <h2>我是About的内容</h2>
+    <div>
+        <h2>测试：{{title}}</h2>
+    </div>
 </template>
 
-  <script>
-    export default {
-      name: "About",
-      beforeDestroy() {
-        // 注意：不用的路由组件或者说当你切换切走了的路由组件，它是被【销毁】了！！!
-        // 所有组件在即将销毁之前都会调用这个钩子
-        console.log("About组件即将被销毁了！");
+<script>
+export default {
+  name: "Home",
+  data() {
+    return {
+        title: "初始数据",
+    }
+  },
+  methods: {
+      async test1(){
+        //this.title = "修改后的数据"
+        await this.test2()
       },
-      mounted() {
-        console.log("About组件挂载完毕了");
-        window.aboutRoute = this.$route;
-        window.aboutRouter = this.$router;
-
-        // aboutRoute === homeRoute     false
-        // aboutRouter === homeRouter     true
-      },
-    };
-  </script>
-</template>
+      test2() {
+          return new Promise((resolve, reject) =>{
+              resolve();
+              this.title = "修改后的数据"
+            }
+          )
+      }
+  },
+  async created() {
+      await this.test1();
+  },
+};
+</script>

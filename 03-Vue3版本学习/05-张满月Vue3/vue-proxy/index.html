@@ -1,0 +1,24 @@
+<!--
+ * @Author liming
+ * @Date 2022/11/18 20:07
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app"></div>
+<script type="module">
+    const user = reactive({
+        name:"小满",
+        age:18
+    })
+
+    effect(()=>{
+        document.querySelector("#app").innerText = `${user.name}-${user.age}`
+    })
+</script>
+</body>
+</html>

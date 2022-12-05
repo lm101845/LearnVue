@@ -14,16 +14,18 @@
 <!--    <testCard/>-->
 <!--    <testWatch/>-->
 <!--    <testWatchEffect/>-->
-    <testComponent v-if="flag"/>
-    <button @click="flag = !flag">创建/销毁</button>
+<!--    <testComponent v-if="flag"/>-->
+<!--    <button @click="flag = !flag">创建/销毁</button>-->
+<!--    <Fu/>-->
+    <Father/>
   </div>
 
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
-
-const flag = ref<Boolean>(true)
+// import {ref} from "vue";
+//
+// const flag = ref<Boolean>(true)
 //注意：Vue3中的组件开箱即用，不需要进行注册(export default:components:{xxx}不需要写了)
 import testRef from "../src/components/testRef.vue"
  // const message:string = "我是真男人"
@@ -39,7 +41,9 @@ import testRef from "../src/components/testRef.vue"
 // import testCard from "../src/components/testCard.vue"
 // import testWatch from "../src/components/testWatch.vue"
 // import testWatchEffect from "../src/components/testWatchEffect.vue"
-import testComponent from "../src/components/testComponent.vue"
+// import testComponent from "../src/components/testComponent.vue"
+// import Fu from "../src/components/Fu.vue"
+import Father from "../src/components/Father.vue"
 
 </script>
 

@@ -1,7 +1,6 @@
 
 <template>
 <!--  <div style="display:flex">-->
-  <div>
 <!--    {{message}}-->
 <!--    <hr>-->
 <!--    {{num ? "我是小憨批" :"我是假的"}}-->
@@ -36,17 +35,24 @@
 <!--  <Content/>-->
 
 <!--要展示异步组件必须要使用Suspense-->
-    <Suspense>
-      <!--Suspense组件里面默认提供了2个插槽-->
-      <template #default>
-        <SyncVue/>
-      </template>
-      <template #fallback>
-      <!--加载的时候做些什么，可以放一个骨架屏-->
-        <skeletonVue/>
-      </template>
-    </Suspense>
-  </div>
+<!--    <Suspense>-->
+<!--      &lt;!&ndash;Suspense组件里面默认提供了2个插槽&ndash;&gt;-->
+<!--      <template #default>-->
+<!--        <SyncVue/>-->
+<!--      </template>-->
+<!--      <template #fallback>-->
+<!--      &lt;!&ndash;加载的时候做些什么，可以放一个骨架屏&ndash;&gt;-->
+<!--        <skeletonVue/>-->
+<!--      </template>-->
+<!--    </Suspense>-->
+<!--    <testTeleport/>-->
+<!--    <el-button type="primary" @click="flag = !flag">切换组件</el-button>-->
+<!--    &lt;!&ndash;这样写就只缓存Form组件了&ndash;&gt;-->
+<!--   <keep-alive :include="['Form']">-->
+<!--     <Form v-if="flag"></Form>-->
+<!--     <Input v-else></Input>-->
+<!--   </keep-alive>-->
+  <Fu/>
 </template>
 
 <script setup lang="ts">
@@ -147,17 +153,26 @@ import Content from "../src/layout/Content/index.vue"
 
 import Dailog from '../src/components/dialog/index.vue'
 import skeletonVue from './components/skeleton.vue'
-const SyncVue = defineAsyncComponent(() =>import('../src/components/sync.vue'))
+
+// const SyncVue = defineAsyncComponent(() =>import('../src/components/sync.vue'))
+
+import testTeleport from '../src/components/testTeleport.vue'
+
+// const flag = ref<boolean>(true)
+import Form from '../src/components/keepalive/Form.vue'
+import Input from '../src/components/keepalive/Input.vue'
+// import A from '../src/components/transition/index.vue'
+import Fu from '../src/components/provideandinject/Fu.vue'
 </script>
 
 <style scoped>
-.active{
-  background: skyblue;
-}
-.tabs{
-  border:1px solid #ccc;
-  padding: 5px 10px;
-  margin: 5px;
-  cursor: pointer;
-}
+/*.active{*/
+/*  background: skyblue;*/
+/*}*/
+/*.tabs{*/
+/*  border:1px solid #ccc;*/
+/*  padding: 5px 10px;*/
+/*  margin: 5px;*/
+/*  cursor: pointer;*/
+/*}*/
 </style>

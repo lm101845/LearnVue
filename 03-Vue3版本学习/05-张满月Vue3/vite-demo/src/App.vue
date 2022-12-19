@@ -52,11 +52,24 @@
 <!--     <Form v-if="flag"></Form>-->
 <!--     <Input v-else></Input>-->
 <!--   </keep-alive>-->
-  <Fu/>
+<!--  <Fu/>-->
+<!--  <A></A>-->
+<!--  <B></B>-->
+<!--  <tsx></tsx>-->
+  <div>我是App.vue父组件</div>
+  <div>isShow:{{isShow}}</div>
+  <div>test:{{text}}</div>
+  <div><button @click="isShow = !isShow">开关</button></div>
+  <hr>
+  <testVModel v-model="isShow" v-model:textValue.isBt="text"></testVModel>
+<!--  isBt：Vue3可以设置自己的自定义指令了-->
+  <!--vue3里面支持绑定多个v-model-->
 </template>
 
 <script setup lang="ts">
 // import {ref} from "vue";
+const isShow = ref<boolean>(true)
+const text = ref<string>("默认文本")
 //
 // const flag = ref<Boolean>(true)
 //注意：Vue3中的组件开箱即用，不需要进行注册(export default:components:{xxx}不需要写了)
@@ -162,7 +175,12 @@ import testTeleport from '../src/components/testTeleport.vue'
 import Form from '../src/components/keepalive/Form.vue'
 import Input from '../src/components/keepalive/Input.vue'
 // import A from '../src/components/transition/index.vue'
-import Fu from '../src/components/provideandinject/Fu.vue'
+// import Fu from '../src/components/provideandinject/Fu.vue'
+// import Fu from '../src/components/bus/Fu.vue'
+import A from '../src/components/mitt/A.vue'
+import B from '../src/components/mitt/B.vue'
+import tsx from './App'
+import testVModel from '../src/components/testVModel.vue'
 </script>
 
 <style scoped>
